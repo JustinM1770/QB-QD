@@ -1,0 +1,71 @@
+/* Navegación mejorada para perfil.php */
+.bottom-nav {
+    background: #FFFFFF !important;
+    padding: 1rem 0 !important;
+    min-height: 80px !important;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1) !important;
+    border-top: 1px solid #F1F5F9 !important;
+}
+
+.nav-item {
+    height: 60px !important;
+    min-width: 70px !important;
+    padding: 0.75rem 0.5rem !important;
+    justify-content: center !important;
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+.nav-item i {
+    font-size: 1.5rem !important;
+    margin-bottom: 0.25rem !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.nav-item span {
+    font-size: 0.75rem !important;
+    font-weight: 500 !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+}
+
+.nav-item:hover {
+    background-color: rgba(1, 101, 255, 0.08) !important;
+    text-decoration: none !important;
+    color: #0165FF !important;
+}
+
+.nav-item.active {
+    color: #0165FF !important;
+    font-weight: 600 !important;
+    background-color: rgba(1, 101, 255, 0.1) !important;
+}
+
+.nav-item.active i {
+    transform: scale(1.1) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .bottom-nav {
+        padding: 0.75rem 0 !important;
+        min-height: 70px !important;
+    }
+    
+    .nav-item {
+        height: 50px !important;
+        min-width: 60px !important;
+        padding: 0.5rem 0.25rem !important;
+    }
+    
+    .nav-item i {
+        font-size: 1.25rem !important;
+        margin-bottom: 0.2rem !important;
+    }
+    
+    .nav-item span {
+        font-size: 0.7rem !important;
+    }
+}

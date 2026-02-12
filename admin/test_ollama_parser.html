@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/responsive.css">
+    <meta charset="UTF-8">
+    <title>Test Ollama Menu Parser</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #4CAF50;
+            padding-bottom: 10px;
+        .status {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        .error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        .info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        .upload-area {
+            border: 2px dashed #4CAF50;
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        .upload-area:hover {
+            background: #f0f8f0;
+        .upload-area.dragover {
+            background: #e8f5e9;
+            border-color: #2e7d32;
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            margin: 10px 5px;
+        button:hover {
+            background: #45a049;
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        .preview {
+            max-width: 100%;
+            max-height: 400px;
+        .result {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+        pre {
+            background: #282c34;
+            color: #abb2bf;
+            overflow-x: auto;
+        .loading {
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4CAF50;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Test Ollama Menu Parser</h1>
+        
+        <div class="status info">
+            <strong>ℹ️ Información:</strong><br>
+            Este parser usa IA local (Ollama + LLaVA) para extraer menús de imágenes.<br>
+            <strong>100% GRATIS</strong> - No requiere API keys ni costos.
+        </div>
+
+        <div id="status"></div>
+        <div class="upload-area" id="uploadArea">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <h3>Arrastra una imagen aquí o haz clic para seleccionar</h3>
+            <p>Formatos soportados: JPG, PNG, WEBP</p>
+            <input type="file" id="fileInput" accept="image/*" style="display: none;">
+        <div id="previewArea"></div>
+        <div style="text-align: center;">
+            <button id="processBtn" style="display: none;" onclick="processImage()">
+                🚀 Analizar Menú con IA
+            </button>
+        <div id="resultArea"></div>
+    </div>
+    <script>
+        let selectedFile = null;
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const processBtn = document.getElementById('processBtn');
+        // Click para seleccionar archivo
+        uploadArea.addEventListener('click', () => fileInput.click());
+        // Drag and drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        uploadArea.addEventListener('drop', (e) => {
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                handleFile(file);
+            }
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+        function handleFile(file) {
+            selectedFile = file;
+            
+            // Preview
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                document.getElementById('previewArea').innerHTML = `
+                    <h3>Vista previa:</h3>
+                    <img src="${e.target.result}" class="preview" alt="Preview">
+                    <p><strong>Archivo:</strong> ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)</p>
+                `;
+                processBtn.style.display = 'inline-block';
+            };
+            reader.readAsDataURL(file);
+        async function processImage() {
+            if (!selectedFile) return;
+            const formData = new FormData();
+            formData.append('image', selectedFile);
+            // Mostrar loading con contador
+            let seconds = 0;
+            document.getElementById('resultArea').innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <h3>🤖 Analizando imagen con IA...</h3>
+                    <p id="timer">Tiempo transcurrido: 0s</p>
+                    <p style="font-size: 0.9em; color: #666;">
+                        ⏱️ Tiempo estimado: 20-60 segundos<br>
+                        📊 Imagen optimizada automáticamente<br>
+                        🧠 Usando modelo Moondream
+                    </p>
+                </div>
+            `;
+            // Actualizar contador cada segundo
+            const timerInterval = setInterval(() => {
+                seconds++;
+                const timerEl = document.getElementById('timer');
+                if (timerEl) {
+                    timerEl.textContent = `Tiempo transcurrido: ${seconds}s`;
+                    if (seconds > 60) {
+                        timerEl.style.color = '#ff9800';
+                        timerEl.textContent = `⚠️ Procesando... ${seconds}s (imagen grande o compleja)`;
+                    }
+                }
+            }, 1000);
+            processBtn.disabled = true;
+            try {
+                const startTime = Date.now();
+                const response = await fetch('menu_parser_endpoint.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                const duration = ((Date.now() - startTime) / 1000).toFixed(1);
+                
+                clearInterval(timerInterval);
+                if (result.success) {
+                    displaySuccess(result.data, duration);
+                } else {
+                    displayError(result.error);
+            } catch (error) {
+                displayError('Error de conexión: ' + error.message);
+            } finally {
+                processBtn.disabled = false;
+        function displaySuccess(data, duration) {
+            let html = '<div class="result">';
+            html += `<h2>✅ Análisis Completado en ${duration}s</h2>`;
+            if (data.categorias && data.categorias.length > 0) {
+                html += '<h3>📂 Categorías encontradas:</h3><ul>';
+                data.categorias.forEach(cat => {
+                    html += `<li><strong>${cat.nombre}</strong></li>`;
+                html += '</ul>';
+            if (data.productos && data.productos.length > 0) {
+                html += `<h3>🍽️ Productos encontrados: ${data.productos.length}</h3>`;
+                html += '<table style="width:100%; border-collapse: collapse; margin: 10px 0;">';
+                html += '<tr style="background: #f0f0f0;"><th style="padding:8px; border:1px solid #ddd;">Producto</th><th>Precio</th><th>Categoría</th></tr>';
+                data.productos.forEach(prod => {
+                    html += `<tr>
+                        <td style="padding:8px; border:1px solid #ddd;">${prod.nombre}</td>
+                        <td style="padding:8px; border:1px solid #ddd;">$${prod.precio}</td>
+                        <td style="padding:8px; border:1px solid #ddd;">${prod.categoria}</td>
+                    </tr>`;
+                html += '</table>';
+            html += '<h3>📄 JSON Completo:</h3>';
+            html += '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            html += '</div>';
+            document.getElementById('resultArea').innerHTML = html;
+        function displayError(error) {
+                <div class="status error">
+                    <h3>❌ Error</h3>
+                    <p>${error}</p>
+        // Verificar estado al cargar
+        window.addEventListener('load', async () => {
+                const response = await fetch('menu_parser_endpoint.php?check=1');
+                const status = await response.json();
+                if (status.ollama_running) {
+                    document.getElementById('status').innerHTML = `
+                        <div class="status success">
+                            ✅ Sistema listo - Modelo: ${status.model}<br>
+                            <small>Proveedor: ${status.provider || 'Local'} | Velocidad: ${status.speed || 'normal'}</small>
+                        </div>
+                    `;
+                        <div class="status error">
+                            ❌ Ollama no está corriendo o el modelo no está disponible
+            } catch (e) {
+                console.error('Error checking status:', e);
+    </script>
+</body>
+</html>

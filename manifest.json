@@ -1,0 +1,116 @@
+{
+  "name": "QuickBite - Delivery Rápido y Delicioso",
+  "short_name": "QuickBite",
+  "description": "Pide comida desde tu app favorita de delivery. Rápido, delicioso y confiable.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["fullscreen", "standalone"],
+  "orientation": "portrait-primary",
+  "theme_color": "#0165FF",
+  "background_color": "#FFFFFF",
+  "lang": "es",
+  "dir": "ltr",
+  "categories": ["food", "delivery", "restaurant"],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "/assets/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Ver Restaurantes",
+      "short_name": "Restaurantes",
+      "description": "Ver todos los restaurantes disponibles",
+      "url": "/restaurants.php",
+      "icons": [
+        {
+          "src": "/assets/icons/icon-96x96.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Mi Carrito",
+      "short_name": "Carrito",
+      "description": "Ver mi carrito de compras",
+      "url": "/carrito.php",
+      "icons": [
+        {
+          "src": "/assets/icons/icon-96x96.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Mis Pedidos",
+      "short_name": "Pedidos",
+      "description": "Ver el estado de mis pedidos",
+      "url": "/pedidos.php",
+      "icons": [
+        {
+          "src": "/assets/icons/icon-96x96.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
+}

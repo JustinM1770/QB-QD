@@ -1,0 +1,135 @@
+# ===========================================
+# QuickBite - Git Ignore
+# ===========================================
+
+# -------------------------------------------
+# Variables de entorno y secretos
+# -------------------------------------------
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# -------------------------------------------
+# Logs
+# -------------------------------------------
+logs/
+*.log
+mp_errors.log
+php_errors.log
+
+# -------------------------------------------
+# Dependencias
+# -------------------------------------------
+/vendor/
+/node_modules/
+whatsapp-bot/node_modules/
+whatsapp-server/node_modules/
+verUT/node_modules/
+
+# -------------------------------------------
+# Archivos de caché y temporales
+# -------------------------------------------
+*.cache
+*.tmp
+*.temp
+.cache/
+tmp/
+temp/
+
+# -------------------------------------------
+# Uploads de usuarios (no versionados)
+# -------------------------------------------
+/uploads/*
+!/uploads/.gitkeep
+/public/images/*
+!/public/images/.gitkeep
+
+# -------------------------------------------
+# IDE y editores
+# -------------------------------------------
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+.project
+.settings/
+*.swp
+*.swo
+*~
+
+# -------------------------------------------
+# Sistema operativo
+# -------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# -------------------------------------------
+# WhatsApp Bot - Datos de sesión
+# -------------------------------------------
+whatsapp-bot/auth_info_baileys/
+whatsapp-bot/.wwebjs_auth/
+whatsapp-bot/.wwebjs_cache/
+whatsapp-server/auth_info_baileys/
+
+# -------------------------------------------
+# Testing y desarrollo
+# -------------------------------------------
+_testing_files/
+backup_comparacion/
+*.bak
+*.backup
+*.old
+*.orig
+
+# -------------------------------------------
+# Compilados y builds
+# -------------------------------------------
+*.tar
+*.tar.gz
+*.tar.xz
+*.zip
+*.rar
+
+# -------------------------------------------
+# Archivos de configuración local
+# -------------------------------------------
+.claude/
+.qodo/
+.well-known/acme-challenge/*
+
+# -------------------------------------------
+# Base de datos
+# -------------------------------------------
+*.sql
+!database/*.sql
+!migrations/*.sql
+*.sqlite
+*.sqlite3
+*.db
+
+# -------------------------------------------
+# Composer
+# -------------------------------------------
+composer.phar
+
+# -------------------------------------------
+# PHPUnit
+# -------------------------------------------
+.phpunit.result.cache
+phpunit.xml
+!phpunit.xml.dist
+
+# -------------------------------------------
+# Coverage reports
+# -------------------------------------------
+coverage/
+.coverage
+htmlcov/

@@ -1,0 +1,211 @@
+# QuickBite - Configuración de Seguridad Apache
+# Actualizado: 4 de diciembre de 2025
+
+# ==========================================
+# 1. BLOQUEAR ACCESO A ARCHIVOS SENSIBLES
+# ==========================================
+
+# Bloquear acceso a archivos de configuración
+<FilesMatch "\.(env|ini|log|sh|sql|md|json)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Bloquear acceso a directorios de testing
+<DirectoryMatch "/_testing_files/">
+    Order allow,deny
+    Deny from all
+</DirectoryMatch>
+
+# Bloquear acceso a carpetas de sistema
+RedirectMatch 403 ^/\.git
+RedirectMatch 403 ^/\.env
+RedirectMatch 403 ^/config/
+RedirectMatch 403 ^/logs/
+RedirectMatch 403 ^/vendor/
+RedirectMatch 403 ^/node_modules/
+
+# ==========================================
+# 2. SEGURIDAD HEADERS
+# ==========================================
+
+<IfModule mod_headers.c>
+    # Prevenir clickjacking
+    Header always set X-Frame-Options "SAMEORIGIN"
+    
+    # Prevenir MIME sniffing
+    Header always set X-Content-Type-Options "nosniff"
+    
+    # XSS Protection
+    Header always set X-XSS-Protection "1; mode=block"
+    
+    # Referrer Policy
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    
+    # Feature Policy / Permissions Policy
+    Header always set Permissions-Policy "geolocation=(self), microphone=(), camera=()"
+    
+    # Content Security Policy (ajustar según necesidad)
+    # Header always set Content-Security-Policy "default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:;"
+</IfModule>
+
+# ==========================================
+# 3. FORZAR HTTPS (SSL)
+# ==========================================
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Forzar HTTPS
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    
+    # Forzar WWW o non-WWW (descomentar según preferencia)
+    # RewriteCond %{HTTP_HOST} !^www\. [NC]
+    # RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L]
+</IfModule>
+
+# ==========================================
+# 4. PHP CONFIGURACIÓN DE SEGURIDAD
+# ==========================================
+
+<IfModule mod_php7.c>
+    # Ocultar información de PHP
+    php_flag display_errors Off
+    php_flag display_startup_errors Off
+    php_flag expose_php Off
+    
+    # Logging
+    php_flag log_errors On
+    php_value error_log /var/www/html/logs/php_errors.log
+    
+    # Upload limits
+    php_value upload_max_filesize 10M
+    php_value post_max_size 10M
+    php_value max_execution_time 300
+    php_value max_input_time 300
+    
+    # Session security
+    php_flag session.cookie_httponly On
+    php_flag session.cookie_secure On
+    php_value session.cookie_samesite Strict
+</IfModule>
+
+# ==========================================
+# 5. CACHE Y PERFORMANCE
+# ==========================================
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    
+    # Imágenes
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    
+    # CSS y JavaScript
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType application/x-javascript "access plus 1 month"
+    
+    # Fonts
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType font/otf "access plus 1 year"
+    
+    # HTML
+    ExpiresByType text/html "access plus 0 seconds"
+    
+    # Manifest y Service Worker (no cachear)
+    ExpiresByType application/manifest+json "access plus 0 seconds"
+    ExpiresByType text/cache-manifest "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_deflate.c>
+    # Comprimir texto, HTML, JavaScript, CSS, XML
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/json
+</IfModule>
+
+# ==========================================
+# 6. PREVENIR DIRECTORY LISTING
+# ==========================================
+
+Options -Indexes
+
+# ==========================================
+# 7. PROTECCIÓN CONTRA HOTLINKING
+# ==========================================
+
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    # Permitir solo desde tu dominio (ajustar quickbite.com.mx)
+    RewriteCond %{HTTP_REFERER} !^$
+    RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?quickbite\.com\.mx [NC]
+    RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?localhost [NC]
+    RewriteRule \.(jpg|jpeg|png|gif|webp|svg)$ - [F,NC,L]
+</IfModule>
+
+# ==========================================
+# 8. PREVENIR ATAQUES COMUNES
+# ==========================================
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Bloquear query strings sospechosas
+    RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]
+    RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
+    RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2})
+    RewriteRule ^(.*)$ index.php [F,L]
+    
+    # Bloquear user agents maliciosos
+    RewriteCond %{HTTP_USER_AGENT} ^$ [OR]
+    RewriteCond %{HTTP_USER_AGENT} ^(-|HTTrack|libwww-perl|python|nikto|scan) [NC]
+    RewriteRule ^(.*)$ - [F,L]
+</IfModule>
+
+# ==========================================
+# 9. CORS (Cross-Origin Resource Sharing)
+# ==========================================
+
+<IfModule mod_headers.c>
+    # Permitir solo tu dominio
+    # Header always set Access-Control-Allow-Origin "https://quickbite.com.mx"
+    # O permitir todos (menos seguro):
+    # Header always set Access-Control-Allow-Origin "*"
+</IfModule>
+
+# ==========================================
+# 10. CUSTOM ERROR PAGES
+# ==========================================
+
+ErrorDocument 403 /403.php
+ErrorDocument 404 /404.php
+ErrorDocument 500 /50x.php
+
+# ==========================================
+# 11. LIMIT REQUEST SIZE (DOS Protection)
+# ==========================================
+
+<IfModule mod_security.c>
+    SecRequestBodyLimit 13107200
+    SecRequestBodyNoFilesLimit 131072
+</IfModule>
+
+# ==========================================
+# FIN DE CONFIGURACIÓN
+# ==========================================

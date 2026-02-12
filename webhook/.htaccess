@@ -1,0 +1,31 @@
+# Archivo .htaccess para webhooks
+# Permite acceso a MercadoPago sin restricciones
+
+# Desactivar protecciones adicionales para webhooks
+<IfModule mod_headers.c>
+    Header always set Access-Control-Allow-Origin "*"
+    Header always set Access-Control-Allow-Methods "POST, GET, OPTIONS"
+    Header always set Access-Control-Allow-Headers "Content-Type, Authorization"
+</IfModule>
+
+# Permitir acceso directo (sin challenge de Cloudflare)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Permitir User-Agents de MercadoPago
+    RewriteCond %{HTTP_USER_AGENT} "MercadoPago" [NC]
+    RewriteRule .* - [E=CF_ZONE_BYPASS:1]
+    
+    # Permitir IPs específicas de MercadoPago
+    RewriteCond %{REMOTE_ADDR} ^200\.85\.15[4-7]\. [OR]
+    RewriteCond %{REMOTE_ADDR} ^54\.233\. [OR]
+    RewriteCond %{REMOTE_ADDR} ^54\.207\.
+    RewriteRule .* - [E=CF_ZONE_BYPASS:1]
+</IfModule>
+
+# Configuración para PHP
+<IfModule mod_php.c>
+    php_value max_execution_time 30
+    php_value memory_limit 128M
+    php_flag log_errors on
+</IfModule>

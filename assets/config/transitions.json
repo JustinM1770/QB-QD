@@ -1,0 +1,43 @@
+{
+  "quickbite_transitions": {
+    "version": "1.0.0",
+    "config": {
+      "duration": 400,
+      "delay": 150,
+      "easing": "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+      "preload": true,
+      "auto_hide": 2000
+    },
+    "colors": {
+      "primary": "#0165FF",
+      "primary_dark": "#0052cc", 
+      "white": "#ffffff",
+      "accent": "#FFD700"
+    },
+    "texts": {
+      "loading": "Cargando...",
+      "processing": "Procesando...",
+      "redirecting": "Redirigiendo...",
+      "please_wait": "Un momento..."
+    },
+    "selectors": {
+      "trigger_class": "qb-transition",
+      "overlay_id": "qbTransitionOverlay",
+      "content_class": "qb-page-content"
+    },
+    "pages": {
+      "exclude": [
+        "login.php",
+        "register.php",
+        "logout.php"
+      ],
+      "custom_messages": {
+        "carrito.php": "Cargando carrito...",
+        "checkout.php": "Procesando pedido...",
+        "negocio.php": "Cargando menú...",
+        "perfil.php": "Cargando perfil...",
+        "pedidos.php": "Consultando pedidos..."
+      }
+    }
+  }
+}

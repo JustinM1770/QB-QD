@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickBite para Negocios - Impulsa tu Restaurante</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0165FF;
+            --primary-light: #E3F2FD;
+            --secondary: #F8F8F8;
+            --accent: #2C2C2C;
+            --dark: #2F2F2F;
+            --light: #FAFAFA;
+            --gradient: linear-gradient(135deg, #1E88E5 0%, #64B5F6 100%);
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --business-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--business-gradient);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="20" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .header .subtitle {
+            font-size: 1.4rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .header-stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .header-stat {
+            text-align: center;
+        }
+
+        .header-stat .number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            display: block;
+        }
+
+        .header-stat .label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section:nth-child(even) {
+            background-color: white;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 24px;
+            padding: 45px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            width: 90px;
+            height: 90px;
+            background: var(--business-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            color: white;
+            font-size: 2.2rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 18px;
+            color: var(--dark);
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* Process Steps */
+        .process-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            position: relative;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-8px);
+        }
+
+        .step-number {
+            width: 70px;
+            height: 70px;
+            background: var(--business-gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin: 0 auto 25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step h3 {
+            font-size: 1.4rem;
+            margin-bottom: 18px;
+            color: var(--dark);
+        }
+
+        .step p {
+            color: #666;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        /* Benefits List */
+        .benefits-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .benefits-text {
+            padding: 40px;
+        }
+
+        .benefits-text h3 {
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            color: var(--dark);
+        }
+
+        .benefits-list {
+            list-style: none;
+        }
+
+        .benefits-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        .benefits-list li::before {
+            content: '✓';
+            background: var(--success);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .benefits-visual {
+            background: var(--business-gradient);
+            border-radius: 24px;
+            padding: 60px 40px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefits-visual::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .benefits-visual-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .benefits-visual h4 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .benefits-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .benefit-stat {
+            text-align: center;
+        }
+
+        .benefit-stat .number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .benefit-stat .label {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            background: var(--light);
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 24px;
+            padding: 50px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: var(--success);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .pricing-card h3 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .price {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .price-note {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.05rem;
+        }
+
+        .pricing-features {
+            text-align: left;
+            margin-bottom: 40px;
+        }
+
+        .pricing-features li {
+            margin-bottom: 12px;
+            color: #555;
+            display: flex;
+            align-items: center;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--success);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: var(--business-gradient);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="2" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="20" fill="url(%23dots)"/></svg>');
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta h2 {
+            font-size: 3rem;
+            margin-bottom: 25px;
+        }
+
+        .cta p {
+            font-size: 1.3rem;
+            margin-bottom: 50px;
+            opacity: 0.95;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 18px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border-color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: var(--light);
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            padding: 18px 0;
+            z-index: 1000;
+            box-shadow: 0 2px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .header {
+            margin-top: 80px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .header .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .header-stats {
+                gap: 30px;
+                margin-top: 30px;
+            }
+
+            .header-stat .number {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .section-header h2 {
+                font-size: 2.2rem;
+            }
+
+            .feature-card {
+                padding: 35px 25px;
+            }
+
+            .benefits-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .benefits-stats {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .cta h2 {
+                font-size: 2.2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-container">
+                <a href="#" class="logo">QuickBite Business</a>
+                <ul class="nav-links">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#funciones">Funciones</a></li>
+                    <li><a href="#proceso">Cómo Empezar</a></li>
+                    <li><a href="#beneficios">Beneficios</a></li>
+                    <li><a href="#precios">Precios</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="header" id="inicio">
+        <div class="container">
+            <div class="header-content">
+                <h1>Impulsa tu Restaurante</h1>
+                <p class="subtitle">Únete a QuickBite y transforma tu negocio con la plataforma de delivery más avanzada. Aumenta tus ventas, optimiza operaciones y conquista nuevos clientes.</p>
+                
+                <div class="header-stats">
+                    <div class="header-stat">
+                        <span class="number">+40%</span>
+                        <span class="label">Aumento en Ventas</span>
+                    </div>
+                    <div class="header-stat">
+                        <span class="number">3.6%</span>
+                        <span class="label">Comisión Transparente</span>
+                    </div>
+                    <div class="header-stat">
+                        <span class="number">15min</span>
+                        <span class="label">Setup Inicial</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section" id="funciones">
+        <div class="container">
+            <div class="section-header">
+                <h2>Herramientas Profesionales</h2>
+                <p>Todo lo que necesitas para gestionar tu restaurante de manera eficiente y maximizar tus ganancias</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Dashboard Completo</h3>
+                    <p>Panel de control con métricas en tiempo real: ventas, pedidos, inventario y análisis de rendimiento. Visualiza toda tu operación de un vistazo.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3>Gestión de Menú</h3>
+                    <p>Administra tu carta digitalmente: precios, disponibilidad, promociones y categorías. Actualiza en tiempo real sin complicaciones.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3>Notificaciones Inteligentes</h3>
+                    <p>Recibe alertas automáticas de pedidos via WhatsApp, email y push notifications. Nunca pierdas una orden importante.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <h3>Facturación Automática</h3>
+                    <p>Sistema integrado de facturación con reportes fiscales, control de gastos e ingresos. Cumple con todas las normativas.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <h3>Gestión de Personal</h3>
+                    <p>Administra roles, permisos y turnos de tu equipo. Controla accesos y monitorea el desempeño de cada colaborador.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3>Marketing Automatizado</h3>
+                    <p>Promociones inteligentes, cupones personalizados y campañas dirigidas para aumentar la fidelidad de tus clientes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works -->
+    <section class="section" id="proceso">
+        <div class="container">
+            <div class="section-header">
+                <h2>¿Cómo Empezar?</h2>
+                <p>En solo 4 pasos simples, tu restaurante estará online y recibiendo pedidos</p>
+            </div>
+            <div class="process-container">
+                <div class="process-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Regístrate Gratis</h3>
+                        <p>Completa el formulario de registro con los datos básicos de tu restaurante. El proceso toma menos de 5 minutos.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>Configura tu Menú</h3>
+                        <p>Sube fotos de alta calidad, describe tus platillos, establece precios y organiza categorías. Nuestro equipo te ayuda.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>Verificación Rápida</h3>
+                        <p>Revisamos tu perfil en 24 horas, verificamos documentos y activamos tu cuenta para comenzar a operar.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <h3>¡Comienza a Vender!</h3>
+                        <p>Tu restaurante aparece en la app, recibe tus primeros pedidos y comienza a generar ingresos adicionales inmediatamente.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits -->
+    <section class="section" id="beneficios">
+        <div class="container">
+            <div class="section-header">
+                <h2>¿Por Qué Elegir QuickBite?</h2>
+                <p>Ventajas competitivas que harán crecer tu negocio de manera sostenible</p>
+            </div>
+            <div class="benefits-container">
+                <div class="benefits-text">
+                    <h3>Ventajas Exclusivas</h3>
+                    <ul class="benefits-list">
+                        <li>Comisión más baja del mercado (3.6%)</li>
+                        <li>Pagos rápidos cada 24 horas</li>
+                        <li>Soporte técnico 24/7 en español</li>
+                        <li>Sin costos de instalación o mensualidades</li>
+                        <li>Marketing gratuito en la plataforma</li>
+                        <li>Capacitación completa incluida</li>
+                        <li>Integración con POS existentes</li>
+                        <li>Reportes detallados y analytics</li>
+                        <li>Gestión de inventario inteligente</li>
+                        <li>Promociones automatizadas</li>
+                    </ul>
+                </div>
+                <div class="benefits-visual">
+                    <div class="benefits-visual-content">
+                        <h4>Resultados Comprobados</h4>
+                        <p>Nuestros restaurantes asociados ven resultados desde el primer mes</p>
+                        <div class="benefits-stats">
+                            <div class="benefit-stat">
+                                <span class="number">+40%</span>
+                                <span class="label">Incremento en Ventas</span>
+                            </div>
+                            <div class="benefit-stat">
+                                <span class="number">+200</span>
+                                <span class="label">Pedidos Mensuales</span>
+                            </div>
+                            <div class="benefit-stat">
+                                <span class="number">98%</span>
+                                <span class="label">Satisfacción</span>
+                            </div>
+                            <div class="benefit-stat">
+                                <span class="number">15min</span>
+                                <span class="label">Tiempo Promedio</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing section" id="precios">
+        <div class="container">
+            <div class="section-header">
+                <h2>Precios Transparentes</h2>
+                <p>Sin sorpresas, sin costos ocultos. Solo pagas cuando vendes</p>
+            </div>
+            <div class="pricing-card">
+                <div class="pricing-badge">Más Popular</div>
+                <h3>Plan Restaurante</h3>
+                <div class="price">3.6%</div>
+                <p class="price-note">Por pedido completado + procesamiento Stripe</p>
+                
+                <ul class="pricing-features">
+                    <li>Dashboard completo con analytics</li>
+                    <li>Gestión ilimitada de productos</li>
+                    <li>Notificaciones WhatsApp incluidas</li>
+                    <li>Soporte técnico 24/7</li>
+                    <li>Pagos cada 24 horas</li>
+                    <li>Marketing automático gratuito</li>
+                    <li>Reportes detallados de ventas</li>
+                    <li>Integración con sistemas POS</li>
+                    <li>Capacitación completa incluida</li>
+                    <li>Sin costos de setup o mensualidades</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>¿Listo para Crecer?</h2>
+                <p>Únete a cientos de restaurantes que ya están aumentando sus ventas con QuickBite. Comienza gratis hoy mismo.</p>
+                <div class="cta-buttons">
+                    <a href="/registro_negocio.php" class="btn btn-primary">Registrarme Gratis</a>
+                    <a href="mailto:contacto@quickbite.com.mx?subject=Solicitud de Demo - QuickBite Business" class="btn btn-secondary">Solicitar Demo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(255, 255, 255, 0.98)';
+                nav.style.boxShadow = '0 2px 30px rgba(0, 0, 0, 0.15)';
+            } else {
+                nav.style.background = 'rgba(255, 255, 255, 0.95)';
+                nav.style.boxShadow = '0 2px 25px rgba(0, 0, 0, 0.1)';
+            }
+        });
+
+        // Counter animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.number');
+            counters.forEach(counter => {
+                const target = parseInt(counter.innerText.replace(/[^\d]/g, ''));
+                let current = 0;
+                const increment = target / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    if (counter.innerText.includes('%')) {
+                        counter.innerText = Math.floor(current) + '%';
+                    } else if (counter.innerText.includes('min')) {
+                        counter.innerText = Math.floor(current) + 'min';
+                    } else if (counter.innerText.includes('+')) {
+                        counter.innerText = '+' + Math.floor(current) + (counter.innerText.includes('%') ? '%' : '');
+                    } else {
+                        counter.innerText = Math.floor(current) + (counter.innerText.includes('.') ? '.6%' : '');
+                    }
+                }, 50);
+            });
+        }
+
+        // Trigger animation when section comes into view
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        const statsSection = document.querySelector('.header-stats');
+        if (statsSection) {
+            observer.observe(statsSection);
+        }
+
+        // Add entrance animations for cards
+        const cards = document.querySelectorAll('.feature-card, .step');
+        const cardObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        cards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            cardObserver.observe(card);
+        });
+    </script>
+</body>
+</html>

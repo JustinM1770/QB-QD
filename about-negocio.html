@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickBite para Negocios - Impulsa tu Restaurante</title>
+    <meta name="description" content="Unete a QuickBite y transforma tu negocio. Bot de WhatsApp, Menu Magico con IA, Wallet de Negocio y membresias desde $0. Dispersiones Martes y Viernes.">
+    <link rel="icon" type="image/x-icon" href="assets/img/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=League+Spartan:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0165FF;
+            --primary-light: #3d8bff;
+            --primary-dark: #0050cc;
+            --accent: #FFD700;
+            --purple: #8b5cf6;
+            --purple-dark: #7c3aed;
+            --green: #10b981;
+            --background: #fefefe;
+            --surface: #ffffff;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-muted: #9ca3af;
+            --border: #f3f4f6;
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, #0165FF 0%, #0050cc 100%);
+            --gradient-purple: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Logo */
+        .logo {
+            font-family: 'League Spartan', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0;
+        }
+
+        .logo-quick {
+            color: var(--primary);
+        }
+
+        .logo-bite {
+            color: var(--accent);
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav.scrolled {
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-cta {
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Install Button */
+        .install-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--gradient-purple);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 50px;
+            box-shadow: var(--shadow-xl);
+            border: none;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            z-index: 999;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .install-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+        }
+
+        .install-btn i {
+            font-size: 18px;
+        }
+
+        .install-btn.show {
+            display: flex;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 140px 0 100px;
+            background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 52px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        .hero-content h1 span {
+            background: var(--gradient-purple);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .hero-features {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .hero-feature {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            background: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+        }
+
+        .hero-feature i {
+            color: var(--purple);
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-purple);
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--text-secondary);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--purple);
+            color: var(--purple);
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .dashboard-mockup {
+            background: var(--surface);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border);
+        }
+
+        .mockup-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .mockup-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .dot.red { background: #ef4444; }
+        .dot.yellow { background: #f59e0b; }
+        .dot.green { background: #10b981; }
+
+        .mockup-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-left: auto;
+        }
+
+        .wallet-preview {
+            background: var(--gradient-purple);
+            border-radius: 16px;
+            padding: 24px;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .wallet-label {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+
+        .wallet-amount {
+            font-size: 36px;
+            font-weight: 800;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .wallet-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 16px;
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .stat-box {
+            background: #f8fafc;
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-box-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--purple);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .stat-box-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: var(--surface);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+            color: var(--purple);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 40px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-purple);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .feature-card.highlight {
+            background: var(--gradient-purple);
+            color: white;
+            border: none;
+        }
+
+        .feature-card.highlight::before {
+            background: var(--accent);
+        }
+
+        .feature-card.highlight h3,
+        .feature-card.highlight p {
+            color: white;
+        }
+
+        .feature-card.highlight .feature-icon {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            color: var(--purple);
+            font-size: 28px;
+        }
+
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .feature-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 16px;
+        }
+
+        /* Membership Section */
+        .membership {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+        }
+
+        .membership-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .membership-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 40px;
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .membership-card.pro {
+            background: linear-gradient(135deg, rgba(139,92,246,0.3) 0%, rgba(124,58,237,0.3) 100%);
+            border-color: var(--purple);
+        }
+
+        .membership-card.pro::before {
+            content: 'RECOMENDADO';
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: var(--accent);
+            color: #1f2937;
+            padding: 6px 40px;
+            font-size: 11px;
+            font-weight: 700;
+            transform: rotate(45deg);
+        }
+
+        .plan-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .plan-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .membership-card:not(.pro) .plan-icon {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .membership-card.pro .plan-icon {
+            background: var(--accent);
+            color: #1f2937;
+        }
+
+        .plan-name {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        .plan-price {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .plan-price span {
+            font-size: 32px;
+            font-weight: 800;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .commission-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.1);
+            padding: 12px 20px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .commission-badge strong {
+            font-size: 28px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .plan-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-size: 15px;
+        }
+
+        .plan-features li i {
+            color: var(--green);
+            font-size: 16px;
+        }
+
+        .plan-features li.disabled {
+            opacity: 0.5;
+        }
+
+        .plan-features li.disabled i {
+            color: #ef4444;
+        }
+
+        .plan-btn {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            text-align: center;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .membership-card:not(.pro) .plan-btn {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .membership-card.pro .plan-btn {
+            background: var(--accent);
+            color: #1f2937;
+        }
+
+        .plan-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Kit Marketing Section */
+        .kit-section {
+            padding: 100px 0;
+            background: var(--surface);
+        }
+
+        .kit-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .kit-content h2 {
+            font-size: 40px;
+            margin-bottom: 24px;
+        }
+
+        .kit-content p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            line-height: 1.8;
+        }
+
+        .kit-items {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .kit-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+            padding: 20px;
+            border-radius: 16px;
+        }
+
+        .kit-item-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-purple);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        .kit-item h4 {
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .kit-item p {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .kit-visual {
+            background: var(--gradient-purple);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            color: white;
+        }
+
+        .kit-visual h3 {
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+
+        .founder-badge {
+            background: var(--accent);
+            color: #1f2937;
+            padding: 16px 32px;
+            border-radius: 16px;
+            display: inline-block;
+            margin-bottom: 24px;
+        }
+
+        .founder-badge h4 {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .founder-badge p {
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .kit-visual > p {
+            opacity: 0.9;
+            font-size: 16px;
+        }
+
+        /* Wallet Section */
+        .wallet-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+
+        .wallet-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .wallet-content h2 {
+            font-size: 40px;
+            margin-bottom: 24px;
+        }
+
+        .wallet-content p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            line-height: 1.8;
+        }
+
+        .wallet-features {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .wallet-feature {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .wallet-feature i {
+            font-size: 24px;
+            color: var(--purple);
+        }
+
+        .wallet-feature h4 {
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .wallet-feature p {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .wallet-mockup {
+            background: white;
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .wallet-mockup-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .wallet-mockup-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--gradient-purple);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        .wallet-balance-display {
+            background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .wallet-balance-label {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .wallet-balance-amount {
+            font-size: 40px;
+            font-weight: 800;
+            color: var(--purple);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .withdrawal-btn {
+            width: 100%;
+            background: var(--gradient-purple);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .dispersal-info {
+            background: #fef3c7;
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .dispersal-info i {
+            color: #f59e0b;
+            font-size: 20px;
+        }
+
+        .dispersal-info p {
+            font-size: 14px;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 100px 0;
+            background: var(--gradient-purple);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta h2 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 24px;
+        }
+
+        .cta p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--purple);
+        }
+
+        .btn-white:hover {
+            background: #f8fafc;
+        }
+
+        .btn-outline-white {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-outline-white:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: white;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1f2937;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer p {
+            opacity: 0.7;
+            font-size: 14px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 16px;
+        }
+
+        .footer-links a {
+            color: white;
+            opacity: 0.7;
+            text-decoration: none;
+            font-size: 14px;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-container,
+            .kit-container,
+            .wallet-grid,
+            .membership-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .hero-content h1 {
+                font-size: 36px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .cta h2 {
+                font-size: 32px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .stats-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav" id="navbar">
+        <div class="container">
+            <div class="nav-container">
+                <a href="index.php" class="logo">
+                    <span class="logo-quick">Quick</span><span class="logo-bite">Bite</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#funciones">Funciones</a></li>
+                    <li><a href="#membresias">Membresias</a></li>
+                    <li><a href="#wallet">Wallet</a></li>
+                </ul>
+                <a href="registro_negocio.php" class="nav-cta">Registrar Negocio</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="container">
+            <div class="hero-container">
+                <div class="hero-content fade-in">
+                    <h1>Transforma tu Restaurante con <span>QuickBite</span></h1>
+                    <p class="hero-subtitle">Bot de WhatsApp propio para pedidos con instrucciones de texto simples ("Aceptar"), Menu Magico con IA (QuickAI), Wallet de negocio y las comisiones mas bajas. Dispersiones manuales cada Martes y Viernes.</p>
+
+                    <div class="hero-features">
+                        <div class="hero-feature">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>Bot WhatsApp</span>
+                        </div>
+                        <div class="hero-feature">
+                            <i class="fas fa-magic"></i>
+                            <span>Menu con IA</span>
+                        </div>
+                        <div class="hero-feature">
+                            <i class="fas fa-wallet"></i>
+                            <span>Wallet Negocio</span>
+                        </div>
+                    </div>
+
+                    <div class="hero-cta">
+                        <a href="registro_negocio.php" class="btn btn-primary">
+                            <i class="fas fa-store"></i>
+                            Registrar Mi Negocio
+                        </a>
+                        <a href="#membresias" class="btn btn-secondary">
+                            <i class="fas fa-crown"></i>
+                            Ver Membresias
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-visual fade-in">
+                    <div class="dashboard-mockup">
+                        <div class="mockup-header">
+                            <div class="mockup-dots">
+                                <div class="dot red"></div>
+                                <div class="dot yellow"></div>
+                                <div class="dot green"></div>
+                            </div>
+                            <div class="mockup-title">Dashboard Negocio</div>
+                        </div>
+                        <div class="wallet-preview">
+                            <div class="wallet-label">Saldo Acumulado (Tarjeta)</div>
+                            <div class="wallet-amount">$24,580.00</div>
+                            <div class="wallet-info">
+                                <span><i class="fas fa-calendar"></i> Proximo retiro: Martes</span>
+                                <span><i class="fas fa-check-circle"></i> Verificado</span>
+                            </div>
+                        </div>
+                        <div class="stats-row">
+                            <div class="stat-box">
+                                <div class="stat-box-value">156</div>
+                                <div class="stat-box-label">Pedidos Mes</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-box-value">4.8</div>
+                                <div class="stat-box-label">Calificacion</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-box-value">PRO</div>
+                                <div class="stat-box-label">Tu Plan</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="funciones">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-badge">Tecnologia de Punta</div>
+                <h2 class="section-title">Herramientas Exclusivas</h2>
+                <p class="section-subtitle">Funcionalidades unicas que solo QuickBite te ofrece para hacer crecer tu negocio</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card highlight fade-in">
+                    <div class="feature-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <h3>Bot de WhatsApp Propio</h3>
+                    <p>Sistema propio que notifica pedidos a tu restaurante por WhatsApp. Acepta o rechaza con instrucciones de texto simples como "Aceptar". Confirmacion instantanea sin complicaciones.</p>
+                    <div class="feature-badge">Solo Socios PRO</div>
+                </div>
+
+                <div class="feature-card highlight fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3>Menu Magico con QuickAI</h3>
+                    <p>Integracion con IA que permite al negocio tomar una foto al menu fisico y convertirlo en menu digital en segundos. Sin escribir manualmente, automatico y rapido.</p>
+                    <div class="feature-badge">Solo Socios PRO</div>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <h3>Wallet de Negocio</h3>
+                    <p>Panel donde ves tus ventas acumuladas (pagos con Tarjeta) y boton para "Solicitar Retiro". Dispersiones manuales realizadas cada Martes y Viernes.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Dashboard Completo</h3>
+                    <p>Metricas en tiempo real: ventas, pedidos, productos mas vendidos y horarios de mayor demanda.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-cloud-rain"></i>
+                    </div>
+                    <h3>Prioridad en Lluvia</h3>
+                    <p>Los Socios PRO aparecen primero cuando hay clima adverso. Mas visibilidad = mas pedidos.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3>Distintivo Verificado</h3>
+                    <p>Badge exclusivo que genera confianza en los clientes. Solo para Socios PRO.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Membership Section -->
+    <section class="membership" id="membresias">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-badge" style="background: rgba(255,255,255,0.1); color: white;">Elige tu Plan</div>
+                <h2 class="section-title" style="color: white;">Membresias Escalonadas</h2>
+                <p class="section-subtitle" style="color: rgba(255,255,255,0.8);">Dos opciones diseadas para diferentes necesidades de negocio</p>
+            </div>
+
+            <div class="membership-grid">
+                <!-- Socio Aliado -->
+                <div class="membership-card fade-in">
+                    <div class="plan-header">
+                        <div class="plan-icon">🔵</div>
+                        <div>
+                            <div class="plan-name">Socio Aliado</div>
+                            <div class="plan-price"><span>Gratis</span> /mes</div>
+                        </div>
+                    </div>
+
+                    <div class="commission-badge">
+                        Comision: <strong>10%</strong> por pedido
+                    </div>
+
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Presencia en la plataforma</li>
+                        <li><i class="fas fa-check"></i> Gestion manual en tablet/celular</li>
+                        <li><i class="fas fa-check"></i> Pago por transferencia semanal</li>
+                        <li><i class="fas fa-check"></i> Dashboard basico</li>
+                        <li><i class="fas fa-check"></i> Soporte por email</li>
+                        <li class="disabled"><i class="fas fa-times"></i> Bot de WhatsApp</li>
+                        <li class="disabled"><i class="fas fa-times"></i> Menu Magico con IA</li>
+                        <li class="disabled"><i class="fas fa-times"></i> Prioridad en lluvia</li>
+                        <li class="disabled"><i class="fas fa-times"></i> Distintivo verificado</li>
+                        <li class="disabled"><i class="fas fa-times"></i> Kit de Marketing</li>
+                    </ul>
+
+                    <a href="registro_negocio.php" class="plan-btn">Comenzar Gratis</a>
+                </div>
+
+                <!-- Socio PRO -->
+                <div class="membership-card pro fade-in">
+                    <div class="plan-header">
+                        <div class="plan-icon">👑</div>
+                        <div>
+                            <div class="plan-name">Socio QuickBite PRO</div>
+                            <div class="plan-price"><span>$499-$799</span> /mes</div>
+                        </div>
+                    </div>
+
+                    <div class="commission-badge">
+                        Comision: <strong>5%</strong> por pedido
+                    </div>
+
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Todo de Socio Aliado</li>
+                        <li><i class="fas fa-check"></i> <strong>Bot de WhatsApp</strong> para pedidos</li>
+                        <li><i class="fas fa-check"></i> <strong>Menu Magico con QuickAI</strong></li>
+                        <li><i class="fas fa-check"></i> Prioridad en dias de lluvia</li>
+                        <li><i class="fas fa-check"></i> Distintivo "Verificado"</li>
+                        <li><i class="fas fa-check"></i> Publicidad en la plataforma</li>
+                        <li><i class="fas fa-check"></i> Soporte especializado 24/7</li>
+                        <li><i class="fas fa-check"></i> Kit de Marketing completo</li>
+                        <li><i class="fas fa-check"></i> Analytics avanzado</li>
+                        <li><i class="fas fa-check"></i> Manager de cuenta asignado</li>
+                    </ul>
+
+                    <a href="registro_negocio.php?plan=pro" class="plan-btn">Ser Socio PRO</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kit Marketing Section -->
+    <section class="kit-section" id="kit">
+        <div class="container">
+            <div class="kit-container">
+                <div class="kit-content fade-in">
+                    <div class="section-badge">Exclusivo Socios PRO</div>
+                    <h2>Kit de Marketing Fisico</h2>
+                    <p>Materiales profesionales para promocionar tu negocio en el mundo real. Solo disponible para Socios QuickBite PRO.</p>
+
+                    <div class="kit-items">
+                        <div class="kit-item">
+                            <div class="kit-item-icon">
+                                <i class="fas fa-image"></i>
+                            </div>
+                            <div>
+                                <h4>Plantillas de Canva</h4>
+                                <p>Marco para fotos, anuncios "Ya Abrimos", promociones</p>
+                            </div>
+                        </div>
+                        <div class="kit-item">
+                            <div class="kit-item-icon">
+                                <i class="fas fa-qrcode"></i>
+                            </div>
+                            <div>
+                                <h4>Stickers con QR</h4>
+                                <p>Para puerta, ventana o mesas. Clientes escanean y piden</p>
+                            </div>
+                        </div>
+                        <div class="kit-item">
+                            <div class="kit-item-icon">
+                                <i class="fas fa-stamp"></i>
+                            </div>
+                            <div>
+                                <h4>Sello de Seguridad</h4>
+                                <p>Stickers para bolsas que garantizan que nadie abrio el pedido</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kit-visual fade-in">
+                    <h3>Estrategia Pionero Fundador</h3>
+                    <div class="founder-badge">
+                        <h4>🏆 Placa Especial</h4>
+                        <p>Para los primeros 10 negocios</p>
+                    </div>
+                    <p>Los primeros 10 restaurantes en registrarse como Socios PRO reciben una placa fisica exclusiva de "Pionero Fundador QuickBite" para exhibir en su local.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wallet Section -->
+    <section class="wallet-section" id="wallet">
+        <div class="container">
+            <div class="wallet-grid">
+                <div class="wallet-content fade-in">
+                    <h2>Wallet de Negocio</h2>
+                    <p>Controla tus ventas con tarjeta en tiempo real. Ve cuanto has acumulado (pagos con Tarjeta) y solicita retiros con el boton "Solicitar Retiro". Dispersiones manuales cada Martes y Viernes.</p>
+
+                    <div class="wallet-features">
+                        <div class="wallet-feature">
+                            <i class="fas fa-credit-card"></i>
+                            <div>
+                                <h4>Ventas Acumuladas (Tarjeta)</h4>
+                                <p>Ve en tiempo real cuanto has vendido con pagos de tarjeta procesados en la plataforma</p>
+                            </div>
+                        </div>
+                        <div class="wallet-feature">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <div>
+                                <h4>Solicitar Retiro</h4>
+                                <p>Boton para solicitar tu dinero. Dispersiones manuales procesadas por el equipo</p>
+                            </div>
+                        </div>
+                        <div class="wallet-feature">
+                            <i class="fas fa-calendar-alt"></i>
+                            <div>
+                                <h4>Dispersiones Martes y Viernes</h4>
+                                <p>Transferencias manuales fijas cada Martes y Viernes a tu cuenta bancaria</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wallet-mockup fade-in">
+                    <div class="wallet-mockup-header">
+                        <div class="wallet-mockup-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div>
+                            <div style="font-size: 14px; color: var(--text-muted);">Mi Wallet</div>
+                            <div style="font-size: 18px; font-weight: 600;">Tacos El Primo</div>
+                        </div>
+                    </div>
+
+                    <div class="wallet-balance-display">
+                        <div class="wallet-balance-label">Saldo Disponible (Tarjeta)</div>
+                        <div class="wallet-balance-amount">$18,450.00</div>
+                    </div>
+
+                    <button class="withdrawal-btn">
+                        <i class="fas fa-arrow-up"></i>
+                        Solicitar Retiro
+                    </button>
+
+                    <div class="dispersal-info">
+                        <i class="fas fa-info-circle"></i>
+                        <p><strong>Dispersiones:</strong> Martes y Viernes. Solicita antes del dia anterior para incluirte en el proximo ciclo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content fade-in">
+                <h2>Listo para Crecer?</h2>
+                <p>Unete a los restaurantes que ya estan aumentando sus ventas con QuickBite. Comienza gratis o elige el plan PRO.</p>
+                <div class="cta-buttons">
+                    <a href="registro_negocio.php" class="btn btn-white">
+                        <i class="fas fa-store"></i>
+                        Registrar Mi Negocio
+                    </a>
+                    <a href="https://wa.link/e4fnrh" class="btn btn-outline-white">
+                        <i class="fab fa-whatsapp"></i>
+                        Hablar con Ventas
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 QuickBite. Todos los derechos reservados.</p>
+            <div class="footer-links">
+                <a href="terms.html">Terminos y Condiciones</a>
+                <a href="privacy.html">Privacidad</a>
+                <a href="mailto:soporte@quickbite.com.mx">Contacto</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Install Button -->
+    <button class="install-btn" id="installBtn">
+        <i class="fas fa-download"></i>
+        <span>Agregar a Inicio</span>
+    </button>
+
+    <script>
+        // PWA Install
+        let deferredPrompt;
+        const installBtn = document.getElementById('installBtn');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installBtn.classList.add('show');
+        });
+
+        installBtn.addEventListener('click', async () => {
+            if (!deferredPrompt) {
+                return;
+            }
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            deferredPrompt = null;
+            installBtn.classList.remove('show');
+        });
+
+        window.addEventListener('appinstalled', () => {
+            installBtn.classList.remove('show');
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Fade in animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

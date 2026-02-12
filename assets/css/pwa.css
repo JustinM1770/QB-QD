@@ -1,0 +1,397 @@
+/**
+ * QuickBite PWA Styles
+ * Estilos específicos para la Progressive Web App
+ */
+
+/* ============================================
+   PWA ESPECÍFICO
+   ============================================ */
+
+/* Ocultar elementos cuando la app está instalada (modo standalone) */
+@media (display-mode: standalone) {
+    .hide-on-pwa {
+        display: none !important;
+    }
+    
+    /* Ajustar padding superior para compensar la falta de barra del navegador */
+    body {
+        padding-top: env(safe-area-inset-top);
+    }
+    
+    /* Mejorar área de toque en el header */
+    .navbar {
+        padding-top: calc(env(safe-area-inset-top) + 10px);
+    }
+}
+
+/* Estilos para pantallas de iPhone con notch */
+@supports (padding: max(0px)) {
+    body {
+        padding-left: max(12px, env(safe-area-inset-left));
+        padding-right: max(12px, env(safe-area-inset-right));
+    }
+}
+
+/* ============================================
+   SPLASH SCREEN
+   ============================================ */
+.pwa-splash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0165FF 0%, #0052cc 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    z-index: 9999;
+    font-family: 'Inter', sans-serif;
+}
+
+.pwa-splash-logo {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    margin-bottom: 24px;
+    animation: pulse 2s infinite;
+}
+
+.pwa-splash-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.pwa-splash-subtitle {
+    font-size: 1rem;
+    opacity: 0.8;
+    text-align: center;
+    max-width: 280px;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.05); opacity: 0.8; }
+}
+
+/* ============================================
+   MEJORAS TÁCTILES
+   ============================================ */
+
+/* Mejorar área de toque para botones */
+.btn {
+    min-height: 44px; /* Tamaño mínimo recomendado por Apple */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Feedback táctil mejorado */
+.btn:active,
+.card:active,
+.list-group-item:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+}
+
+/* ============================================
+   NAVEGACIÓN MEJORADA
+   ============================================ */
+
+/* Navegación inferior fija para móviles */
+.mobile-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 8px 0 calc(8px + env(safe-area-inset-bottom));
+    z-index: 1000;
+    display: none;
+}
+
+@media (max-width: 768px) and (display-mode: standalone) {
+    .mobile-nav {
+        display: flex;
+    }
+    
+    body {
+        padding-bottom: calc(70px + env(safe-area-inset-bottom));
+    }
+}
+
+.mobile-nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #737373;
+    padding: 8px;
+    transition: color 0.2s ease;
+}
+
+.mobile-nav-item:hover,
+.mobile-nav-item.active {
+    color: #0165FF;
+}
+
+.mobile-nav-icon {
+    font-size: 1.25rem;
+    margin-bottom: 4px;
+}
+
+.mobile-nav-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+/* ============================================
+   CARDS OPTIMIZADAS
+   ============================================ */
+
+/* Cards más táctiles en móvil */
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 12px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .card-body {
+        padding: 16px;
+    }
+    
+    /* Imágenes de productos optimizadas */
+    .product-image {
+        aspect-ratio: 16/9;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+}
+
+/* ============================================
+   FORMULARIOS OPTIMIZADOS
+   ============================================ */
+
+/* Inputs más grandes en móvil */
+@media (max-width: 768px) {
+    .form-control {
+        min-height: 48px;
+        font-size: 16px; /* Evita zoom en iOS */
+        border-radius: 8px;
+    }
+    
+    .form-select {
+        min-height: 48px;
+        font-size: 16px;
+    }
+    
+    .btn-lg {
+        min-height: 52px;
+        font-size: 1.1rem;
+    }
+}
+
+/* ============================================
+   ESTADOS DE CARGA
+   ============================================ */
+
+.loading-skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Placeholder para cuando no hay conexión */
+.offline-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+    color: #737373;
+}
+
+.offline-placeholder-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+    opacity: 0.6;
+}
+
+/* ============================================
+   NOTIFICACIONES TOAST
+   ============================================ */
+
+.pwa-toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    z-index: 10000;
+    animation: slideInFromTop 0.3s ease;
+}
+
+.pwa-toast.success {
+    background: rgba(16, 185, 129, 0.95);
+}
+
+.pwa-toast.warning {
+    background: rgba(245, 158, 11, 0.95);
+}
+
+.pwa-toast.error {
+    background: rgba(239, 68, 68, 0.95);
+}
+
+@keyframes slideInFromTop {
+    from {
+        transform: translate(-50%, -100%);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+}
+
+/* ============================================
+   PULL TO REFRESH
+   ============================================ */
+
+.pull-to-refresh {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #737373;
+    font-size: 14px;
+    transform: translateY(-60px);
+    transition: transform 0.3s ease;
+}
+
+.pull-to-refresh.show {
+    transform: translateY(0);
+}
+
+.pull-to-refresh-icon {
+    margin-right: 8px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ============================================
+   DARK MODE SUPPORT
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-primary: #111111;
+        --bg-secondary: #1f1f1f;
+        --text-primary: #ffffff;
+        --text-secondary: #a3a3a3;
+        --border-color: #333333;
+    }
+    
+    .mobile-nav {
+        background: rgba(31, 31, 31, 0.95);
+        border-top-color: #333333;
+    }
+    
+    .card {
+        background: var(--bg-secondary);
+        border-color: var(--border-color);
+        color: var(--text-primary);
+    }
+}
+
+/* ============================================
+   ANIMACIONES MEJORADAS
+   ============================================ */
+
+/* Transiciones suaves para cambios de página */
+.page-transition {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.page-transition.loaded {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Animación de entrada para elementos */
+.fade-in {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   UTILIDADES PWA
+   ============================================ */
+
+/* Ocultar scrollbar en elementos específicos */
+.hide-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Sticky en la parte superior con safe area */
+.sticky-top-safe {
+    position: sticky;
+    top: env(safe-area-inset-top);
+    z-index: 1020;
+}
+
+/* Contenedor con padding seguro */
+.safe-area-padding {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Full height respetando safe areas */
+.full-height-safe {
+    height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+}

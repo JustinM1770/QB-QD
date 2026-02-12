@@ -1,0 +1,338 @@
+{
+    "45": [
+        {
+            "tipo": "mitad",
+            "id": 46,
+            "nombre": "20 Rosas Rojas con Dólar - Mitad",
+            "descripcion": "20 rosas rojas con eucalipto dólar. Versión compacta.",
+            "precio": 849,
+            "imagen": "\/uploads\/productos\/producto_6973e24a0bfa1_40rosascondolar.jpeg"
+        }
+    ],
+    "47": [
+        {
+            "tipo": "mitad",
+            "id": 48,
+            "nombre": "10 Rosas Melón con Dólar - Mitad",
+            "descripcion": "10 rosas melón con eucalipto dólar. Versión compacta.",
+            "precio": 449,
+            "imagen": "\/uploads\/productos\/producto_6973e2a730df5_20rosasmeloncd.jpeg"
+        }
+    ],
+    "49": [
+        {
+            "tipo": "mitad",
+            "id": 50,
+            "nombre": "10 Rosas Rosita Pastel con Dólar - Mitad",
+            "descripcion": "10 rosas rosa pastel con eucalipto dólar. Versión compacta.",
+            "precio": 449,
+            "imagen": "\/uploads\/productos\/producto_6973e2d5c0f6c_20rosasrositapastelcdl.jpeg"
+        }
+    ],
+    "51": [
+        {
+            "tipo": "mitad",
+            "id": 52,
+            "nombre": "7 Rosas Mixtas con Dólar - Mitad",
+            "descripcion": "7 rosas mixtas con eucalipto dólar. Versión compacta.",
+            "precio": 329,
+            "imagen": "\/uploads\/productos\/producto_6973e300af690_14rosasmixtascondolar.jpeg"
+        }
+    ],
+    "53": [
+        {
+            "tipo": "mitad",
+            "id": 54,
+            "nombre": "15 Rosas, 4 Gerberas y Follaje - Mitad",
+            "descripcion": "15 rosas, 4 gerberas y follaje. Versión compacta.",
+            "precio": 829,
+            "imagen": "assets\/img\/productos\/OREZ\/ROSAS\/ramos con gerberas\/30rosas8gerbyfollaje.jpeg"
+        }
+    ],
+    "55": [
+        {
+            "tipo": "mitad",
+            "id": 56,
+            "nombre": "8 Gerberas Pasteles - Mitad",
+            "descripcion": "8 gerberas en tonos pastel. Versión compacta.",
+            "precio": 449,
+            "imagen": "assets\/img\/productos\/OREZ\/ROSAS\/ramos con gerberas\/15GerbPast.jpeg"
+        }
+    ],
+    "57": [
+        {
+            "tipo": "doble",
+            "id": 58,
+            "nombre": "Gerbera, Claveles, Rosa, Astromelia - Doble",
+            "descripcion": "Versión doble del mix con más flores.",
+            "precio": 999,
+            "imagen": "assets\/img\/productos\/OREZ\/ROSAS\/ramos con gerberas\/GerbClavelRosaAstromyFllje.jpeg"
+        }
+    ],
+    "59": [
+        {
+            "tipo": "doble",
+            "id": 60,
+            "nombre": "14 Gerberas con Envoltura Moderna - Doble",
+            "descripcion": "14 gerberas con presentación moderna. Versión doble.",
+            "precio": 849,
+            "imagen": "assets\/img\/productos\/OREZ\/ROSAS\/ramos con gerberas\/7gerbconenvoltmodern.jpeg"
+        }
+    ],
+    "61": [
+        {
+            "tipo": "doble",
+            "id": 62,
+            "nombre": "12 Gerberas, Statice y Follaje - Doble",
+            "descripcion": "12 gerberas con statice y follaje. Versión doble.",
+            "precio": 749,
+            "imagen": "assets\/img\/productos\/OREZ\/ROSAS\/ramos con gerberas\/6GerbstatceYFllje.jpeg"
+        }
+    ],
+    "63": [
+        {
+            "tipo": "mitad",
+            "id": 64,
+            "nombre": "Gerbera, Hortensia, Mini Rosa - Mitad",
+            "descripcion": "Versión compacta del ramo premium.",
+            "precio": 679,
+            "imagen": "assets\/img\/productos\/OREZ\/ROSAS\/ramos con gerberas\/GerbhortMiniRsRsFllje.jpeg"
+        }
+    ],
+    "65": [
+        {
+            "tipo": "doble",
+            "id": 66,
+            "nombre": "Gerberas, Rosas y Follaje - Doble",
+            "descripcion": "Versión doble con más gerberas y rosas.",
+            "precio": 499,
+            "imagen": "assets\/img\/productos\/OREZ\/ROSAS\/ramos con gerberas\/GerbRosFllje.jpeg"
+        }
+    ],
+    "67": [
+        {
+            "tipo": "doble",
+            "id": 68,
+            "nombre": "Gerberas, Rosa, Lisianthus, Astromelia - Doble",
+            "descripcion": "Versión doble del mix elegante.",
+            "precio": 1429,
+            "imagen": "assets\/img\/productos\/OREZ\/ROSAS\/ramos con gerberas\/GerbRosLisiaAstroFllje.jpeg"
+        }
+    ],
+    "69": [
+        {
+            "tipo": "doble",
+            "id": 70,
+            "nombre": "6 Gerberas con Follaje - Doble",
+            "descripcion": "6 gerberas con follaje. Versión doble.",
+            "precio": 379,
+            "imagen": "assets\/img\/productos\/OREZ\/ROSAS\/ramos con gerberas\/3GerbFllje.jpeg"
+        }
+    ],
+    "71": [
+        {
+            "tipo": "doble",
+            "id": 72,
+            "nombre": "Gerberas, Mathiola, Lisianthus y Rosa - Doble",
+            "descripcion": "Versión doble de la combinación aromática.",
+            "precio": 999,
+            "imagen": "assets\/img\/productos\/OREZ\/ROSAS\/ramos con gerberas\/GerbMathLisianRos.jpeg"
+        }
+    ],
+    "73": [
+        {
+            "tipo": "mitad",
+            "id": 74,
+            "nombre": "Gerberas, Rosas, Claveles - Mitad",
+            "descripcion": "Versión compacta del mix.",
+            "precio": 325,
+            "imagen": "assets\/img\/productos\/OREZ\/ROSAS\/ramos con gerberas\/GerbRosClavFllje.jpeg"
+        }
+    ],
+    "75": [
+        {
+            "tipo": "doble",
+            "id": 76,
+            "nombre": "Gerberas, Claveles y Follaje - Doble",
+            "descripcion": "Versión doble con más flores.",
+            "precio": 799,
+            "imagen": "assets\/img\/productos\/OREZ\/ROSAS\/ramos con gerberas\/GerbClavFllje.jpeg"
+        }
+    ],
+    "77": [
+        {
+            "tipo": "mitad",
+            "id": 78,
+            "nombre": "Gerberas, Rosas, Claveles y Margaritas - Mitad",
+            "descripcion": "Versión compacta del mix variado.",
+            "precio": 389,
+            "imagen": "assets\/img\/productos\/OREZ\/ROSAS\/ramos con gerberas\/GerbRosClaveMarg.jpeg"
+        }
+    ],
+    "79": [
+        {
+            "tipo": "mitad",
+            "id": 80,
+            "nombre": "Gerbera Pompón, Arcadia y Follaje - Mitad",
+            "descripcion": "Versión compacta del ramo con textura.",
+            "precio": 315,
+            "imagen": "assets\/img\/productos\/OREZ\/ROSAS\/ramos con gerberas\/GerbPompArcaFllje.jpeg"
+        }
+    ],
+    "82": [
+        {
+            "tipo": "mitad",
+            "id": 83,
+            "nombre": "5 Paq Mini Rosa, Nube y 15 Rosas - Mitad",
+            "descripcion": "Versión compacta de la combinación premium.",
+            "precio": 1249,
+            "imagen": "assets\/img\/productos\/OREZ\/ROSAS\/RamosPremium\/5paqMiniRsN15RR.jpeg"
+        }
+    ],
+    "90": [
+        {
+            "tipo": "mitad",
+            "id": 91,
+            "nombre": "20 Tulipanes con Follaje - Mitad",
+            "descripcion": "20 tulipanes con follaje. Versión media.",
+            "precio": 1999,
+            "imagen": "assets\/img\/productos\/OREZ\/ROSAS\/RamosPremium\/40TulFllje.jpeg"
+        }
+    ],
+    "99": [
+        {
+            "tipo": "mitad",
+            "id": 100,
+            "nombre": "75 Rosas y 10 Tulipanes - Mitad",
+            "descripcion": "37 rosas y 5 tulipanes. Versión media.",
+            "precio": 1699,
+            "imagen": "assets\/img\/productos\/OREZ\/ROSAS\/RamosPremium\/75R10Tul.jpeg"
+        }
+    ],
+    "101": [
+        {
+            "tipo": "mitad",
+            "id": 102,
+            "nombre": "4 Tulipanes, 35 Rosas y 2 Orquídeas - Mitad",
+            "descripcion": "Versión media del ramo de lujo.",
+            "precio": 1829,
+            "imagen": "assets\/img\/productos\/OREZ\/ROSAS\/RamosPremium\/7Tul70Rs5Orq.jpeg"
+        }
+    ],
+    "106": [
+        {
+            "tipo": "mitad",
+            "id": 107,
+            "nombre": "2 Hortensias, 1 Paq Rosa Inglesa y Follaje - Mitad",
+            "descripcion": "Versión compacta del ramo de hortensias.",
+            "precio": 1385,
+            "imagen": "assets\/img\/productos\/OREZ\/ROSAS\/RamosPremium\/5Hort2PRINGLFllje.jpeg"
+        }
+    ],
+    "108": [
+        {
+            "tipo": "mitad",
+            "id": 109,
+            "nombre": "100 Rosas, Astromelia, Mathiola - Mitad",
+            "descripcion": "Versión media del ramo de 100 rosas.",
+            "precio": 2999,
+            "imagen": "assets\/img\/productos\/OREZ\/ROSAS\/RamosPremium\/100R Astr Mth 6Tul Lils.jpeg"
+        }
+    ],
+    "110": [
+        {
+            "tipo": "mitad",
+            "id": 111,
+            "nombre": "7 Paq Mini Rosa, 75 Rosas - Mitad",
+            "descripcion": "Versión media del ramo de mini rosas.",
+            "precio": 2399,
+            "imagen": "assets\/img\/productos\/OREZ\/ROSAS\/RamosPremium\/7paqMR Fllje 75Rs.jpeg"
+        }
+    ],
+    "112": [
+        {
+            "tipo": "mitad",
+            "id": 113,
+            "nombre": "2 Paq Mini Rosa, 8 Girasoles - Mitad",
+            "descripcion": "Versión media del ramo de girasoles.",
+            "precio": 1199,
+            "imagen": "assets\/img\/productos\/OREZ\/ROSAS\/RamosPremium\/2P MiRos 8girs 6Hort Fllje.jpeg"
+        }
+    ],
+    "114": [
+        {
+            "tipo": "mitad",
+            "id": 115,
+            "nombre": "70 Rosas, 10 Gerberas, Perritos - Mitad",
+            "descripcion": "Versión media del ramo variado.",
+            "precio": 1899,
+            "imagen": "assets\/img\/productos\/OREZ\/ROSAS\/RamosPremium\/70 rs 10gerb 8Perr 2 PaqMR Fllje.jpeg"
+        }
+    ],
+    "116": [
+        {
+            "tipo": "mitad",
+            "id": 117,
+            "nombre": "80 Rosas y 6 Orquídeas en Base - Mitad",
+            "descripcion": "Versión media del arreglo premium en base de madera.",
+            "precio": 3899,
+            "imagen": "assets\/img\/productos\/OREZ\/ROSAS\/ArreglosBase\/160R 11Orq BasMad.jpeg"
+        }
+    ],
+    "118": [
+        {
+            "tipo": "mitad",
+            "id": 119,
+            "nombre": "1 Paq Lisianthus y 5 Rosas en Base - Mitad",
+            "descripcion": "Versión compacta del arreglo de cerámica.",
+            "precio": 1050,
+            "imagen": "assets\/img\/productos\/OREZ\/ROSAS\/ArreglosBase\/2PLisia 9Rs bseCera.jpeg"
+        }
+    ],
+    "120": [
+        {
+            "tipo": "mitad",
+            "id": 121,
+            "nombre": "Lisianthus, Astromelia, 8 Rosas y 3 Claveles - Mitad",
+            "descripcion": "Versión compacta del mix especial.",
+            "precio": 999,
+            "imagen": "assets\/img\/productos\/OREZ\/ROSAS\/OtrosRamos\/1PLisa 2PAstro 16Rs 6Cla Fllje.jpeg"
+        }
+    ],
+    "122": [
+        {
+            "tipo": "mitad",
+            "id": 123,
+            "nombre": "25 Claveles con Follaje - Mitad",
+            "descripcion": "Versión compacta con 25 claveles.",
+            "precio": 499,
+            "imagen": "assets\/img\/productos\/OREZ\/ROSAS\/OtrosRamos\/50Cla Fllje.jpeg"
+        },
+        {
+            "tipo": "doble",
+            "id": 125,
+            "nombre": "34 Claveles con Follaje - Doble",
+            "descripcion": "Versión doble con 34 claveles.",
+            "precio": 685,
+            "imagen": "assets\/img\/productos\/OREZ\/ROSAS\/OtrosRamos\/17CLa Fllje.jpeg"
+        }
+    ],
+    "30": [
+        {
+            "tipo": "mitad",
+            "id": 31,
+            "nombre": "Amar y Vivir - Mitad Ramo",
+            "descripcion": "5 rosas, 6 claveles, 3 gerberas, margaritas y follaje. Edición especial San Valentín.",
+            "precio": 599,
+            "imagen": "assets\/img\/products\/orez\/producto-000.png"
+        },
+        {
+            "tipo": "doble",
+            "id": 32,
+            "nombre": "Amar y Vivir - Doble Ramo",
+            "descripcion": "20 rosas, 24 claveles, 12 gerberas, 1 paq de margarita y follaje. Edición especial San Valentín.",
+            "precio": 2299,
+            "imagen": "assets\/img\/products\/orez\/producto-000.png"
+        }
+    ]
+}

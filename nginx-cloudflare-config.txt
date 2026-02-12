@@ -1,0 +1,109 @@
+# 🔧 CONFIGURACIÓN NGINX PARA QUICKBITE CON CLOUDFLARE
+# Archivo: nginx-quickbite.conf
+
+# ✅ CONFIGURACIÓN ESPECÍFICA PARA PROCESS_PAYMENT.PHP
+location ~ ^/process_payment\.php$ {
+    # Permitir solo POST y OPTIONS
+    limit_except POST OPTIONS {
+        deny all;
+    }
+    
+    # Headers CORS para Cloudflare
+    add_header 'Access-Control-Allow-Origin' '*' always;
+    add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
+    add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization, X-Requested-With' always;
+    add_header 'Access-Control-Allow-Credentials' 'true' always;
+    
+    # Manejar preflight OPTIONS
+    if ($request_method = 'OPTIONS') {
+        add_header 'Access-Control-Allow-Origin' '*' always;
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
+        add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization, X-Requested-With' always;
+        add_header 'Content-Length' 0;
+        return 200;
+    }
+    
+    # Configuración PHP-FPM
+    try_files $uri =404;
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    fastcgi_pass unix:/var/run/php/php8.4-fpm.sock;  # Ajustar según tu versión PHP
+    fastcgi_index index.php;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    include fastcgi_params;
+    
+    # Headers de seguridad
+    add_header X-Content-Type-Options nosniff always;
+    add_header X-Frame-Options DENY always;
+    
+    # Cache control
+    add_header Cache-Control 'no-cache, no-store, must-revalidate' always;
+    add_header Pragma 'no-cache' always;
+    add_header Expires '0' always;
+}
+
+# ✅ CONFIGURACIÓN GENERAL PARA ARCHIVOS PHP
+location ~ \.php$ {
+    try_files $uri =404;
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    fastcgi_pass unix:/var/run/php/php8.4-fpm.sock;  # Ajustar según tu versión PHP
+    fastcgi_index index.php;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    include fastcgi_params;
+    
+    # Headers básicos CORS
+    add_header 'Access-Control-Allow-Origin' '*' always;
+    add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
+    add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization, X-Requested-With' always;
+}
+
+# ✅ CONFIGURACIÓN PARA CLOUDFLARE
+# Obtener IP real del visitante
+set_real_ip_from 173.245.48.0/20;
+set_real_ip_from 103.21.244.0/22;
+set_real_ip_from 103.22.200.0/22;
+set_real_ip_from 103.31.4.0/22;
+set_real_ip_from 141.101.64.0/18;
+set_real_ip_from 108.162.192.0/18;
+set_real_ip_from 190.93.240.0/20;
+set_real_ip_from 188.114.96.0/20;
+set_real_ip_from 197.234.240.0/22;
+set_real_ip_from 198.41.128.0/17;
+set_real_ip_from 162.158.0.0/15;
+set_real_ip_from 104.16.0.0/13;
+set_real_ip_from 104.24.0.0/14;
+set_real_ip_from 172.64.0.0/13;
+set_real_ip_from 131.0.72.0/22;
+real_ip_header CF-Connecting-IP;
+
+# ✅ INSTRUCCIONES DE IMPLEMENTACIÓN:
+# 
+# 1. Agrega esta configuración a tu archivo nginx.conf o sites-available/quickbite
+# 
+# 2. Verifica la ruta del socket PHP-FPM:
+#    - Ubuntu 22.04: /var/run/php/php8.1-fpm.sock
+#    - Ubuntu 24.04: /var/run/php/php8.3-fpm.sock o php8.4-fpm.sock
+# 
+# 3. Reinicia nginx:
+#    sudo nginx -t
+#    sudo systemctl reload nginx
+# 
+# 4. En Cloudflare, ve a Security → WAF → Custom Rules y agrega:
+#    Rule name: Allow QuickBite Payments
+#    Expression: (http.request.uri.path contains "/process_payment.php") and (http.request.method in {"POST" "OPTIONS"})
+#    Action: Skip - All remaining custom rules
+# 
+# 5. En Cloudflare → SSL/TLS → Edge Certificates:
+#    - Habilita "Always Use HTTPS"
+#    - Modo SSL: Full (strict) o Flexible según tu certificado
+# 
+# 6. En Cloudflare → Speed → Optimization:
+#    - Deshabilita "Auto Minify" para JavaScript (puede romper los SDKs de pago)
+
+# ✅ DIAGNÓSTICO:
+# Para probar que funciona:
+# curl -X POST https://tudominio.com/process_payment.php \
+#   -H "Content-Type: application/json" \
+#   -H "User-Agent: Mozilla/5.0" \
+#   -d '{"test": "data"}'
+# 
+# Debería devolver un error JSON, no un 403 o redirección HTML

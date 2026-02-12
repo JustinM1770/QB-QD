@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cliente WebSocket Seguro</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    #log {
+      white-space: pre-wrap;
+      background: #f0f0f0;
+      padding: 10px;
+      height: 300px;
+      overflow-y: scroll;
+      font-family: monospace;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .controls {
+      margin: 15px 0;
+      padding: 10px;
+      background: #f8f8f8;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    button {
+      padding: 8px 15px;
+      margin-right: 10px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    .status {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    .connected {
+      background-color: #4CAF50;
+    }
+    .disconnected {
+      background-color: #f44336;
+    }
+    .connecting {
+      background-color: #ff9800;
+    }
+  </style>
+</head>
+<body>
+  <h1>Cliente WebSocket Seguro</h1>
+  
+  <div class="controls">
+    <div>
+      <span class="status disconnected" id="statusIndicator"></span>
+      <span id="connectionStatus">Desconectado</span>
+    </div>
+    
+    <div style="margin-top: 10px;">
+      <button id="connectButton">Conectar</button>
+      <button id="disconnectButton" disabled>Desconectar</button>
+      <button id="clearLogButton">Limpiar Log</button>
+    </div>
+  </div>
+  
+  <div class="controls">
+    <h3>Enviar mensaje</h3>
+    <select id="messageType">
+      <option value="register">Registro</option>
+      <option value="subscribe_to_order">Suscribirse a Pedido</option>
+      <option value="update_order_status">Actualizar Estado</option>
+      <option value="update_courier_location">Actualizar Ubicación</option>
+      <option value="get_available_orders">Obtener Pedidos Disponibles</option>
+    </select>
+    <button id="sendButton" disabled>Enviar</button>
+  </div>
+  
+  <div id="log"></div>
+  
+  <script>
+    // Elementos DOM
+    const logDiv = document.getElementById('log');
+    const statusIndicator = document.getElementById('statusIndicator');
+    const connectionStatus = document.getElementById('connectionStatus');
+    const connectButton = document.getElementById('connectButton');
+    const disconnectButton = document.getElementById('disconnectButton');
+    const clearLogButton = document.getElementById('clearLogButton');
+    const sendButton = document.getElementById('sendButton');
+    const messageType = document.getElementById('messageType');
+    
+    // Configuración
+    const WEBSOCKET_URL = 'ws://localhost:5500';
+    
+    let socket;
+    let reconnectTimeout;
+    let reconnectAttempts = 0;
+    const MAX_RECONNECT_ATTEMPTS = 5;
+    
+    // Funciones de utilidad
+    function log(message, type = 'info') {
+      const timestamp = new Date().toLocaleTimeString();
+      const entry = document.createElement('div');
+      entry.innerHTML = `<span style="color: gray;">[${timestamp}]</span> `;
+      
+      if (type === 'error') {
+        entry.innerHTML += `<span style="color: red;">${message}</span>`;
+      } else if (type === 'success') {
+        entry.innerHTML += `<span style="color: green;">${message}</span>`;
+      } else if (type === 'outgoing') {
+        entry.innerHTML += `<span style="color: blue;">${message}</span>`;
+      } else {
+        entry.innerHTML += message;
+      }
+      
+      logDiv.appendChild(entry);
+      logDiv.scrollTop = logDiv.scrollHeight;
+      console.log(`[${type}] ${message}`);
+    }
+    
+    function updateStatus(status) {
+      statusIndicator.className = 'status ' + status;
+      connectionStatus.textContent = status === 'connected' ? 'Conectado' : 
+                                     status === 'connecting' ? 'Conectando...' : 'Desconectado';
+      
+      connectButton.disabled = status === 'connected' || status === 'connecting';
+      disconnectButton.disabled = status !== 'connected';
+      sendButton.disabled = status !== 'connected';
+    }
+    
+    function clearLog() {
+      logDiv.innerHTML = '';
+      log('Log limpiado', 'info');
+    }
+    
+    function connect() {
+      try {
+        updateStatus('connecting');
+        log(`Intentando conectar a ${WEBSOCKET_URL}...`);
+        
+        socket = new WebSocket(WEBSOCKET_URL);
+        
+        socket.onopen = () => {
+          log('Conexión establecida correctamente', 'success');
+          updateStatus('connected');
+          reconnectAttempts = 0;
+        };
+        
+        socket.onmessage = (event) => {
+          try {
+            const data = JSON.parse(event.data);
+            log(`Mensaje recibido: ${JSON.stringify(data, null, 2)}`);
+          } catch (e) {
+            log(`Mensaje recibido (texto plano): ${event.data}`);
+          }
+        };
+        
+        socket.onerror = (error) => {
+          log(`Error de WebSocket: ${error.message || 'Error desconocido'}`, 'error');
+        };
+        
+        socket.onclose = (event) => {
+          updateStatus('disconnected');
+          
+          let reason = 'Conexión cerrada';
+          if (event.code) {
+            reason += ` (código: ${event.code})`;
+          }
+          if (event.reason) {
+            reason += `: ${event.reason}`;
+          }
+          
+          log(reason, 'error');
+          
+          if (reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
+            const delay = Math.min(1000 * (Math.pow(2, reconnectAttempts)), 30000);
+            reconnectAttempts++;
+            
+            log(`Reintentando en ${delay/1000} segundos (intento ${reconnectAttempts}/${MAX_RECONNECT_ATTEMPTS})...`);
+            
+            reconnectTimeout = setTimeout(() => {
+              if (reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
+                connect();
+              } else {
+                log('Número máximo de intentos alcanzado. Por favor intente manualmente.', 'error');
+              }
+            }, delay);
+          }
+        };
+      } catch (error) {
+        log(`Error al crear conexión WebSocket: ${error.message}`, 'error');
+        updateStatus('disconnected');
+      }
+    }
+    
+    function disconnect() {
+      if (socket) {
+        log('Cerrando conexión...');
+        socket.close(1000, 'Cierre manual');
+      }
+      
+      if (reconnectTimeout) {
+        clearTimeout(reconnectTimeout);
+        reconnectTimeout = null;
+      }
+      
+      updateStatus('disconnected');
+    }
+    
+    function sendMessage() {
+      if (!socket || socket.readyState !== WebSocket.OPEN) {
+        log('No se puede enviar mensaje, WebSocket no está conectado', 'error');
+        return;
+      }
+      
+      let message;
+      const type = messageType.value;
+      
+      switch (type) {
+        case 'register':
+          message = {
+            event: 'register',
+            data: {
+              userId: 'cliente-' + Math.floor(Math.random() * 10000),
+              userType: 'customer'
+            }
+          };
+          break;
+          
+        case 'subscribe_to_order':
+          message = {
+            event: 'subscribe_to_order',
+            data: {
+              orderId: 1001,
+              userId: 'cliente-test'
+            }
+          };
+          break;
+          
+        case 'update_order_status':
+          message = {
+            event: 'update_order_status',
+            data: {
+              orderId: 1001,
+              status: 2
+            }
+          };
+          break;
+          
+        case 'update_courier_location':
+          message = {
+            event: 'update_courier_location',
+            data: {
+              orderId: 1001,
+              courierId: 'repartidor-test',
+              lat: 19.4326,
+              lng: -99.1332
+            }
+          };
+          break;
+          
+        case 'get_available_orders':
+          message = {
+            event: 'get_available_orders',
+            data: {
+              courierId: 'repartidor-test'
+            }
+          };
+          break;
+          
+        default:
+          log('Tipo de mensaje no reconocido', 'error');
+          return;
+      }
+      
+      const messageStr = JSON.stringify(message);
+      log(`Enviando mensaje: ${messageStr}`, 'outgoing');
+      socket.send(messageStr);
+    }
+    
+    // Event listeners
+    connectButton.addEventListener('click', connect);
+    disconnectButton.addEventListener('click', disconnect);
+    clearLogButton.addEventListener('click', clearLog);
+    sendButton.addEventListener('click', sendMessage);
+    
+    // Inicialización
+    log('Cliente WebSocket iniciado. Presione "Conectar" para iniciar la conexión.');
+    updateStatus('disconnected');
+  </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Fetch Fix</title>
+</head>
+<body>
+    <h1>Prueba de Fix para Fetch</h1>
+    <button id="testBtn">Probar Conexión</button>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('testBtn').addEventListener('click', function() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Probando...';
+            
+            // Simular la misma lógica que usa el dashboard
+            const baseUrl = window.location.protocol + '//' + window.location.host;
+            const updateUrl = baseUrl + '/admin/actualizar_estado_pedido.php';
+            
+            console.log('URL construida:', updateUrl);
+            
+            const formData = new FormData();
+            formData.append('id_pedido', '999'); // ID de prueba
+            formData.append('estado', 'test');
+            
+            fetch(updateUrl, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                credentials: 'same-origin'
+            })
+            .then(response => {
+                console.log('Status:', response.status);
+                console.log('OK:', response.ok);
+                return response.text();
+            })
+            .then(text => {
+                console.log('Respuesta:', text);
+                resultDiv.innerHTML = `
+                    <h3>✅ Conexión exitosa</h3>
+                    <p>URL usada: ${updateUrl}</p>
+                    <p>Respuesta: ${text.substring(0, 200)}</p>
+                `;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                resultDiv.innerHTML = `
+                    <h3>❌ Error</h3>
+                    <p>URL intentada: ${updateUrl}</p>
+                    <p>Error: ${error.message}</p>
+                `;
+            });
+        });
+    </script>
+</body>
+</html>

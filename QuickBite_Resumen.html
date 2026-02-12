@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@700&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>QuickBite - Oportunidad de Proyecto</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.7;
+            color: #1a1a1a;
+            background: #fff8f3;
+            font-size: 11pt;
+        }
+
+        @media print {
+            body { font-size: 10pt; }
+            .page-break { page-break-before: always; }
+            .no-print { display: none; }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 50px 30px;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2563EB 50%, #1e3a5f 100%);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(37, 99, 235, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(255, 215, 0, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: 800;
+            color: #2563EB;
+            letter-spacing: -2px;
+        }
+
+        .logo span {
+            color: #ffffff;
+        }
+
+        .tagline {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.95);
+            margin-top: 15px;
+            font-weight: 400;
+            position: relative;
+            z-index: 1;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: rgba(255, 215, 0, 0.9);
+            position: relative;
+            z-index: 1;
+            margin-top: 5px;
+        }
+
+        h1 {
+            font-size: 26px;
+            color: #1a1a1a;
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        h2 {
+            font-size: 18px;
+            color: #2563EB;
+            margin: 25px 0 15px;
+        }
+
+        h3 {
+            font-size: 15px;
+            color: #333;
+            margin: 20px 0 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #2563EB 0%, #3B82F6 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+        }
+
+        .highlight-box h2 {
+            color: white;
+            margin-top: 0;
+            font-size: 22px;
+        }
+
+        .highlight-box p {
+            margin-bottom: 0;
+            font-size: 15px;
+        }
+
+        .info-box {
+            background: #EFF6FF;
+            border-left: 4px solid #2563EB;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .warning-box {
+            background: #FEF3C7;
+            border-left: 4px solid #F59E0B;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 10pt;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #EFF6FF;
+            font-weight: 600;
+            color: #1E40AF;
+        }
+
+        tr:hover {
+            background: #fafafa;
+        }
+
+        .example-box {
+            background: #F8FAFC;
+            border: 2px solid #E2E8F0;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .example-box h4 {
+            color: #2563EB;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .example-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .example-row:last-child {
+            border-bottom: none;
+            font-weight: 700;
+            color: #2563EB;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .card h3 {
+            color: #2563EB;
+            margin-top: 0;
+        }
+
+        .actor-card {
+            background: #fff;
+            border: 2px solid #eee;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .actor-card.cliente { border-color: #10B981; background: #ECFDF5; }
+        .actor-card.negocio { border-color: #3B82F6; background: #EFF6FF; }
+        .actor-card.repartidor { border-color: #F59E0B; background: #FFFBEB; }
+        .actor-card.quickbite { border-color: #8B5CF6; background: #F5F3FF; }
+
+        .actor-icon {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .actor-card h4 {
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .actor-card ul {
+            text-align: left;
+            font-size: 11px;
+            padding-left: 15px;
+            margin: 0;
+        }
+
+        .actor-card li {
+            margin-bottom: 5px;
+        }
+
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .check-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .check-list li {
+            padding-left: 28px;
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        .check-list li::before {
+            content: "OK";
+            position: absolute;
+            left: 0;
+            color: #10B981;
+            font-weight: bold;
+            font-size: 10px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 25px;
+            background: #EFF6FF;
+            border-radius: 12px;
+            border: 2px solid #BFDBFE;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: #2563EB;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #64748B;
+            margin-top: 5px;
+        }
+
+        .comparison-table {
+            margin: 25px 0;
+        }
+
+        .comparison-table th {
+            background: #1E40AF;
+            color: white;
+        }
+
+        .comparison-table .highlight {
+            background: #ECFDF5;
+            font-weight: 600;
+        }
+
+        .timeline {
+            border-left: 3px solid #2563EB;
+            padding-left: 25px;
+            margin: 25px 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -32px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            background: #2563EB;
+            border-radius: 50%;
+            border: 3px solid #fff;
+        }
+
+        .timeline-item h4 {
+            color: #2563EB;
+            margin-bottom: 5px;
+        }
+
+        .role-card {
+            background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+            border: 2px solid #93C5FD;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .role-card h3 {
+            color: #1E40AF;
+            margin: 0 0 10px 0;
+            font-size: 16px;
+        }
+
+        .role-card p {
+            margin: 0;
+            font-size: 13px;
+        }
+
+        .footer {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #eee;
+            text-align: center;
+            color: #999;
+            font-size: 11px;
+        }
+
+        .print-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #2563EB;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+            transition: all 0.3s;
+        }
+
+        .print-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+        }
+
+        @media print {
+            .print-btn { display: none; }
+        }
+
+        .formula-box {
+            background: #F1F5F9;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            font-size: 13px;
+        }
+
+        .formula-box strong {
+            color: #2563EB;
+        }
+        /* Logo QuickBite con tamaños responsivos */
+        .qb-logo {
+            font-family: 'League Spartan', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: clamp(2.5rem, 8vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .qb-logo .quick {
+            color: #FFFFFF;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .qb-logo .bite {
+            color: #FFD700;
+            text-shadow: 0 0 25px rgba(255, 215, 0, 0.6), 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        @media print {
+            .qb-logo .quick { color: #1e3a5f !important; text-shadow: none; }
+            .qb-logo .bite { color: #d4a800 !important; text-shadow: none; }
+            .header { background: #2563EB !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="qb-logo" id="qb-logo">
+            <span class="quick">Quick</span><span class="bite">Bite</span>
+        </div>
+            <div class="tagline">Plataforma de Delivery para Municipios de Mexico</div>
+            <div class="subtitle">Oportunidad de Proyecto Multidisciplinario - Enero 2025</div>
+        </div>
+
+        <div class="highlight-box">
+            <h2>Que es QuickBite?</h2>
+            <p><strong>QuickBite</strong> es una plataforma de delivery de comida disenada especificamente para
+            municipios pequenos de Mexico. Mientras que Uber Eats y Rappi cobran hasta 30% de comision a los
+            restaurantes, QuickBite ofrece un modelo <strong>justo y sostenible</strong> con solo 10% de comision,
+            permitiendo que los negocios locales prosperen.</p>
+        </div>
+
+        <h1>El Problema que Resolvemos</h1>
+
+        <div class="warning-box">
+            <strong>El problema actual:</strong> Las grandes plataformas de delivery (Uber Eats, Rappi, DiDi Food)
+            cobran entre 25-30% de comision a los restaurantes. Esto significa que por cada $100 que vendes,
+            te quitan $30. Para negocios pequenos con margenes del 15-20%, esto es insostenible.
+        </div>
+
+        <h2>Comparativa: QuickBite vs Competencia</h2>
+
+        <table class="comparison-table">
+            <tr>
+                <th>Concepto</th>
+                <th>Uber Eats / Rappi</th>
+                <th>QuickBite</th>
+            </tr>
+            <tr>
+                <td>Comision al negocio</td>
+                <td>25-30%</td>
+                <td class="highlight">10% (8% Premium)</td>
+            </tr>
+            <tr>
+                <td>Renta mensual</td>
+                <td>$500-2,000/mes</td>
+                <td class="highlight">$0 (gratis)</td>
+            </tr>
+            <tr>
+                <td>Pago al repartidor</td>
+                <td>Variable, impredecible</td>
+                <td class="highlight">Minimo $25 garantizado</td>
+            </tr>
+            <tr>
+                <td>Propinas</td>
+                <td>La plataforma retiene parte</td>
+                <td class="highlight">100% para el repartidor</td>
+            </tr>
+            <tr>
+                <td>Costo de envio</td>
+                <td>Inflado artificialmente</td>
+                <td class="highlight">Transparente: $25 + $5/km</td>
+            </tr>
+            <tr>
+                <td>Enfoque</td>
+                <td>Ciudades grandes</td>
+                <td class="highlight">Municipios pequenos</td>
+            </tr>
+        </table>
+
+        <h1>Nuestro Modelo de Negocio</h1>
+
+        <div class="info-box">
+            <strong>Filosofia:</strong> "Volumen sobre margen" - Preferimos ganar poco en muchos pedidos,
+            que ganar mucho en pocos. Esto nos permite ofrecer mejores condiciones a todos los participantes
+            y crecer de forma organica por reputacion.
+        </div>
+
+        <h2>Los 4 Participantes del Ecosistema</h2>
+
+        <div class="grid-4">
+            <div class="actor-card cliente">
+                <div class="actor-icon">👤</div>
+                <h4>CLIENTE</h4>
+                <ul>
+                    <li>Precios justos sin inflar</li>
+                    <li>Envio transparente</li>
+                    <li>Propina va 100% al repartidor</li>
+                </ul>
+            </div>
+            <div class="actor-card negocio">
+                <div class="actor-icon">🏪</div>
+                <h4>NEGOCIO</h4>
+                <ul>
+                    <li>Solo 10% de comision</li>
+                    <li>Sin rentas mensuales</li>
+                    <li>Herramientas gratuitas</li>
+                </ul>
+            </div>
+            <div class="actor-card repartidor">
+                <div class="actor-icon">🚴</div>
+                <h4>REPARTIDOR</h4>
+                <ul>
+                    <li>Minimo $25 por entrega</li>
+                    <li>100% de las propinas</li>
+                    <li>Pago semanal puntual</li>
+                </ul>
+            </div>
+            <div class="actor-card quickbite">
+                <div class="actor-icon">💼</div>
+                <h4>QUICKBITE</h4>
+                <ul>
+                    <li>Comision del 10%</li>
+                    <li>Cargo de servicio $5</li>
+                    <li>Membresias opcionales</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <h1>Como se Distribuye el Dinero</h1>
+
+        <h2>Ejemplo Practico: Pedido de $200 en tacos</h2>
+
+        <div class="example-box">
+            <h4>LO QUE PAGA EL CLIENTE:</h4>
+            <div class="example-row">
+                <span>Productos (tacos)</span>
+                <span>$200.00</span>
+            </div>
+            <div class="example-row">
+                <span>Envio (3 km)</span>
+                <span>$25.00</span>
+            </div>
+            <div class="example-row">
+                <span>Cargo de servicio</span>
+                <span>$5.00</span>
+            </div>
+            <div class="example-row">
+                <span>Propina (opcional)</span>
+                <span>$20.00</span>
+            </div>
+            <div class="example-row">
+                <span><strong>TOTAL</strong></span>
+                <span><strong>$250.00</strong></span>
+            </div>
+        </div>
+
+        <div class="example-box">
+            <h4>COMO SE REPARTE:</h4>
+            <div class="example-row">
+                <span>🏪 Negocio recibe (productos - 10%)</span>
+                <span>$180.00</span>
+            </div>
+            <div class="example-row">
+                <span>🚴 Repartidor recibe (envio + propina)</span>
+                <span>$45.00</span>
+            </div>
+            <div class="example-row">
+                <span>💼 QuickBite recibe (comision + servicio)</span>
+                <span>$25.00</span>
+            </div>
+        </div>
+
+        <h2>Formulas de Calculo</h2>
+
+        <div class="formula-box">
+            <strong>Envio:</strong> $25 base (incluye 3 km) + $5 por cada km adicional<br>
+            <em>Ejemplo: 5 km = $25 + (2 km extra x $5) = $35</em>
+        </div>
+
+        <div class="formula-box">
+            <strong>Comision al negocio:</strong> 10% del subtotal de productos (8% si es Premium)<br>
+            <em>Ejemplo: Venta de $500 = $50 de comision. Negocio recibe $450</em>
+        </div>
+
+        <div class="formula-box">
+            <strong>Cargo de servicio:</strong> $5 fijo por pedido (gratis para miembros Club)<br>
+            <em>Este cargo va directo a QuickBite para cubrir costos operativos</em>
+        </div>
+
+        <h1>Fuentes de Ingreso</h1>
+
+        <table>
+            <tr>
+                <th>Fuente</th>
+                <th>Descripcion</th>
+                <th>Ingreso Estimado</th>
+            </tr>
+            <tr>
+                <td><strong>Comision por pedido</strong></td>
+                <td>10% del valor de productos en cada orden</td>
+                <td>$15-30 por pedido</td>
+            </tr>
+            <tr>
+                <td><strong>Cargo de servicio</strong></td>
+                <td>$5 fijo por cada pedido</td>
+                <td>$5 por pedido</td>
+            </tr>
+            <tr>
+                <td><strong>Membresia Negocios</strong></td>
+                <td>Plan Premium $199/mes (comision baja a 8%)</td>
+                <td>$199/mes por negocio</td>
+            </tr>
+            <tr>
+                <td><strong>Membresia Clientes</strong></td>
+                <td>QuickBite Club $49/mes (envio gratis)</td>
+                <td>$49/mes por cliente</td>
+            </tr>
+        </table>
+
+        <div class="page-break"></div>
+
+        <h1>Sistema de Membresias</h1>
+
+        <div class="grid-2">
+            <div class="card">
+                <h3>🏪 Premium para Negocios</h3>
+                <p style="font-size: 24px; color: #2563EB; font-weight: 700; margin: 10px 0;">$199/mes</p>
+                <ul>
+                    <li><strong>Comision reducida:</strong> 8% en lugar de 10%</li>
+                    <li><strong>Herramientas avanzadas:</strong> Reportes, estadisticas</li>
+                    <li><strong>Mayor visibilidad:</strong> Prioridad en busquedas</li>
+                    <li><strong>Distintivo Premium:</strong> Badge en la app</li>
+                </ul>
+                <div class="info-box" style="margin-top: 15px; font-size: 11px;">
+                    <strong>Punto de equilibrio:</strong><br>
+                    Ahorro 2% x $10,000 ventas = $200<br>
+                    Si vende +$10,000/mes, le conviene ser Premium
+                </div>
+            </div>
+            <div class="card">
+                <h3>👤 QuickBite Club para Clientes</h3>
+                <p style="font-size: 24px; color: #2563EB; font-weight: 700; margin: 10px 0;">$49/mes</p>
+                <ul>
+                    <li><strong>Envio GRATIS</strong> en todos los pedidos</li>
+                    <li><strong>Sin cargo de servicio</strong> ($5 de ahorro)</li>
+                    <li><strong>Descuentos en aliados:</strong>
+                        <ul style="font-size: 11px; margin-top: 5px;">
+                            <li>Gimnasio: 20%</li>
+                            <li>Doctor: 15%</li>
+                            <li>Estetica: 10%</li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="info-box" style="margin-top: 15px; font-size: 11px;">
+                    <strong>Punto de equilibrio:</strong><br>
+                    4 pedidos/mes x $25 envio = $100 ahorro<br>
+                    El cliente recupera su inversion rapidamente
+                </div>
+            </div>
+        </div>
+
+        <h1>Proyecciones Financieras</h1>
+
+        <h2>Escenario: 100 pedidos diarios (meta ano 1)</h2>
+
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div class="stat-number">$60,000</div>
+                <div class="stat-label">Ingresos mensuales estimados</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">3,000</div>
+                <div class="stat-label">Pedidos al mes</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">$20</div>
+                <div class="stat-label">Ingreso promedio por pedido</div>
+            </div>
+        </div>
+
+        <table>
+            <tr>
+                <th>Concepto</th>
+                <th>Calculo</th>
+                <th>Mensual</th>
+            </tr>
+            <tr>
+                <td>Comisiones (10% de $200 promedio)</td>
+                <td>3,000 x $20</td>
+                <td>$60,000</td>
+            </tr>
+            <tr>
+                <td>Cargo de servicio</td>
+                <td>3,000 x $5</td>
+                <td>$15,000</td>
+            </tr>
+            <tr>
+                <td>Membresias negocios (10 premium)</td>
+                <td>10 x $199</td>
+                <td>$1,990</td>
+            </tr>
+            <tr>
+                <td>Membresias clientes (50 miembros)</td>
+                <td>50 x $49</td>
+                <td>$2,450</td>
+            </tr>
+            <tr style="background: #EFF6FF; font-weight: bold;">
+                <td>INGRESO BRUTO TOTAL</td>
+                <td></td>
+                <td>$79,440</td>
+            </tr>
+        </table>
+
+        <div class="page-break"></div>
+
+        <h1>Oportunidades para Estudiantes</h1>
+
+        <p>QuickBite es un proyecto multidisciplinario donde estudiantes de diferentes carreras pueden
+        aportar desde su area de conocimiento:</p>
+
+        <div class="role-card">
+            <h3>📊 Economia / Finanzas</h3>
+            <p>Analisis de viabilidad financiera, proyecciones de flujo de efectivo, analisis de punto de
+            equilibrio, estrategias de pricing, estudios de mercado, analisis de competencia, modelado
+            financiero para inversionistas.</p>
+        </div>
+
+        <div class="role-card">
+            <h3>📈 Marketing / Mercadotecnia</h3>
+            <p>Estrategia de lanzamiento, campanas en redes sociales, branding, investigacion de mercado,
+            segmentacion de clientes, estrategias de retencion, marketing de contenidos, alianzas
+            estrategicas con negocios locales.</p>
+        </div>
+
+        <div class="role-card">
+            <h3>🧮 Contabilidad / Administracion</h3>
+            <p>Estructura de costos, registro contable de operaciones, cumplimiento fiscal, diseno de
+            reportes financieros, control de flujo de efectivo, presupuestos operativos, analisis de
+            rentabilidad por segmento.</p>
+        </div>
+
+        <div class="role-card">
+            <h3>⚖️ Derecho</h3>
+            <p>Terminos y condiciones de uso, contratos con negocios y repartidores, cumplimiento de
+            regulaciones de comercio electronico, proteccion de datos personales (privacidad), aspectos
+            laborales de la economia gig.</p>
+        </div>
+
+        <div class="role-card">
+            <h3>🎨 Diseno / Comunicacion</h3>
+            <p>Diseno de interfaz de usuario, experiencia de usuario, material publicitario, contenido
+            para redes sociales, fotografia de productos, videos promocionales, identidad visual.</p>
+        </div>
+
+        <h1>Plan de Crecimiento</h1>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <h4>Fase 1: Teocaltiche (Actual)</h4>
+                <p>Lanzamiento con 5-10 restaurantes locales. Validar el modelo de negocio, ajustar
+                precios y comisiones basado en retroalimentacion real.</p>
+            </div>
+            <div class="timeline-item">
+                <h4>Fase 2: Expansion Regional</h4>
+                <p>Crecer a municipios cercanos: Jalostotitlan, Arandas, Lagos de Moreno.
+                Crear red de repartidores regional.</p>
+            </div>
+            <div class="timeline-item">
+                <h4>Fase 3: Altos de Jalisco</h4>
+                <p>Consolidar presencia en toda la region. Optimizar logistica,
+                implementar economias de escala.</p>
+            </div>
+            <div class="timeline-item">
+                <h4>Fase 4: Modelo Replicable</h4>
+                <p>Crear modelo de franquicia o licenciamiento para otros municipios
+                pequenos de Mexico que quieran implementar su propio delivery local.</p>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <h1>Por que unirse al proyecto?</h1>
+
+        <div class="grid-2">
+            <div class="card">
+                <h3>🚀 Proyecto Real</h3>
+                <p>No es un caso de estudio teorico. Es una empresa real con usuarios reales,
+                transacciones reales y problemas reales que resolver.</p>
+            </div>
+            <div class="card">
+                <h3>💚 Impacto Social</h3>
+                <p>Ayudar a negocios familiares a competir en la era digital sin perder
+                30% de sus ganancias a corporaciones extranjeras.</p>
+            </div>
+            <div class="card">
+                <h3>📚 Aprendizaje Practico</h3>
+                <p>Aplicar conocimientos de clase en un entorno empresarial real.
+                Experiencia valiosa para tu curriculum.</p>
+            </div>
+            <div class="card">
+                <h3>🤝 Trabajo en Equipo</h3>
+                <p>Colaborar con estudiantes de otras carreras. Aprender a trabajar
+                en equipos multidisciplinarios como en el mundo laboral real.</p>
+            </div>
+        </div>
+
+        <h1>Estado Actual del Proyecto</h1>
+
+        <h2>Ya tenemos:</h2>
+        <ul class="check-list">
+            <li>Plataforma web funcional para clientes, negocios y repartidores</li>
+            <li>Sistema de pedidos completo (crear, rastrear, entregar)</li>
+            <li>Integracion con pagos en linea (MercadoPago)</li>
+            <li>Panel de administracion para negocios</li>
+            <li>Sistema de billetera digital</li>
+            <li>Seguimiento de pedidos en tiempo real</li>
+            <li>Modelo de comisiones configurado</li>
+        </ul>
+
+        <h2>Proximos pasos (oportunidades):</h2>
+        <ul>
+            <li>Estrategia de lanzamiento y marketing para Teocaltiche</li>
+            <li>Alianzas con negocios locales (restaurantes, gimnasios, etc.)</li>
+            <li>Analisis financiero detallado y proyecciones</li>
+            <li>Diseno de campanas publicitarias</li>
+            <li>Estructura legal y contratos</li>
+            <li>Plan de reclutamiento de repartidores</li>
+        </ul>
+
+        <div class="highlight-box" style="margin-top: 40px;">
+            <h2 style="text-align: center;">Te interesa participar?</h2>
+            <p style="text-align: center;">QuickBite busca estudiantes comprometidos que quieran aplicar
+            sus conocimientos en un proyecto real con impacto social. No importa tu carrera,
+            hay espacio para todos los que quieran aportar.</p>
+        </div>
+
+        <div class="footer">
+            <p><strong>QuickBite</strong> - Delivery Justo para Mexico</p>
+            <p>Documento generado: Enero 2025</p>
+            <p style="margin-top: 15px;">
+                <em>"Volumen sobre margen. Crecimiento organico por reputacion."</em>
+            </p>
+        </div>
+    </div>
+
+    <button class="print-btn no-print" onclick="window.print()">
+        Guardar como PDF
+    </button>
+</body>
+</html>

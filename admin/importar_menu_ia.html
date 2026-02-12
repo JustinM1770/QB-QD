@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/responsive.css">
+    <meta charset="UTF-8">
+    <title>Importar Menú con IA - OpenAI GPT-4o</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0165FF;
+            --success: #4CAF50;
+            --warning: #FFC107;
+            --danger: #FF4D4D;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary), #0153CC);
+            color: white;
+            border-radius: 15px 15px 0 0 !important;
+        }
+        
+        .upload-area {
+            border: 3px dashed #ddd;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--primary);
+            background: #e3f2fd;
+        }
+        
+        .upload-area.dragover {
+            border-color: var(--success);
+            background: #e8f5e9;
+        }
+        
+        .preview-image {
+            max-width: 100%;
+            max-height: 400px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .loading {
+            display: none;
+        }
+        
+        .loading.active {
+            display: block;
+        }
+        
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .result-section {
+            display: none;
+        }
+        
+        .result-section.active {
+            display: block;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .stat-card h3 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin: 10px 0;
+        }
+        
+        .categoria-item {
+            background: white;
+            border-left: 4px solid var(--primary);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .producto-item {
+            background: #f8f9fa;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border-left: 3px solid var(--success);
+        }
+        
+        .opcion-grupo {
+            background: #fff3cd;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .badge-custom {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="mb-4">
+            <a href="javascript:history.back()" class="btn btn-outline-secondary mb-3">
+                <i class="fas fa-arrow-left"></i> Regresar
+            </a>
+            <div class="text-center">
+                <h1><i class="fas fa-robot"></i> Importador de Menús con IA</h1>
+                <p class="text-muted">Powered by Ollama LLaVA - 100% Local & Gratis</p>
+                <div id="statusBadge" class="mt-2"></div>
+            </div>
+        </div>
+        
+        <!-- Upload Card -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-upload"></i> Subir Imagen del Menú</h5>
+            </div>
+            <div class="card-body">
+                <div class="upload-area" id="uploadArea">
+                    <i class="fas fa-cloud-upload-alt fa-4x text-muted mb-3"></i>
+                    <h4>Arrastra una imagen aquí o haz click para seleccionar</h4>
+                    <p class="text-muted">Formatos: JPG, PNG, WebP (Máx. 10MB)</p>
+                    <input type="file" id="fileInput" accept="image/jpeg,image/jpg,image/png,image/webp" style="display: none;">
+                </div>
+                
+                <div class="mt-4" id="previewSection" style="display: none;">
+                    <h6>Vista previa:</h6>
+                    <img id="imagePreview" class="preview-image" alt="Preview">
+                    <div class="mt-3">
+                        <button class="btn btn-primary btn-lg" id="parseBtn">
+                            <i class="fas fa-magic"></i> Analizar con IA
+                        </button>
+                        <button class="btn btn-secondary btn-lg" id="changeImageBtn">
+                            <i class="fas fa-sync"></i> Cambiar Imagen
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="loading" id="loadingSection">
+                    <div class="spinner"></div>
+                    <h4>Analizando menú con Ollama LLaVA...</h4>
+                    <p class="text-muted">Esto puede tomar 1-3 minutos (es local, sin límites). Por favor espera.</p>
+                    <div class="progress mt-3">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                             role="progressbar" style="width: 100%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Results Card -->
+        <div class="card result-section" id="resultsSection">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-chart-bar"></i> Resultados del Análisis</h5>
+            </div>
+            <div class="card-body">
+                <!-- Estadísticas -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <i class="fas fa-folder fa-2x text-primary"></i>
+                            <h3 id="statCategorias">0</h3>
+                            <p class="text-muted">Categorías</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <i class="fas fa-utensils fa-2x text-success"></i>
+                            <h3 id="statProductos">0</h3>
+                            <p class="text-muted">Productos</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <i class="fas fa-sliders-h fa-2x text-warning"></i>
+                            <h3 id="statOpciones">0</h3>
+                            <p class="text-muted">Grupos Opciones</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <i class="fas fa-dollar-sign fa-2x text-info"></i>
+                            <h3 id="statPrecio">$0</h3>
+                            <p class="text-muted">Precio Promedio</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Menú Parseado -->
+                <div id="menuContent"></div>
+                
+                <!-- Botones de acción -->
+                <div class="text-center mt-4">
+                    <button class="btn btn-success btn-lg" id="importBtn">
+                        <i class="fas fa-database"></i> Importar a Base de Datos
+                    </button>
+                    <button class="btn btn-outline-primary" id="downloadJsonBtn">
+                        <i class="fas fa-download"></i> Descargar JSON
+                    </button>
+                    <button class="btn btn-outline-secondary" id="newAnalysisBtn">
+                        <i class="fas fa-redo"></i> Nuevo Análisis
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        let currentMenuData = null;
+        let selectedFile = null;
+        
+        // Verificar estado de Ollama al cargar
+        async function checkOllamaStatus() {
+            try {
+                const response = await fetch('ollama_menu_api.php?action=check_status');
+                const result = await response.json();
+                const statusBadge = document.getElementById('statusBadge');
+                
+                if (result.success && result.data.ollama_running) {
+                    statusBadge.innerHTML = `
+                        <span class="badge bg-success">
+                            <i class="fas fa-check-circle"></i> Ollama corriendo - Modelo: ${result.data.current_model}
+                        </span>
+                    `;
+                    
+                    if (!result.data.model_available) {
+                        statusBadge.innerHTML += `
+                            <span class="badge bg-warning ms-2">
+                                <i class="fas fa-exclamation-triangle"></i> Ejecuta: ollama pull llava
+                            </span>
+                        `;
+                    }
+                } else {
+                    statusBadge.innerHTML = `
+                        <span class="badge bg-danger">
+                            <i class="fas fa-times-circle"></i> Ollama no está corriendo
+                        </span>
+                        <div class="mt-2">
+                            <small class="text-muted">
+                                Instala Ollama: <code>curl -fsSL https://ollama.com/install.sh | sh</code><br>
+                                Luego ejecuta: <code>ollama serve</code> y <code>ollama pull llava</code>
+                            </small>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error verificando Ollama:', error);
+                document.getElementById('statusBadge').innerHTML = `
+                    <span class="badge bg-danger">
+                        <i class="fas fa-times-circle"></i> No se pudo conectar con Ollama
+                    </span>
+                `;
+            }
+        }
+        
+        // Verificar al cargar la página
+        checkOllamaStatus();
+        
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const previewSection = document.getElementById('previewSection');
+        const imagePreview = document.getElementById('imagePreview');
+        const loadingSection = document.getElementById('loadingSection');
+        const resultsSection = document.getElementById('resultsSection');
+        const parseBtn = document.getElementById('parseBtn');
+        const changeImageBtn = document.getElementById('changeImageBtn');
+        const importBtn = document.getElementById('importBtn');
+        const downloadJsonBtn = document.getElementById('downloadJsonBtn');
+        const newAnalysisBtn = document.getElementById('newAnalysisBtn');
+        
+        // Drag & Drop
+        uploadArea.addEventListener('click', () => fileInput.click());
+        
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+        
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        });
+        
+        function handleFile(file) {
+            // Validar tipo
+            if (!['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(file.type)) {
+                Swal.fire('Error', 'Solo se permiten imágenes JPG, PNG o WebP', 'error');
+                return;
+            }
+            
+            // Validar tamaño
+            if (file.size > 10 * 1024 * 1024) {
+                Swal.fire('Error', 'La imagen es muy grande. Máximo 10MB', 'error');
+                return;
+            }
+            
+            selectedFile = file;
+            
+            // Mostrar preview
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                imagePreview.src = e.target.result;
+                previewSection.style.display = 'block';
+                uploadArea.style.display = 'none';
+                resultsSection.classList.remove('active');
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        changeImageBtn.addEventListener('click', () => {
+            previewSection.style.display = 'none';
+            uploadArea.style.display = 'block';
+            selectedFile = null;
+            fileInput.value = '';
+        });
+        
+        parseBtn.addEventListener('click', async () => {
+            if (!selectedFile) return;
+            
+            loadingSection.classList.add('active');
+            
+            const formData = new FormData();
+            formData.append('action', 'parse_image');
+            formData.append('menu_image', selectedFile);
+            
+            try {
+                const response = await fetch('ollama_menu_api.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    currentMenuData = result.data;
+                    displayResults(result);
+                } else {
+                    throw new Error(result.error);
+                }
+            } catch (error) {
+                Swal.fire('Error', error.message, 'error');
+            } finally {
+                loadingSection.classList.remove('active');
+            }
+        });
+        
+        function displayResults(result) {
+            const stats = result.estadisticas;
+            
+            // Actualizar estadísticas
+            document.getElementById('statCategorias').textContent = stats.total_categorias;
+            document.getElementById('statProductos').textContent = stats.total_productos;
+            document.getElementById('statOpciones').textContent = stats.total_grupos_opciones;
+            document.getElementById('statPrecio').textContent = stats.precio_promedio 
+                ? `$${stats.precio_promedio}` 
+                : 'N/A';
+            
+            // Renderizar menú
+            const menuContent = document.getElementById('menuContent');
+            let html = '';
+            
+            result.data.categorias.forEach((cat, catIndex) => {
+                const productos = result.data.productos.filter(p => p.categoria === cat.nombre);
+                
+                html += `
+                    <div class="categoria-item">
+                        <h5><i class="fas fa-tag"></i> ${cat.nombre}</h5>
+                        ${cat.descripcion ? `<p class="text-muted">${cat.descripcion}</p>` : ''}
+                        <div class="ms-3">
+                `;
+                
+                productos.forEach(prod => {
+                    html += `
+                        <div class="producto-item">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div class="flex-grow-1">
+                                    <strong>${prod.nombre}</strong>
+                                    ${prod.descripcion ? `<p class="mb-1 small">${prod.descripcion}</p>` : ''}
+                                    ${prod.calorias ? `<span class="badge bg-info">${prod.calorias} cal</span>` : ''}
+                                </div>
+                                <div class="text-end ms-3">
+                                    <h6 class="text-success mb-0">$${prod.precio.toFixed(2)}</h6>
+                                </div>
+                            </div>
+                    `;
+                    
+                    // Mostrar opciones dinámicas si existen
+                    const gruposProducto = result.data.grupos_opciones.filter(g => g.producto === prod.nombre);
+                    if (gruposProducto.length > 0) {
+                        html += `<div class="mt-2">`;
+                        gruposProducto.forEach(grupo => {
+                            html += `
+                                <div class="opcion-grupo">
+                                    <small><strong>${grupo.nombre}</strong> 
+                                    <span class="badge badge-custom bg-${grupo.obligatorio ? 'danger' : 'secondary'}">${grupo.obligatorio ? 'Obligatorio' : 'Opcional'}</span>
+                                    <span class="badge badge-custom bg-primary">${grupo.tipo_seleccion}</span>
+                                    </small><br>
+                                    <small class="text-muted">
+                                        ${grupo.opciones.map(o => `${o.nombre}${o.precio_adicional > 0 ? ' (+$' + o.precio_adicional.toFixed(2) + ')' : ''}`).join(', ')}
+                                    </small>
+                                </div>
+                            `;
+                        });
+                        html += `</div>`;
+                    }
+                    
+                    html += `</div>`;
+                });
+                
+                html += `</div></div>`;
+            });
+            
+            menuContent.innerHTML = html;
+            resultsSection.classList.add('active');
+            
+            // Mostrar info de procesamiento local
+            const localInfo = `
+                <div class="alert alert-success mt-3">
+                    <i class="fas fa-check-circle"></i> 
+                    <strong>Procesado localmente con Ollama LLaVA</strong> - Sin costos, sin límites
+                </div>
+            `;
+            menuContent.innerHTML += localInfo;
+        }
+        
+        importBtn.addEventListener('click', async () => {
+            if (!currentMenuData) return;
+            
+            const confirmResult = await Swal.fire({
+                title: '¿Importar menú?',
+                text: `Se crearán ${currentMenuData.estadisticas.total_productos} productos en la base de datos`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, importar',
+                cancelButtonText: 'Cancelar'
+            });
+            
+            if (!confirmResult.isConfirmed) return;
+            
+            Swal.fire({
+                title: 'Importando...',
+                text: 'Por favor espera',
+                allowOutsideClick: false,
+                didOpen: () => Swal.showLoading()
+            });
+            
+            try {
+                const formData = new FormData();
+                formData.append('action', 'import_to_db');
+                formData.append('menu_data', JSON.stringify(currentMenuData));
+                
+                const response = await fetch('ollama_menu_api.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    Swal.fire({
+                        title: '¡Importado!',
+                        html: `
+                            <p>Menú importado exitosamente:</p>
+                            <ul class="text-start">
+                                <li>${result.result.categorias_creadas} categorías</li>
+                                <li>${result.result.productos_creados} productos</li>
+                                <li>${result.result.grupos_creados} grupos de opciones</li>
+                                <li>${result.result.opciones_creadas} opciones</li>
+                            </ul>
+                        `,
+                        icon: 'success',
+                        confirmButtonText: 'Ir al menú'
+                    }).then(() => {
+                        window.location.href = 'menu.php';
+                    });
+                } else {
+                    throw new Error(result.error);
+                }
+            } catch (error) {
+                Swal.fire('Error', error.message, 'error');
+            }
+        });
+        
+        downloadJsonBtn.addEventListener('click', () => {
+            if (!currentMenuData) return;
+            
+            const dataStr = JSON.stringify(currentMenuData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `menu_${new Date().getTime()}.json`;
+            link.click();
+        });
+        
+        newAnalysisBtn.addEventListener('click', () => {
+            location.reload();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickBite Chat</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0165FF 0%, #5B9BFF 100%);
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Minimalista: glassmorphism simplificado */
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Animación suave para mensajes */
+        .message-bubble {
+            animation: slideIn 0.25s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Bot bubble: minimalista */
+        .bot-bubble {
+            background: #F3F4F6;
+            color: #374151;
+            padding: 10px 14px;
+            border-radius: 16px 16px 4px 16px;
+            max-width: 85%;
+            word-wrap: break-word;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        /* User bubble: minimalista */
+        .user-bubble {
+            background: #0165FF;
+            color: white;
+            padding: 10px 14px;
+            border-radius: 16px 16px 16px 4px;
+            max-width: 85%;
+            word-wrap: break-word;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        /* Input pill iOS 18: diseño limpio */
+        .input-pill {
+            background: #F3F4F6;
+            border: none;
+            border-radius: 24px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            transition: box-shadow 0.2s ease;
+        }
+        
+        .input-pill:focus-within {
+            box-shadow: 0 4px 16px rgba(1, 101, 255, 0.2);
+        }
+        
+        /* Botones circulares minimalistas */
+        .icon-button {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0165FF;
+            font-size: 14px;
+            transition: all 0.15s ease;
+            flex-shrink: 0;
+        }
+        
+        .icon-button:active {
+            transform: scale(0.92);
+        }
+        
+        .icon-button.send {
+            background: #0165FF;
+            color: white;
+        }
+        
+        .input-field {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 15px;
+            color: #1F2937;
+            min-width: 120px;
+        }
+        
+        .input-field::placeholder {
+            color: #9CA3AF;
+        }
+        
+        .icon-text {
+            color: #9CA3AF;
+            font-size: 16px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        
+        .chat-container {
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+        
+        .chat-container::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .chat-container::-webkit-scrollbar-thumb {
+            background: rgba(1, 101, 255, 0.2);
+            border-radius: 2px;
+        }
+        
+        /* Responsivo: adaptado para móvil primero */
+        @media (max-width: 480px) {
+            .chat-card {
+                border-radius: 20px;
+            }
+            
+            .bot-bubble, .user-bubble {
+                max-width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Contenedor principal: mobile-first -->
+    <div class="w-full h-screen flex items-center justify-center p-3 md:p-4">
+        <div class="chat-card w-full max-w-lg h-screen max-h-96 md:max-h-[550px] md:h-auto glassmorphism rounded-2xl md:rounded-3xl flex flex-col overflow-hidden shadow-2xl">
+            
+            <!-- Header minimalista -->
+            <div class="px-4 py-3 border-b border-white/10 flex items-center justify-between flex-shrink-0">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-gradient-to-br from-orange-400 to-red-500 rounded-full flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-fire text-white text-xs"></i>
+                    </div>
+                    <h1 class="text-base font-semibold text-gray-900">QuickBite</h1>
+                </div>
+            </div>
+            
+            <!-- Chat area: lista simple de mensajes -->
+            <div class="chat-container flex-1 overflow-y-auto p-4 space-y-3 flex flex-col justify-end">
+                <!-- Bot Message -->
+                <div class="flex justify-start">
+                    <div class="bot-bubble">Hola! ¿Qué deseas ordenar hoy?</div>
+                </div>
+                
+                <!-- User Message -->
+                <div class="flex justify-end">
+                    <div class="user-bubble">Algo con pollo</div>
+                </div>
+                
+                <!-- Bot Message -->
+                <div class="flex justify-start">
+                    <div class="bot-bubble">Tenemos pollo al limón, tandoori y BBQ. ¿Cuál prefieres?</div>
+                </div>
+                
+                <!-- User Message -->
+                <div class="flex justify-end">
+                    <div class="user-bubble">El tandoori</div>
+                </div>
+                
+                <!-- Bot Message -->
+                <div class="flex justify-start">
+                    <div class="bot-bubble">Perfecto! Pollo tandoori agregado. ¿Algo más?</div>
+                </div>
+            </div>
+            
+            <!-- Input area: iOS 18 style minimalista -->
+            <div class="px-4 py-3 bg-white/30 flex-shrink-0">
+                <div class="input-pill">
+                    <!-- Plus Button -->
+                    <button class="icon-button" title="Opciones">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    
+                    <!-- Input Field -->
+                    <input 
+                        type="text" 
+                        class="input-field" 
+                        placeholder="Escribe aquí..."
+                        id="chatInput"
+                    >
+                    
+                    <!-- Microphone Icon -->
+                    <i class="icon-text fas fa-microphone" title="Voz"></i>
+                    
+                    <!-- Send Button -->
+                    <button class="icon-button send" title="Enviar" id="sendBtn">
+                        <i class="fas fa-arrow-up text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const chatContainer = document.querySelector('.chat-container');
+        
+        function addMessage(text, isUser) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `flex ${isUser ? 'justify-end' : 'justify-start'} message-bubble`;
+            
+            const bubble = document.createElement('div');
+            bubble.className = isUser ? 'user-bubble' : 'bot-bubble';
+            bubble.textContent = text;
+            
+            messageDiv.appendChild(bubble);
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+        
+        function sendMessage() {
+            const text = chatInput.value.trim();
+            if (text) {
+                addMessage(text, true);
+                chatInput.value = '';
+                
+                setTimeout(() => {
+                    addMessage("¿Algo más para tu orden?", false);
+                }, 400);
+            }
+        }
+        
+        sendBtn.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+    </script>
+</body>
+</html>

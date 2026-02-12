@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo - Sistema de Transiciones QuickBite</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* Variables para el sistema de transiciones */
+        :root {
+            --primary: #0165FF;
+            --primary-dark: #0052cc;
+            --white: #ffffff;
+            --gray-900: #0f172a;
+            --gray-800: #1e293b;
+            --gray-200: #e2e8f0;
+            --transition-duration: 0.5s;
+            --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #f8fafc;
+            color: var(--gray-900);
+            overflow-x: hidden;
+        }
+
+        /* === SISTEMA DE TRANSICIONES DE PÁGINA === */
+        
+        /* Overlay principal de transición */
+        .page-transition-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity var(--transition-duration) var(--transition-timing);
+        }
+
+        .page-transition-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        /* Contenedor del logo y loader */
+        .transition-content {
+            text-align: center;
+            color: var(--white);
+            animation: transition-pulse 2s ease-in-out infinite;
+        }
+
+        /* Logo QuickBite */
+        .transition-logo {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .transition-logo .quick {
+            color: var(--white);
+        }
+
+        .transition-logo .bite {
+            color: #FFD700;
+            position: relative;
+        }
+
+        .transition-logo .bite::after {
+            content: '🍽️';
+            position: absolute;
+            right: -40px;
+            top: -5px;
+            font-size: 0.7em;
+            animation: logo-icon-bounce 1.5s ease-in-out infinite;
+        }
+
+        /* Spinner de carga */
+        .transition-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid var(--white);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Texto de carga */
+        .transition-text {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        /* Animaciones */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes transition-pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+        }
+
+        @keyframes logo-icon-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* Efecto de fade para el contenido de la página */
+        .page-content {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all var(--transition-duration) var(--transition-timing);
+        }
+
+        .page-content.fade-out {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .page-content.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* === ESTILOS PARA LA DEMO === */
+        .demo-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .demo-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .demo-header h1 {
+            font-size: 2.5rem;
+            color: var(--gray-900);
+            margin-bottom: 1rem;
+        }
+
+        .demo-header p {
+            font-size: 1.1rem;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .demo-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .demo-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: var(--primary);
+            color: var(--white);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .demo-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(1, 101, 255, 0.3);
+            color: var(--white);
+        }
+
+        .demo-btn.secondary {
+            background: var(--white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .demo-btn.secondary:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .code-section {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--gray-200);
+        }
+
+        .code-section h3 {
+            margin-bottom: 1rem;
+            color: var(--gray-900);
+        }
+
+        .code-section pre {
+            background: #f1f5f9;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--gray-200);
+            text-align: center;
+        }
+
+        .feature-card i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h4 {
+            margin-bottom: 0.5rem;
+            color: var(--gray-900);
+        }
+
+        .feature-card p {
+            color: #64748b;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .demo-container {
+                padding: 1rem;
+            }
+
+            .demo-header h1 {
+                font-size: 2rem;
+            }
+
+            .transition-logo {
+                font-size: 2.5rem;
+            }
+
+            .demo-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Overlay de transición -->
+    <div class="page-transition-overlay" id="pageTransitionOverlay">
+        <div class="transition-content">
+            <div class="transition-logo">
+                <span class="quick">Quick</span><span class="bite">Bite</span>
+            </div>
+            <div class="transition-spinner"></div>
+            <div class="transition-text">Cargando...</div>
+        </div>
+    </div>
+
+    <!-- Contenido de la página -->
+    <div class="page-content" id="pageContent">
+        <div class="demo-container">
+            <div class="demo-header">
+                <h1>Sistema de Transiciones QuickBite</h1>
+                <p>Sistema completo de transiciones fluidas entre páginas con diseño moderno y fácil implementación</p>
+            </div>
+
+            <div class="demo-buttons">
+                <button class="demo-btn" onclick="simulateTransition()">
+                    <i class="fas fa-play"></i>
+                    Probar Transición
+                </button>
+                <a href="#" class="demo-btn transition-link" data-page="negocio.php">
+                    <i class="fas fa-store"></i>
+                    Ir a Negocio
+                </a>
+                <a href="#" class="demo-btn transition-link" data-page="carrito.php">
+                    <i class="fas fa-shopping-cart"></i>
+                    Ver Carrito
+                </a>
+                <a href="#" class="demo-btn secondary transition-link" data-page="perfil.php">
+                    <i class="fas fa-user"></i>
+                    Mi Perfil
+                </a>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-bolt"></i>
+                    <h4>Súper Rápido</h4>
+                    <p>Transiciones optimizadas de 0.5s que se sienten instantáneas</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h4>Responsive</h4>
+                    <p>Funciona perfectamente en todos los dispositivos</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-code"></i>
+                    <h4>Fácil Implementación</h4>
+                    <p>Solo agrega una clase CSS y una línea de JavaScript</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-palette"></i>
+                    <h4>Personalizable</h4>
+                    <p>Colores y animaciones que siguen tu brand</p>
+                </div>
+            </div>
+
+            <div class="code-section">
+                <h3>📋 Cómo Implementar en tu Proyecto</h3>
+                
+                <h4>1. CSS - Agregar al final de tu archivo de estilos:</h4>
+                <pre><code>&lt;!-- Copiar todo el CSS del sistema de transiciones (líneas 23-123) --&gt;</code></pre>
+
+                <h4>2. HTML - Agregar antes del &lt;/body&gt;:</h4>
+                <pre><code>&lt;div class="page-transition-overlay" id="pageTransitionOverlay"&gt;
+    &lt;div class="transition-content"&gt;
+        &lt;div class="transition-logo"&gt;
+            &lt;span class="quick"&gt;Quick&lt;/span&gt;&lt;span class="bite"&gt;Bite&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class="transition-spinner"&gt;&lt;/div&gt;
+        &lt;div class="transition-text"&gt;Cargando...&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                <h4>3. JavaScript - Agregar al final del &lt;body&gt;:</h4>
+                <pre><code>&lt;script&gt;
+// Función para mostrar transición
+function showPageTransition() {
+    const overlay = document.getElementById('pageTransitionOverlay');
+    const content = document.getElementById('pageContent');
+    
+    if (content) content.classList.add('fade-out');
+    overlay.classList.add('active');
+}
+
+// Función para ocultar transición
+function hidePageTransition() {
+    const overlay = document.getElementById('pageTransitionOverlay');
+    const content = document.getElementById('pageContent');
+    
+    setTimeout(() =&gt; {
+        overlay.classList.remove('active');
+        if (content) {
+            content.classList.remove('fade-out');
+            content.classList.add('fade-in');
+        }
+    }, 500);
+}
+
+// Auto-inicializar en enlaces con clase 'transition-link'
+document.addEventListener('DOMContentLoaded', function() {
+    const transitionLinks = document.querySelectorAll('.transition-link');
+    
+    transitionLinks.forEach(link =&gt; {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            showPageTransition();
+            
+            // Navegar después de la animación
+            setTimeout(() =&gt; {
+                window.location.href = this.href || this.dataset.page;
+            }, 300);
+        });
+    });
+    
+    // Ocultar transición al cargar la página
+    hidePageTransition();
+});
+&lt;/script&gt;</code></pre>
+
+                <h4>4. Usar en tus enlaces:</h4>
+                <pre><code>&lt;!-- Método 1: Clase automática --&gt;
+&lt;a href="negocio.php" class="transition-link"&gt;Ir al Negocio&lt;/a&gt;
+
+&lt;!-- Método 2: Llamada manual --&gt;
+&lt;button onclick="showPageTransition(); setTimeout(() =&gt; window.location.href='carrito.php', 300)"&gt;
+    Ver Carrito
+&lt;/button&gt;</code></pre>
+            </div>
+
+            <div class="code-section">
+                <h3>🎨 Personalización</h3>
+                <p>Puedes personalizar fácilmente los colores y textos:</p>
+                <pre><code>/* Cambiar colores */
+:root {
+    --primary: #tu-color-primario;
+    --primary-dark: #tu-color-primario-oscuro;
+}
+
+/* Cambiar duración */
+--transition-duration: 0.8s; /* Más lento */
+--transition-duration: 0.3s; /* Más rápido */
+
+/* Cambiar texto */
+&lt;div class="transition-text"&gt;Tu mensaje personalizado...&lt;/div&gt;</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función para simular transición (demo)
+        function simulateTransition() {
+            showPageTransition();
+            setTimeout(() => {
+                hidePageTransition();
+            }, 2000);
+        }
+
+        // Función para mostrar transición
+        function showPageTransition() {
+            const overlay = document.getElementById('pageTransitionOverlay');
+            const content = document.getElementById('pageContent');
+            
+            if (content) content.classList.add('fade-out');
+            overlay.classList.add('active');
+        }
+
+        // Función para ocultar transición
+        function hidePageTransition() {
+            const overlay = document.getElementById('pageTransitionOverlay');
+            const content = document.getElementById('pageContent');
+            
+            setTimeout(() => {
+                overlay.classList.remove('active');
+                if (content) {
+                    content.classList.remove('fade-out');
+                    content.classList.add('fade-in');
+                }
+            }, 500);
+        }
+
+        // Auto-inicializar en enlaces con clase 'transition-link'
+        document.addEventListener('DOMContentLoaded', function() {
+            const transitionLinks = document.querySelectorAll('.transition-link');
+            
+            transitionLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showPageTransition();
+                    
+                    // Navegar después de la animación
+                    setTimeout(() => {
+                        // En una implementación real, esto navegaría a la página
+                        // window.location.href = this.href || this.dataset.page;
+                        
+                        // Para la demo, solo ocultamos la transición
+                        hidePageTransition();
+                    }, 1500);
+                });
+            });
+            
+            // Ocultar transición al cargar la página
+            hidePageTransition();
+        });
+    </script>
+</body>
+</html>

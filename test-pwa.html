@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test QuickBite PWA</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+        button { padding: 10px 15px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Test QuickBite PWA</h1>
+    <div id="results"></div>
+    
+    <button onclick="testHomePage()">Test Página Principal</button>
+    <button onclick="testNegocioPage()">Test Página Negocio</button>
+    <button onclick="testServiceWorker()">Test Service Worker</button>
+    <button onclick="clearServiceWorker()">Limpiar Service Worker</button>
+
+    <script>
+        const results = document.getElementById('results');
+        
+        function log(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = type;
+            div.textContent = new Date().toLocaleTimeString() + ': ' + message;
+            results.appendChild(div);
+        }
+        
+        async function testHomePage() {
+            try {
+                log('Probando página principal...');
+                const response = await fetch('/');
+                if (response.ok) {
+                    log('✅ Página principal funciona correctamente', 'success');
+                } else {
+                    log('❌ Error en página principal: ' + response.status, 'error');
+                }
+            } catch (error) {
+                log('❌ Error: ' + error.message, 'error');
+            }
+        }
+        
+        async function testNegocioPage() {
+            try {
+                log('Probando página de negocio...');
+                const response = await fetch('/negocio.php?id=6');
+                if (response.ok) {
+                    log('✅ Página de negocio funciona correctamente', 'success');
+                } else {
+                    log('❌ Error en página de negocio: ' + response.status, 'error');
+                }
+            } catch (error) {
+                log('❌ Error: ' + error.message, 'error');
+            }
+        }
+        
+        async function testServiceWorker() {
+            try {
+                log('Probando Service Worker...');
+                
+                if (!('serviceWorker' in navigator)) {
+                    log('❌ Service Worker no soportado', 'error');
+                    return;
+                }
+                
+                const registrations = await navigator.serviceWorker.getRegistrations();
+                log('Service Workers registrados: ' + registrations.length);
+                
+                registrations.forEach((reg, index) => {
+                    log(`SW ${index + 1}: ${reg.scope} - Estado: ${reg.active ? 'Activo' : 'Inactivo'}`);
+                });
+                
+                if (registrations.length === 0) {
+                    log('Registrando Service Worker simple...');
+                    const registration = await navigator.serviceWorker.register('/sw-simple.js');
+                    log('✅ Service Worker registrado correctamente', 'success');
+                } else {
+                    log('✅ Service Worker ya está registrado', 'success');
+                }
+                
+            } catch (error) {
+                log('❌ Error con Service Worker: ' + error.message, 'error');
+            }
+        }
+        
+        async function clearServiceWorker() {
+            try {
+                log('Limpiando Service Workers...');
+                const registrations = await navigator.serviceWorker.getRegistrations();
+                
+                for (let registration of registrations) {
+                    await registration.unregister();
+                    log('Service Worker desregistrado: ' + registration.scope);
+                }
+                
+                // Limpiar caches
+                const cacheNames = await caches.keys();
+                for (let cacheName of cacheNames) {
+                    await caches.delete(cacheName);
+                    log('Cache eliminado: ' + cacheName);
+                }
+                
+                log('✅ Limpieza completada', 'success');
+            } catch (error) {
+                log('❌ Error limpiando: ' + error.message, 'error');
+            }
+        }
+        
+        // Test automático al cargar
+        document.addEventListener('DOMContentLoaded', () => {
+            log('Iniciando tests automáticos...');
+            testHomePage();
+            setTimeout(() => testNegocioPage(), 1000);
+            setTimeout(() => testServiceWorker(), 2000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/responsive.css">
+    <meta charset="UTF-8">
+    <title>Test Ollama - Estado</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2em;
+        .status {
+            border-radius: 10px;
+            margin: 15px 0;
+            font-size: 1.1em;
+        .success {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            color: #155724;
+        .error {
+            background: #f8d7da;
+            border: 2px solid #dc3545;
+            color: #721c24;
+        .loading {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            color: #856404;
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        .info-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        .info-label {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 5px;
+        .info-value {
+            font-size: 1.2em;
+            font-weight: bold;
+        button {
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        pre {
+            background: #282c34;
+            color: #abb2bf;
+            overflow-x: auto;
+            margin-top: 15px;
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Test Ollama</h1>
+        
+        <div id="status" class="status loading">
+            <div class="spinner"></div>
+            Verificando estado de Ollama...
+        </div>
+        <div id="details" style="display: none;">
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">Estado</div>
+                    <div class="info-value" id="statusText">-</div>
+                </div>
+                    <div class="info-label">Modelo</div>
+                    <div class="info-value" id="modelText">-</div>
+                    <div class="info-label">Tamaño</div>
+                    <div class="info-value">1.7 GB</div>
+                    <div class="info-label">Velocidad</div>
+                    <div class="info-value">⚡⚡⚡⚡⚡</div>
+            </div>
+            
+            <button onclick="testGeneration()">🧪 Probar Generación</button>
+            <div id="testResult"></div>
+    </div>
+
+    <script>
+        async function checkStatus() {
+            try {
+                const response = await fetch('test_ollama_status.php');
+                const data = await response.json();
+                
+                const statusDiv = document.getElementById('status');
+                const detailsDiv = document.getElementById('details');
+                if (data.ollama_running && data.model_available) {
+                    statusDiv.className = 'status success';
+                    statusDiv.innerHTML = '✅ Ollama está funcionando correctamente!';
+                    detailsDiv.style.display = 'block';
+                    document.getElementById('statusText').textContent = 'Activo';
+                    document.getElementById('modelText').textContent = data.model;
+                } else {
+                    statusDiv.className = 'status error';
+                    statusDiv.innerHTML = `
+                        ❌ Problema detectado<br>
+                        <small>${data.error || 'Ollama no está respondiendo'}</small>
+                    `;
+                }
+            } catch (error) {
+                statusDiv.className = 'status error';
+                statusDiv.innerHTML = `
+                    ❌ Error de conexión<br>
+                    <small>${error.message}</small>
+                `;
+            }
+        async function testGeneration() {
+            const btn = event.target;
+            const resultDiv = document.getElementById('testResult');
+            btn.disabled = true;
+            btn.textContent = '⏳ Generando...';
+            resultDiv.innerHTML = '<div class="status loading"><div class="spinner"></div>Probando generación (10-20 segundos)...</div>';
+                const start = Date.now();
+                const response = await fetch('test_ollama_generate.php');
+                const duration = ((Date.now() - start) / 1000).toFixed(2);
+                if (data.success) {
+                    resultDiv.innerHTML = `
+                        <div class="status success">
+                            ✅ Generación exitosa en ${duration}s
+                            <pre>${JSON.stringify(data, null, 2)}</pre>
+                        </div>
+                        <div class="status error">
+                            ❌ Error: ${data.error}
+                resultDiv.innerHTML = `
+                    <div class="status error">
+                        ❌ Error: ${error.message}
+                    </div>
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '🧪 Probar Generación';
+        // Verificar al cargar
+        checkStatus();
+    </script>
+</body>
+</html>

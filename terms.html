@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Términos y Condiciones - QuickBite</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0165FF;
+            --primary-light: #a5b4fc;
+            --primary-dark: #4338ca;
+            --accent: #10b981;
+            --background: #fefefe;
+            --surface: #ffffff;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-muted: #9ca3af;
+            --border: #e5e7eb;
+            --border-light: #f3f4f6;
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.025em;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: 'League Spartan', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo::before {
+            font-size: 24px;
+        }
+
+        .nav-back {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-back:hover {
+            color: var(--primary);
+        }
+
+        /* Header */
+        .header {
+            padding: 60px 0 40px;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .header p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .last-updated {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            margin: 24px auto 0;
+            display: inline-block;
+        }
+
+        /* Content */
+        .content {
+            padding: 60px 0;
+            background: var(--surface);
+        }
+
+        .terms-content {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 48px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+        }
+
+        .terms-content h2 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .terms-content h3 {
+            font-size: 22px;
+            margin-bottom: 16px;
+            margin-top: 40px;
+            color: var(--text-primary);
+        }
+
+        .terms-content h4 {
+            font-size: 18px;
+            margin-bottom: 12px;
+            margin-top: 24px;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .terms-content p {
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+
+        .terms-content ul, .terms-content ol {
+            margin: 16px 0;
+            padding-left: 24px;
+        }
+
+        .terms-content li {
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 1px solid #f59e0b;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+            position: relative;
+        }
+
+        .highlight-box::before {
+            content: '⚠️';
+            font-size: 20px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .highlight-box h4 {
+            color: #92400e;
+            margin-left: 32px;
+            margin-bottom: 8px;
+        }
+
+        .highlight-box p {
+            color: #92400e;
+            margin-left: 32px;
+            margin-bottom: 0;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border: 1px solid var(--primary);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+            position: relative;
+        }
+
+        .info-box::before {
+            content: 'ℹ️';
+            font-size: 20px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .info-box h4 {
+            color: var(--primary-dark);
+            margin-left: 32px;
+            margin-bottom: 8px;
+        }
+
+        .info-box p {
+            color: var(--primary-dark);
+            margin-left: 32px;
+            margin-bottom: 0;
+        }
+
+        .contact-section {
+            background: var(--border-light);
+            border-radius: 12px;
+            padding: 32px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .contact-section h3 {
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .contact-section p {
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-item:hover {
+            color: var(--primary-dark);
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: var(--border-light);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 40px;
+        }
+
+        .toc h3 {
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            font-size: 20px;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .toc li {
+            margin-bottom: 8px;
+        }
+
+        .toc a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .toc a:hover {
+            background: var(--surface);
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .header p {
+                font-size: 16px;
+            }
+
+            .terms-content {
+                padding: 32px 24px;
+            }
+
+            .terms-content h2 {
+                font-size: 24px;
+            }
+
+            .terms-content h3 {
+                font-size: 20px;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .highlight-box, .info-box {
+                padding: 16px;
+            }
+
+            .highlight-box h4, .info-box h4,
+            .highlight-box p, .info-box p {
+                margin-left: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-container">
+                <a href="/" class="logo"> <i class="fas fa-utensils"></i>QuickBite</a>
+                <a href="/" class="nav-back">
+                    <i class="fas fa-arrow-left"></i>
+                    Volver al inicio
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="header">
+        <div class="container">
+            <h1>Términos y Condiciones</h1>
+            <p>Condiciones de uso de la plataforma QuickBite para restaurantes, clientes y repartidores</p>
+            <div class="last-updated">
+                Última actualización: 4 de diciembre de 2025
+            </div>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <section class="content">
+        <div class="container">
+            <div class="terms-content">
+                <!-- Table of Contents -->
+                <div class="toc">
+                    <h3>Índice de Contenidos</h3>
+                    <ul>
+                        <li><a href="#aceptacion">1. Aceptación de los Términos</a></li>
+                        <li><a href="#definiciones">2. Definiciones</a></li>
+                        <li><a href="#servicios">3. Descripción de Servicios</a></li>
+                        <li><a href="#registro">4. Registro y Cuenta de Usuario</a></li>
+                        <li><a href="#restaurantes">5. Términos para Restaurantes</a></li>
+                        <li><a href="#clientes">6. Términos para Clientes</a></li>
+                        <li><a href="#repartidores">7. Términos para Repartidores</a></li>
+                        <li><a href="#pagos">8. Pagos y Facturación</a></li>
+                        <li><a href="#responsabilidades">9. Responsabilidades y Limitaciones</a></li>
+                        <li><a href="#propiedad">10. Propiedad Intelectual</a></li>
+                        <li><a href="#privacidad">11. Privacidad y Protección de Datos</a></li>
+                        <li><a href="#terminacion">12. Terminación del Servicio</a></li>
+                        <li><a href="#ley">13. Ley Aplicable y Jurisdicción</a></li>
+                        <li><a href="#contacto">14. Información de Contacto</a></li>
+                    </ul>
+                </div>
+
+                <h2 id="aceptacion">1. Aceptación de los Términos</h2>
+                <p>Al acceder y utilizar la plataforma QuickBite (en adelante, "la Plataforma"), usted acepta estar legalmente obligado por estos Términos y Condiciones (en adelante, "los Términos"). Si no está de acuerdo con alguna parte de estos términos, no debe utilizar nuestros servicios.</p>
+                
+                <div class="highlight-box">
+                    <h4>Importante</h4>
+                    <p>Estos términos constituyen un acuerdo legal vinculante entre usted y QuickBite. Le recomendamos leer cuidadosamente todo el documento.</p>
+                </div>
+
+                <h2 id="definiciones">2. Definiciones</h2>
+                <p>Para los efectos de estos Términos, se entenderá por:</p>
+                <ul>
+                    <li><strong>"QuickBite"</strong>: La empresa propietaria y operadora de la plataforma digital de delivery.</li>
+                    <li><strong>"Plataforma"</strong>: La aplicación móvil y sitio web de QuickBite, incluyendo todas sus funcionalidades.</li>
+                    <li><strong>"Usuario"</strong>: Cualquier persona que utilice la Plataforma, incluyendo Clientes, Restaurantes y Repartidores.</li>
+                    <li><strong>"Cliente"</strong>: Usuario final que realiza pedidos a través de la Plataforma.</li>
+                    <li><strong>"Restaurante" o "Socio Comercial"</strong>: Establecimiento comercial registrado en la Plataforma que ofrece alimentos y bebidas.</li>
+                    <li><strong>"Repartidor"</strong>: Persona física independiente que presta servicios de entrega a través de la Plataforma.</li>
+                    <li><strong>"Servicios"</strong>: Todos los servicios proporcionados por QuickBite a través de la Plataforma.</li>
+                </ul>
+
+                <h2 id="servicios">3. Descripción de Servicios</h2>
+                <p>QuickBite es una plataforma tecnológica que conecta a Restaurantes, Clientes y Repartidores para facilitar el pedido y entrega de alimentos y bebidas. Nuestros servicios incluyen:</p>
+                
+                <h3>3.1 Servicios Principales</h3>
+                <ul>
+                    <li>Plataforma digital para realizar y gestionar pedidos de comida</li>
+                    <li>Sistema de pagos integrado y seguro</li>
+                    <li>Seguimiento en tiempo real de pedidos</li>
+                    <li>Servicio de atención al cliente</li>
+                    <li>Herramientas de gestión para restaurantes</li>
+                    <li>Sistema de calificaciones y reseñas</li>
+                </ul>
+
+                <div class="info-box">
+                    <h4>Naturaleza del Servicio</h4>
+                    <p>QuickBite actúa como intermediario tecnológico. No somos propietarios de los restaurantes, no preparamos la comida, ni empleamos directamente a los repartidores.</p>
+                </div>
+
+                <h2 id="registro">4. Registro y Cuenta de Usuario</h2>
+                
+                <h3>4.1 Elegibilidad</h3>
+                <p>Para utilizar la Plataforma, debe:</p>
+                <ul>
+                    <li>Ser mayor de 18 años o tener el consentimiento de sus padres/tutores</li>
+                    <li>Tener la capacidad legal para celebrar contratos</li>
+                    <li>Proporcionar información veraz, exacta y actualizada</li>
+                    <li>Mantener la confidencialidad de sus credenciales de acceso</li>
+                </ul>
+
+                <h3>4.2 Registro</h3>
+                <p>El proceso de registro requiere proporcionar información personal básica incluyendo nombre, dirección de correo electrónico, número de teléfono y, en algunos casos, información adicional según el tipo de usuario.</p>
+
+                <h3>4.3 Responsabilidad de la Cuenta</h3>
+                <p>Usted es responsable de:</p>
+                <ul>
+                    <li>Mantener la seguridad de su cuenta</li>
+                    <li>Todas las actividades que ocurran bajo su cuenta</li>
+                    <li>Notificar inmediatamente cualquier uso no autorizado</li>
+                    <li>Mantener actualizada su información de contacto</li>
+                </ul>
+
+                <h2 id="restaurantes">5. Términos para Restaurantes</h2>
+
+                <h3>5.1 Registro y Verificación</h3>
+                <p>Los restaurantes deben completar un proceso de verificación que incluye:</p>
+                <ul>
+                    <li>Documentación legal del establecimiento</li>
+                    <li>Licencias sanitarias y permisos municipales</li>
+                    <li>Información fiscal y bancaria</li>
+                    <li>Menú y precios actualizados</li>
+                </ul>
+
+                <h3>5.2 Obligaciones del Restaurante</h3>
+                <p>Los restaurantes se comprometen a:</p>
+                <ul>
+                    <li>Mantener altos estándares de calidad e higiene</li>
+                    <li>Cumplir con todas las regulaciones sanitarias aplicables</li>
+                    <li>Proporcionar información precisa sobre ingredientes y alérgenos</li>
+                    <li>Mantener tiempos de preparación razonables</li>
+                    <li>Actualizar disponibilidad de productos en tiempo real</li>
+                    <li>Responder a quejas y reclamos de manera oportuna</li>
+                </ul>
+
+                <h3>5.3 Comisiones y Pagos</h3>
+                <p>QuickBite cobra una comisión del 3.6% sobre el valor de cada pedido completado, más las tarifas de procesamiento de Stripe. Los pagos se transfieren cada 24 horas hábiles a la cuenta bancaria registrada del restaurante.</p>
+
+                <div class="highlight-box">
+                    <h4>Importante para Restaurantes</h4>
+                    <p>Los precios mostrados en la plataforma deben ser competitivos con sus precios en local. QuickBite se reserva el derecho de suspender restaurantes que no cumplan con los estándares de calidad.</p>
+                </div>
+
+                <h2 id="clientes">6. Términos para Clientes</h2>
+
+                <h3>6.1 Realización de Pedidos</h3>
+                <p>Al realizar un pedido, el cliente:</p>
+                <ul>
+                    <li>Acepta pagar el precio total mostrado, incluyendo impuestos y cargos de entrega</li>
+                    <li>Proporciona información de entrega precisa y completa</li>
+                    <li>Se compromete a estar disponible para recibir el pedido</li>
+                    <li>Acepta las políticas de cancelación aplicables</li>
+                </ul>
+
+                <h3>6.2 Pagos</h3>
+                <p>Los clientes pueden pagar mediante:</p>
+                <ul>
+                    <li>Tarjetas de crédito y débito</li>
+                    <li>Google Pay y Apple Pay</li>
+                    <li>PayPal</li>
+                    <li>Efectivo (donde esté disponible)</li>
+                </ul>
+
+                <h3>6.3 Política de Cancelaciones y Reembolsos</h3>
+                <p>Los pedidos pueden cancelarse sin costo hasta que el restaurante confirme la preparación. Después de este punto, aplican las siguientes políticas:</p>
+                <ul>
+                    <li>Cancelación por parte del cliente: No hay reembolso si la preparación ya comenzó</li>
+                    <li>Cancelación por parte del restaurante: Reembolso completo automático</li>
+                    <li>Problemas de calidad: Reembolso o crédito según evaluación del caso</li>
+                    <li>Pedidos no entregados: Reembolso completo</li>
+                </ul>
+
+                <h2 id="repartidores">7. Términos para Repartidores</h2>
+
+                <h3>7.1 Naturaleza de la Relación</h3>
+                <p>Los repartidores son contratistas independientes, no empleados de QuickBite. Esta relación se caracteriza por:</p>
+                <ul>
+                    <li>Flexibilidad para elegir horarios de trabajo</li>
+                    <li>Responsabilidad por sus propios gastos operativos</li>
+                    <li>Cumplimiento de obligaciones fiscales independientes</li>
+                </ul>
+
+                <h3>7.2 Requisitos para Repartidores</h3>
+                <ul>
+                    <li>Edad mínima de 18 años</li>
+                    <li>Documento de identidad válido</li>
+                    <li>Vehículo propio (bicicleta, motocicleta, automóvil)</li>
+                    <li>Licencia de conducir válida (para vehículos motorizados)</li>
+                    <li>Seguro de vehículo vigente</li>
+                    <li>Smartphone compatible con la aplicación</li>
+                </ul>
+
+                <h3>7.3 Compensación</h3>
+                <p>Los repartidores reciben compensación por:</p>
+                <ul>
+                    <li>Tarifa base por entrega</li>
+                    <li>Bonificaciones por distancia</li>
+                    <li>Incentivos por horarios pico</li>
+                    <li>Propinas de los clientes (100% para el repartidor)</li>
+                </ul>
+
+                <h2 id="pagos">8. Pagos y Facturación</h2>
+
+                <h3>8.1 Procesamiento de Pagos</h3>
+                <p>QuickBite utiliza Stripe como procesador de pagos principal, garantizando:</p>
+                <ul>
+                    <li>Transacciones seguras con encriptación SSL de 256 bits</li>
+                    <li>Cumplimiento con estándares PCI DSS</li>
+                    <li>Protección contra fraude</li>
+                    <li>Almacenamiento seguro de información de pago</li>
+                </ul>
+
+                <h3>8.2 Política de Reembolsos</h3>
+                <p>Los reembolsos se procesan según las siguientes condiciones:</p>
+                <ul>
+                    <li>Reembolsos automáticos: 1-3 días hábiles</li>
+                    <li>Reembolsos manuales: 5-7 días hábiles</li>
+                    <li>El método de reembolso será el mismo utilizado para el pago original</li>
+                </ul>
+
+                <h3>8.3 Facturación</h3>
+                <p>QuickBite proporciona facturación electrónica conforme a la legislación fiscal aplicable. Los restaurantes recibirán facturas mensuales detallando comisiones y cargos.</p>
+
+                <h2 id="responsabilidades">9. Responsabilidades y Limitaciones</h2>
+
+                <h3>9.1 Limitación de Responsabilidad</h3>
+                <p>QuickBite no será responsable por:</p>
+                <ul>
+                    <li>Calidad, seguridad o legalidad de los productos ofrecidos por los restaurantes</li>
+                    <li>Exactitud de la información proporcionada por restaurantes o usuarios</li>
+                    <li>Disponibilidad ininterrumpida de la plataforma</li>
+                    <li>Acciones u omisiones de terceros (restaurantes, repartidores, clientes)</li>
+                    <li>Daños indirectos, incidentales o consecuenciales</li>
+                </ul>
+
+                <h3>9.2 Responsabilidades del Usuario</h3>
+                <p>Todos los usuarios se comprometen a:</p>
+                <ul>
+                    <li>Utilizar la plataforma de manera legal y apropiada</li>
+                    <li>No interferir con el funcionamiento de la plataforma</li>
+                    <li>Respetar los derechos de otros usuarios</li>
+                    <li>Proporcionar información veraz y actualizada</li>
+                    <li>Cumplir con todas las leyes aplicables</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <h4>Exclusión de Garantías</h4>
+                    <p>Los servicios se proporcionan "tal como están" sin garantías de ningún tipo, expresas o implícitas.</p>
+                </div>
+
+                <h2 id="propiedad">10. Propiedad Intelectual</h2>
+                <p>QuickBite posee todos los derechos de propiedad intelectual relacionados con:</p>
+                <ul>
+                    <li>La plataforma y su tecnología</li>
+                    <li>Marca, logotipos y diseños</li>
+                    <li>Contenido original creado por QuickBite</li>
+                    <li>Algoritmos y procesos propietarios</li>
+                </ul>
+
+                <h3>10.1 Licencia de Uso</h3>
+                <p>QuickBite otorga a los usuarios una licencia limitada, no exclusiva y revocable para usar la plataforma únicamente para los fines previstos.</p>
+
+                <h3>10.2 Contenido del Usuario</h3>
+                <p>Los usuarios conservan la propiedad de su contenido, pero otorgan a QuickBite una licencia para usar, mostrar y distribuir dicho contenido en relación con los servicios.</p>
+
+                <h2 id="privacidad">11. Privacidad y Protección de Datos</h2>
+                <p>El manejo de datos personales se rige por nuestra Política de Privacidad, que forma parte integral de estos términos. QuickBite se compromete a:</p>
+                <ul>
+                    <li>Proteger la privacidad de los usuarios</li>
+                    <li>Cumplir con regulaciones de protección de datos aplicables</li>
+                    <li>Usar la información solo para los fines declarados</li>
+                    <li>Mantener medidas de seguridad apropiadas</li>
+                </ul>
+
+                <h2 id="terminacion">12. Terminación del Servicio</h2>
+
+                <h3>12.1 Terminación por el Usuario</h3>
+                <p>Los usuarios pueden cerrar su cuenta en cualquier momento contactando al servicio al cliente o utilizando las opciones disponibles en la plataforma.</p>
+
+                <h3>12.2 Terminación por QuickBite</h3>
+                <p>QuickBite puede suspender o terminar cuentas por:</p>
+                <ul>
+                    <li>Violación de estos términos</li>
+                    <li>Actividad fraudulenta o sospechosa</li>
+                    <li>Incumplimiento de obligaciones de pago</li>
+                    <li>Comportamiento inadecuado o abusivo</li>
+                </ul>
+
+                <h3>12.3 Efectos de la Terminación</h3>
+                <p>Al terminar la cuenta:</p>
+                <ul>
+                    <li>Se revoca el acceso a la plataforma</li>
+                    <li>Se procesan pagos y reembolsos pendientes</li>
+                    <li>Se conservan datos según políticas de retención</li>
+                </ul>
+
+                <h2 id="ley">13. Ley Aplicable y Jurisdicción</h2>
+                <p>Estos términos se rigen por las leyes de México. Cualquier disputa será resuelta mediante:</p>
+                <ol>
+                    <li><strong>Negociación directa:</strong> Las partes intentarán resolver disputas de buena fe</li>
+                    <li><strong>Mediación:</strong> Si la negociación falla, se recurrirá a mediación</li>
+                    <li><strong>Arbitraje:</strong> Como último recurso, se someterán a arbitraje vinculante</li>
+                </ol>
+
+                <p>La jurisdicción será la de los tribunales de Aguascalientes, Aguascalientes, México.</p>
+
+                <h2 id="contacto">14. Información de Contacto</h2>
+                
+                <div class="contact-section">
+                    <h3>¿Preguntas sobre estos términos?</h3>
+                    <p>Si tiene alguna pregunta o inquietud sobre estos Términos y Condiciones, no dude en contactarnos:</p>
+                    
+                    <div class="contact-info">
+                        <a href="mailto:legal@quickbite.mx" class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            contacto@quickbite.com.mx
+                        </a>
+                        <a href="tel:+524464776241" class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            +52 446 477 6241
+                        </a>
+                        <a href="#" class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Aguascalientes, Aguascalientes, México
+                        </a>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h4>Modificaciones a estos Términos</h4>
+                    <p>QuickBite se reserva el derecho de modificar estos términos en cualquier momento. Los cambios serán efectivos inmediatamente después de su publicación en la plataforma. El uso continuado de los servicios constituye aceptación de los términos modificados.</p>
+                </div>
+
+                <p style="text-align: center; margin-top: 40px; color: var(--text-muted); font-size: 14px;">
+                    © 2025 QuickBite. Todos los derechos reservados.<br>
+                    Documento generado el 4 de diciembre de 2025
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
+    <script>
+        // Smooth scrolling for table of contents
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 100;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Highlight current section in navigation
+        const sections = document.querySelectorAll('h2[id]');
+        const tocLinks = document.querySelectorAll('.toc a[href^="#"]');
+
+        function highlightCurrentSection() {
+            const scrollPos = window.scrollY + 150;
+            
+            sections.forEach((section, index) => {
+                const sectionTop = section.offsetTop;
+                const sectionBottom = sectionTop + section.offsetHeight;
+                
+                if (scrollPos >= sectionTop && scrollPos < sectionBottom) {
+                    tocLinks.forEach(link => link.classList.remove('active'));
+                    const correspondingLink = document.querySelector(`.toc a[href="#${section.id}"]`);
+                    if (correspondingLink) {
+                        correspondingLink.classList.add('active');
+                    }
+                }
+            });
+        }
+
+        window.addEventListener('scroll', highlightCurrentSection);
+    </script>
+
+    <style>
+        .toc a.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .contact-item i {
+            width: 16px;
+            text-align: center;
+        }
+    </style>
+</body>
+</html>

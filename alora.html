@@ -1,0 +1,629 @@
+<html lang="es"><head>
+    <title>alora</title>
+    <script> const BASE_URL = "/"</script>
+    <script src="https://stepbro.site/js/accountMain.js?v=1" type="module"></script>
+    <script src="https://accounts.google.com/gsi/client" async=""></script>
+    
+
+    <!-- style and themes -->
+    <link rel="stylesheet" href="https://stepbro.site/css/style.css?v=1.11.0">
+    <link rel="stylesheet" href="https://stepbro.site/css/theme/theme.css?v=1.7.0">
+    <link id="theme-style" rel="stylesheet" href="https://stepbro.site/css/theme/colors/oled.css">
+    <script src="/js/theme.js"></script>
+    
+    <!-- Material Web Components -->
+    <script src="https://stepbro.site/js/bundle.js"></script><style id="googleidentityservice_button_styles">.qJTHM{-webkit-user-select:none;color:#202124;direction:ltr;-webkit-touch-callout:none;font-family:"Roboto-Regular",arial,sans-serif;-webkit-font-smoothing:antialiased;font-weight:400;margin:0;overflow:hidden;-webkit-text-size-adjust:100%}.ynRLnc{left:-9999px;position:absolute;top:-9999px}.L6cTce{display:none}.bltWBb{word-break:break-all}.hSRGPd{color:#1a73e8;cursor:pointer;font-weight:500;text-decoration:none}.Bz112c-W3lGp{height:16px;width:16px}.Bz112c-E3DyYd{height:20px;width:20px}.Bz112c-r9oPif{height:24px;width:24px}.Bz112c-uaxL4e{-webkit-border-radius:10px;border-radius:10px}.LgbsSe-Bz112c{display:block}.S9gUrf-YoZ4jf,.S9gUrf-YoZ4jf *{border:none;margin:0;padding:0}.fFW7wc-ibnC6b>.aZ2wEe>div{border-color:#4285f4}.P1ekSe-ZMv3u>div:nth-child(1){background-color:#1a73e8!important}.P1ekSe-ZMv3u>div:nth-child(2),.P1ekSe-ZMv3u>div:nth-child(3){background-image:linear-gradient(to right,rgba(255,255,255,.7),rgba(255,255,255,.7)),linear-gradient(to right,#1a73e8,#1a73e8)!important}.haAclf{display:inline-block}.nsm7Bb-HzV7m-LgbsSe{-webkit-border-radius:4px;border-radius:4px;-webkit-box-sizing:border-box;box-sizing:border-box;-webkit-transition:background-color .218s,border-color .218s;transition:background-color .218s,border-color .218s;-webkit-user-select:none;-webkit-appearance:none;background-color:#fff;background-image:none;border:1px solid #dadce0;color:#3c4043;cursor:pointer;font-family:"Google Sans",arial,sans-serif;font-size:14px;height:40px;letter-spacing:0.25px;outline:none;overflow:hidden;padding:0 12px;position:relative;text-align:center;vertical-align:middle;white-space:nowrap;width:auto}@media screen and (-ms-high-contrast:active){.nsm7Bb-HzV7m-LgbsSe{border:2px solid windowText;color:windowText}}.nsm7Bb-HzV7m-LgbsSe.pSzOP-SxQuSe{font-size:14px;height:32px;letter-spacing:0.25px;padding:0 10px}.nsm7Bb-HzV7m-LgbsSe.purZT-SxQuSe{font-size:11px;height:20px;letter-spacing:0.3px;padding:0 8px}.nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe{padding:0;width:40px}.nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe.pSzOP-SxQuSe{width:32px}.nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe.purZT-SxQuSe{width:20px}.nsm7Bb-HzV7m-LgbsSe.JGcpL-RbRzK{-webkit-border-radius:20px;border-radius:20px}.nsm7Bb-HzV7m-LgbsSe.JGcpL-RbRzK.pSzOP-SxQuSe{-webkit-border-radius:16px;border-radius:16px}.nsm7Bb-HzV7m-LgbsSe.JGcpL-RbRzK.purZT-SxQuSe{-webkit-border-radius:10px;border-radius:10px}.nsm7Bb-HzV7m-LgbsSe.MFS4be-Ia7Qfc{border:none;color:#fff}.nsm7Bb-HzV7m-LgbsSe.MFS4be-v3pZbf-Ia7Qfc{background-color:#1a73e8}.nsm7Bb-HzV7m-LgbsSe.MFS4be-JaPV2b-Ia7Qfc{background-color:#202124;color:#e8eaed}.nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-Bz112c{height:18px;margin-right:8px;min-width:18px;width:18px}.nsm7Bb-HzV7m-LgbsSe.pSzOP-SxQuSe .nsm7Bb-HzV7m-LgbsSe-Bz112c{height:14px;min-width:14px;width:14px}.nsm7Bb-HzV7m-LgbsSe.purZT-SxQuSe .nsm7Bb-HzV7m-LgbsSe-Bz112c{height:10px;min-width:10px;width:10px}.nsm7Bb-HzV7m-LgbsSe.jVeSEe .nsm7Bb-HzV7m-LgbsSe-Bz112c{margin-left:8px;margin-right:-4px}.nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe .nsm7Bb-HzV7m-LgbsSe-Bz112c{margin:0;padding:10px}.nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe.pSzOP-SxQuSe .nsm7Bb-HzV7m-LgbsSe-Bz112c{padding:8px}.nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe.purZT-SxQuSe .nsm7Bb-HzV7m-LgbsSe-Bz112c{padding:4px}.nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf{-webkit-border-top-left-radius:3px;border-top-left-radius:3px;-webkit-border-bottom-left-radius:3px;border-bottom-left-radius:3px;display:-webkit-box;display:-webkit-flex;display:flex;justify-content:center;-webkit-align-items:center;align-items:center;background-color:#fff;height:36px;margin-left:-10px;margin-right:12px;min-width:36px;width:36px}.nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf .nsm7Bb-HzV7m-LgbsSe-Bz112c,.nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf .nsm7Bb-HzV7m-LgbsSe-Bz112c{margin:0;padding:0}.nsm7Bb-HzV7m-LgbsSe.pSzOP-SxQuSe .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf{height:28px;margin-left:-8px;margin-right:10px;min-width:28px;width:28px}.nsm7Bb-HzV7m-LgbsSe.purZT-SxQuSe .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf{height:16px;margin-left:-6px;margin-right:8px;min-width:16px;width:16px}.nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf{-webkit-border-radius:3px;border-radius:3px;margin-left:2px;margin-right:0;padding:0}.nsm7Bb-HzV7m-LgbsSe.JGcpL-RbRzK .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf{-webkit-border-radius:18px;border-radius:18px}.nsm7Bb-HzV7m-LgbsSe.pSzOP-SxQuSe.JGcpL-RbRzK .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf{-webkit-border-radius:14px;border-radius:14px}.nsm7Bb-HzV7m-LgbsSe.purZT-SxQuSe.JGcpL-RbRzK .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf{-webkit-border-radius:8px;border-radius:8px}.nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-bN97Pc-sM5MNb{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-flex-direction:row;flex-direction:row;justify-content:space-between;-webkit-flex-wrap:nowrap;flex-wrap:nowrap;height:100%;position:relative;width:100%}.nsm7Bb-HzV7m-LgbsSe .oXtfBe-l4eHX{justify-content:center}.nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-BPrWId{-webkit-flex-grow:1;flex-grow:1;font-family:"Google Sans",arial,sans-serif;font-weight:500;overflow:hidden;text-overflow:ellipsis;vertical-align:top}.nsm7Bb-HzV7m-LgbsSe.purZT-SxQuSe .nsm7Bb-HzV7m-LgbsSe-BPrWId{font-weight:300}.nsm7Bb-HzV7m-LgbsSe .oXtfBe-l4eHX .nsm7Bb-HzV7m-LgbsSe-BPrWId{-webkit-flex-grow:0;flex-grow:0}.nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-MJoBVe{-webkit-transition:background-color .218s;transition:background-color .218s;bottom:0;left:0;position:absolute;right:0;top:0}.nsm7Bb-HzV7m-LgbsSe:hover,.nsm7Bb-HzV7m-LgbsSe:focus{-webkit-box-shadow:none;box-shadow:none;border-color:rgb(210,227,252);outline:none}.nsm7Bb-HzV7m-LgbsSe:hover .nsm7Bb-HzV7m-LgbsSe-MJoBVe,.nsm7Bb-HzV7m-LgbsSe:focus .nsm7Bb-HzV7m-LgbsSe-MJoBVe{background:rgba(66,133,244,.04)}.nsm7Bb-HzV7m-LgbsSe:active .nsm7Bb-HzV7m-LgbsSe-MJoBVe{background:rgba(66,133,244,.1)}.nsm7Bb-HzV7m-LgbsSe.MFS4be-Ia7Qfc:hover .nsm7Bb-HzV7m-LgbsSe-MJoBVe,.nsm7Bb-HzV7m-LgbsSe.MFS4be-Ia7Qfc:focus .nsm7Bb-HzV7m-LgbsSe-MJoBVe{background:rgba(255,255,255,.24)}.nsm7Bb-HzV7m-LgbsSe.MFS4be-Ia7Qfc:active .nsm7Bb-HzV7m-LgbsSe-MJoBVe{background:rgba(255,255,255,.32)}.nsm7Bb-HzV7m-LgbsSe .n1UuX-DkfjY{-webkit-border-radius:50%;border-radius:50%;display:-webkit-box;display:-webkit-flex;display:flex;height:20px;margin-left:-4px;margin-right:8px;min-width:20px;width:20px}.nsm7Bb-HzV7m-LgbsSe.jVeSEe .nsm7Bb-HzV7m-LgbsSe-BPrWId{font-family:"Roboto";font-size:12px;text-align:left}.nsm7Bb-HzV7m-LgbsSe.jVeSEe .nsm7Bb-HzV7m-LgbsSe-BPrWId .ssJRIf,.nsm7Bb-HzV7m-LgbsSe.jVeSEe .nsm7Bb-HzV7m-LgbsSe-BPrWId .K4efff .fmcmS{overflow:hidden;text-overflow:ellipsis}.nsm7Bb-HzV7m-LgbsSe.jVeSEe .nsm7Bb-HzV7m-LgbsSe-BPrWId .K4efff{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;color:#5f6368;fill:#5f6368;font-size:11px;font-weight:400}.nsm7Bb-HzV7m-LgbsSe.jVeSEe.MFS4be-Ia7Qfc .nsm7Bb-HzV7m-LgbsSe-BPrWId .K4efff{color:#e8eaed;fill:#e8eaed}.nsm7Bb-HzV7m-LgbsSe.jVeSEe .nsm7Bb-HzV7m-LgbsSe-BPrWId .K4efff .Bz112c{height:18px;margin:-3px -3px -3px 2px;min-width:18px;width:18px}.nsm7Bb-HzV7m-LgbsSe.jVeSEe .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf{-webkit-border-top-left-radius:0;border-top-left-radius:0;-webkit-border-bottom-left-radius:0;border-bottom-left-radius:0;-webkit-border-top-right-radius:3px;border-top-right-radius:3px;-webkit-border-bottom-right-radius:3px;border-bottom-right-radius:3px;margin-left:12px;margin-right:-10px}.nsm7Bb-HzV7m-LgbsSe.jVeSEe.JGcpL-RbRzK .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf{-webkit-border-radius:18px;border-radius:18px}.L5Fo6c-sM5MNb{border:0;display:block;left:0;position:relative;top:0}.L5Fo6c-bF1uUb{-webkit-border-radius:4px;border-radius:4px;bottom:0;cursor:pointer;left:0;position:absolute;right:0;top:0}.L5Fo6c-bF1uUb:focus{border:none;outline:none}sentinel{}</style>
+    
+    <script src="https://stepbro.site/js/components/cocounut-chart.js"></script>
+
+
+
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <!-- <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> -->
+
+    
+    <meta name="csrf-token" content="954e1472d0cd1620fb60d96752abfdaddc0e290b9efeb2779f886f6dd1366bfd">
+
+    <meta name="description" content="Empresa de desarrollo de software de verdadera calidad y enfoque en el detalle.">
+
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="alora">
+  
+    <meta property="og:type" content="website">
+
+    <!-- Manifest -->
+    <link rel="shortcut icon" type="image/png" href="https://stepbro.site/assets/icon.png">    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- fonts / icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">  -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&amp;family=Urbanist:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
+    
+  <link id="googleidentityservice" type="text/css" media="all" href="https://accounts.google.com/gsi/style" rel="stylesheet"><meta http-equiv="origin-trial" content="A8o5T4MyEkRZqLA9WeG2XTFdV5tsX2Prg85xyQ+RL1btVuybB1K/EQ+7JUsPK+J32oBMTnsoF9B4A+qTlL6efgQAAABweyJvcmlnaW4iOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb206NDQzIiwiZmVhdHVyZSI6IkZlZENtQnV0dG9uTW9kZSIsImV4cGlyeSI6MTc0NDY3NTIwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><style id="monica-reading-highlight-style">
+        .monica-reading-highlight {
+          animation: fadeInOut 1.5s ease-in-out;
+        }
+
+        @keyframes fadeInOut {
+          0%, 100% { background-color: transparent; }
+          30%, 70% { background-color: rgba(2, 118, 255, 0.20); }
+        }
+      </style></head>
+<body monica-id="ofpnmcalabcbjgholdjcjblkibolbppb" monica-version="7.9.1" cz-shortcut-listen="true" style="">
+<transparent>
+  <window id="window-signup" class="increased on-background-text" data-flip-id="animate">
+    <div class="simple-container padding-16">
+        <md-icon-button type="button" onclick="toggleWindow()" role="presentation" value=""><md-icon aria-hidden="true">close</md-icon></md-icon-button>
+    </div>
+    <holder class="justify-center align-center">
+
+        <div class="simple-container direction-column gap-8 width-100 max-width-400">
+            <div class="simple-container">
+                <!-- <div class="codemelon-box">
+                    <md-icon class="filled" aria-hidden="true">cognition</md-icon>
+                    Melon Mind
+                </div> -->
+                <div class="simple-container align-center gap-4 dm-sans body-large weight-600 user-select-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M0.570312 1.04346C0.570312 0.467171 1.03748 0 1.61377 0H8.9613C9.78724 0 10.2858 0.914045 9.83857 1.60844L1.60618 14.3912C1.15898 15.0856 1.65751 15.9997 2.48345 15.9997H9.83098C10.4073 15.9997 10.8744 15.5325 10.8744 14.9562V7.65201C10.8744 7.07572 10.4073 6.60855 9.83098 6.60855H1.61377C1.03748 6.60855 0.570312 6.14138 0.570312 5.5651V1.04346Z" fill="var(--md-sys-color-on-background)"></path>
+                    </svg>
+                    alora
+                </div>
+            </div>
+
+            <span class="display-small dm-sans weight-600">Crea tu cuenta</span>
+
+            <form class="simple-container direction-column gap-8 top-margin-16" autocomplete="off">
+                <span class="label-normal outline-text left-margin-8 dm-sans">Correo</span>
+                <input name="email" type="email" placeholder="Escribe tu correo">
+
+                <span class="label-normal outline-text left-margin-8 top-margin-8 dm-sans">Contraseña</span>
+                <input name="password" type="password" placeholder="Escoge una contraseña">
+                <input name="repeat-password" type="password" placeholder="Repite tu contraseña">
+
+                <div class="simple-container direction-column top-margin-8 bottom-margin-64">
+                    <button class="style-3 hidden primary-container on-primary-container-text"><md-ripple aria-hidden="true"></md-ripple>Crear cuenta</button>
+                    <md-filled-button class="squared primary-primary" type="submit" role="presentation" value="">Crear cuenta</md-filled-button>
+                    <div class="simple-container gap-4 justify-between gap-8 align-center flex-wrap top-margin-16">
+
+                        <label class="simple-container align-center gap-4 dm-sans body-large">
+                            <md-checkbox touch-target="wrapper" checked="true" name="remember_me" role="presentation"></md-checkbox>
+                            <span>Recordarme</span>
+                        </label>
+    
+                        <div class="fit-content overflow-hidden border-radius-64">
+                            <!-- Sign In With Google button with HTML data attributes API -->
+                            <div id="g_id_onload" data-client_id="819722503345-qies2hv7hjl6ig525dtau8327qccj82a.apps.googleusercontent.com" data-context="signin" data-ux_mode="popup" data-callback="handleCredentialResponse" data-auto_prompt="false">
+                            </div>
+    
+                            <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="outline" data-text="continue_with" data-size="medium" data-logo_alignment="left"><div class="S9gUrf-YoZ4jf" style="position: relative;"><div><div tabindex="0" role="button" aria-labelledby="button-label" class="nsm7Bb-HzV7m-LgbsSe  pSzOP-SxQuSe i5vt6e-Ia7Qfc JGcpL-RbRzK"><div class="nsm7Bb-HzV7m-LgbsSe-MJoBVe"></div><div class="nsm7Bb-HzV7m-LgbsSe-bN97Pc-sM5MNb "><div class="nsm7Bb-HzV7m-LgbsSe-Bz112c"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="LgbsSe-Bz112c"><g><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path><path fill="none" d="M0 0h48v48H0z"></path></g></svg></div><span class="nsm7Bb-HzV7m-LgbsSe-BPrWId">Continuar con Google</span><span class="L6cTce" id="button-label">Continuar con Google</span></div></div></div><iframe src="https://accounts.google.com/gsi/button?type=standard&amp;shape=pill&amp;theme=outline&amp;text=continue_with&amp;size=medium&amp;logo_alignment=left&amp;is_fedcm_supported=true&amp;client_id=819722503345-qies2hv7hjl6ig525dtau8327qccj82a.apps.googleusercontent.com&amp;iframe_id=gsi_6342_959994&amp;cas=BATyp%2B6nRVyg%2Bvl5TnYY1N7x6s3bnYVN3nqaQgnP8H0" allow="identity-credentials-get" id="gsi_6342_959994" title="Botón de Acceder con Google" style="display: block; position: relative; top: 0px; left: 0px; height: 0px; width: 0px; border: 0px;"></iframe></div></div>
+    
+                            <!-- Display the user's profile info -->
+                        </div>
+                    </div>
+                    <!-- <div class="simple-container top-margin-8">
+                        <button class="style-2 outline-light-1 simple-container align-center gap-4" type="button">
+                            <md-ripple></md-ripple>
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="16" height="16" viewBox="0 0 32 32">
+                                <path fill="var(--md-sys-color-on-background)" d="M 16.003906 14.0625 L 16.003906 18.265625 L 21.992188 18.265625 C 21.210938 20.8125 19.082031 22.636719 16.003906 22.636719 C 12.339844 22.636719 9.367188 19.664063 9.367188 16 C 9.367188 12.335938 12.335938 9.363281 16.003906 9.363281 C 17.652344 9.363281 19.15625 9.96875 20.316406 10.964844 L 23.410156 7.867188 C 21.457031 6.085938 18.855469 5 16.003906 5 C 9.925781 5 5 9.925781 5 16 C 5 22.074219 9.925781 27 16.003906 27 C 25.238281 27 27.277344 18.363281 26.371094 14.078125 Z"></path>
+                            </svg>
+                            Continuar con Google
+                        </button>
+                    </div> -->
+                </div>
+            </form>
+
+
+        </div>
+        
+    </holder>
+</window><window id="window-login" class="increased on-background-text" data-flip-id="animate">
+    <div class="simple-container padding-16">
+        <md-icon-button type="button" onclick="toggleWindow()" role="presentation" value=""><md-icon aria-hidden="true">close</md-icon></md-icon-button>
+    </div>
+    <holder class="justify-center align-center">
+
+        <div class="simple-container direction-column gap-8 width-100 max-width-400">
+            <div class="simple-container">
+                <div class="simple-container align-center gap-4 dm-sans body-large weight-600 user-select-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M0.570312 1.04346C0.570312 0.467171 1.03748 0 1.61377 0H8.9613C9.78724 0 10.2858 0.914045 9.83857 1.60844L1.60618 14.3912C1.15898 15.0856 1.65751 15.9997 2.48345 15.9997H9.83098C10.4073 15.9997 10.8744 15.5325 10.8744 14.9562V7.65201C10.8744 7.07572 10.4073 6.60855 9.83098 6.60855H1.61377C1.03748 6.60855 0.570312 6.14138 0.570312 5.5651V1.04346Z" fill="var(--md-sys-color-on-background)"></path>
+                    </svg>
+                    poled
+                </div>
+            </div>
+
+            <span class="display-small dm-sans weight-600">Inicia sesión</span>
+
+            <form class="simple-container direction-column gap-8 top-margin-16" autocomplete="off">
+                <span class="label-normal outline-text left-margin-8 dm-sans">Correo</span>
+                <input name="email" type="email" placeholder="Escribe tu correo">
+
+                <span class="label-normal outline-text left-margin-8 top-margin-8 dm-sans">Contraseña</span>
+                <input name="password" type="password" placeholder="Escoge una contraseña">
+
+                <div class="simple-container direction-column top-margin-8 bottom-margin-64">
+                    <button class="style-3 hidden primary-container on-primary-container-text"><md-ripple aria-hidden="true"></md-ripple>Iniciar sesión</button>
+                    <md-filled-button class="squared primary-primary" type="submit" role="presentation" value="">Iniciar sesión</md-filled-button>
+
+                    <div class="simple-container gap-4 justify-between gap-8 align-center flex-wrap top-margin-16">
+
+                        <label class="simple-container align-center gap-4 dm-sans body-large">
+                            <md-checkbox touch-target="wrapper" checked="true" name="remember_me" role="presentation"></md-checkbox>
+                            <span>Recordarme</span>
+                        </label>
+    
+                        <div class="fit-content overflow-hidden border-radius-64">
+                            <!-- Sign In With Google button with HTML data attributes API -->
+                            <div id="g_id_onload" data-client_id="819722503345-qies2hv7hjl6ig525dtau8327qccj82a.apps.googleusercontent.com" data-context="signin" data-ux_mode="popup" data-callback="handleCredentialResponse" data-auto_prompt="false">
+                            </div>
+    
+                            <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="outline" data-text="continue_with" data-size="medium" data-logo_alignment="left"><div class="S9gUrf-YoZ4jf" style="position: relative;"><div><div tabindex="0" role="button" aria-labelledby="button-label" class="nsm7Bb-HzV7m-LgbsSe  pSzOP-SxQuSe i5vt6e-Ia7Qfc JGcpL-RbRzK"><div class="nsm7Bb-HzV7m-LgbsSe-MJoBVe"></div><div class="nsm7Bb-HzV7m-LgbsSe-bN97Pc-sM5MNb "><div class="nsm7Bb-HzV7m-LgbsSe-Bz112c"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="LgbsSe-Bz112c"><g><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path><path fill="none" d="M0 0h48v48H0z"></path></g></svg></div><span class="nsm7Bb-HzV7m-LgbsSe-BPrWId">Continuar con Google</span><span class="L6cTce" id="button-label">Continuar con Google</span></div></div></div><iframe src="https://accounts.google.com/gsi/button?type=standard&amp;shape=pill&amp;theme=outline&amp;text=continue_with&amp;size=medium&amp;logo_alignment=left&amp;is_fedcm_supported=true&amp;client_id=819722503345-qies2hv7hjl6ig525dtau8327qccj82a.apps.googleusercontent.com&amp;iframe_id=gsi_6343_482820&amp;cas=BATyp%2B6nRVyg%2Bvl5TnYY1N7x6s3bnYVN3nqaQgnP8H0" allow="identity-credentials-get" id="gsi_6343_482820" title="Botón de Acceder con Google" style="display: block; position: relative; top: 0px; left: 0px; height: 0px; width: 0px; border: 0px;"></iframe></div></div>
+    
+                            <!-- Display the user's profile info -->
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+
+        </div>
+        
+    </holder>
+</window></transparent>
+<transparent class="">
+  <window class="increased slim h-auto" id="window-apps" data-flip-id="animate" style="">
+  <div class="content-box minimal padding-16">
+    <md-icon-button onclick="toggleWindow()" role="presentation" value="">
+      <md-icon aria-hidden="true">close</md-icon>
+    </md-icon-button>
+  </div>
+  <holder>
+    <span class="display-small bricolage weight-600">Apps</span>
+      <div class="simple-container gap-16 grow-1 flex-wrap">
+
+        
+
+        <div class="content-box padding-32 light-color basis-normal grow-1 user-select-none hover-outline">
+            <div class="simple-container direction-column justify-center gap-16 grow-1">
+                <span class="label-large primary-text">alora delivery / QuickBite </span>
+
+                <div class="simple-container gap-16 align-center">
+                    <div class="content-box fit-content padding-16 border-radius-16" style="background:#ffffff; color:#0065FF;">
+                        <md-icon class="filled" aria-hidden="true">delivery_dining</md-icon>
+                    </div>
+                    <span class="display-medium dm-sans weight-500 line-height-0-85">Quick Bite</span>
+                </div>
+                
+                <span class="headline-small text-wrap-pretty outline-text">
+                    Una app/web delivery para zonas rurales, ideal para el crecimiento de negocios y fuente de trabajo.
+                </span>
+                <div class="simple-container grow-1"></div>
+                <div class="simple-container flex-wrap gap-8">
+                    <md-filled-button href="index.php"><md-icon slot="icon">open_in_new</md-icon>Abrir app</md-filled-button>
+                    <!-- <md-outlined-button 
+                        onclick="togglePrettyWSection('#w-section-info-projects-3',['data-w_section_container','data-w_section_app_icon', 'data-w_section_title', 'data-w_section_previus_icon', 'data-w_section_previus_title'])">
+                        <md-icon slot="icon">visibility</md-icon>
+                        Más información
+                    </md-outlined-button> -->
+                    
+                </div>
+        
+            </div>
+        </div>
+
+        
+
+        <!-- <div class="content-box light-color padding-32 basis-normal grow-1 user-select-none hover-outline" data-w_section_container>
+            <div class="simple-container direction-column justify-center gap-16 grow-1">
+                <span class="label-large primary-text">stepbro Mind / Melon Mind</span>
+
+                <div class="simple-container gap-16 align-center">
+                    <div class="content-box fit-content padding-16 border-radius-16" style="background:linear-gradient(to bottom,rgb(112, 91, 233),rgb(92, 66, 237));color:white" data-w_section_app_icon>
+                        <md-icon class="filled">cognition</md-icon>
+                    </div>
+                    <span class="display-medium dm-sans weight-500 line-height-0-85" data-w_section_title>stepbro Mind</span>
+                </div>
+                
+                <span class="headline-small line-height-1 text-wrap-pretty outline-text">Un sistema diseñador para psicólogos y la gestión de todos sus pacientes y citas.</span>
+                <div class="simple-container grow-1"></div>
+                <div class="simple-container flex-wrap gap-8">
+                    <md-filled-button href="apps/mind/home"><md-icon slot="icon">open_in_new</md-icon>Abrir app</md-filled-button>                    
+                </div>
+            </div>
+        </div> -->
+
+        
+    </div>
+  </holder>
+</window><window id="window-info-projects" class="increased full-size" style="">
+        
+
+        <div class="simple-container padding-16 gap-16 align-center">
+            <md-icon-button onclick="togglePrettyWindow()" role="presentation" value="">
+                <md-icon aria-hidden="true">close</md-icon>
+            </md-icon-button>
+
+            <!-- <span class="headline-small dm-sans" data-title>Nuestros proyectos</span> -->
+        </div>
+        
+    <holder class="on-background-text overflow-hidden">
+
+        <div class="simple-container direction-column grow-1 align-center on-background-text gap-16 overflow-hidden">
+            <div class="simple-container direction-column width-100 max-width-1200 grow-1 overflow-hidden gap-16 overflow-hidden">
+                
+                <div class="w-section overflow-auto simple-container grow-1 flex-wrap" id="w-section-info-projects-1" active="">
+
+                    <div class="simple-container grow-1 basis-normal  direction-column justify-center">
+                        <md-icon class="pretty-minimal filled" data-icon="" data-w_section_previus_icon="" aria-hidden="true" style="">apps</md-icon>
+                        <span class="display-large dm-sans" data-title="" style="">Nuestros proyectos</span>
+                    </div>
+                    <div class="simple-container grow-1 overflow-auto max-height-100 basis-normal direction-column justify-center gap-16">
+
+                        
+                        
+
+                        <div class="content-box padding-32 light-color basis-normal user-select-none hover-outline">
+                            <div class="simple-container direction-column justify-center gap-16 grow-1">
+                                <span class="label-large primary-text">alora delivery / Quick Bite </span>
+
+                                <div class="simple-container gap-16 align-center">
+                                     <div class="content-box fit-content padding-16 border-radius-16" style="background:#ffffff; color:#0065FF;">
+                        <md-icon class="filled" aria-hidden="true">delivery_dining</md-icon>
+                                    </div>
+                                    <span class="display-medium dm-sans weight-500 line-height-0-85">Quick Bite</span>
+                                </div>
+                                
+                                <span class="headline-small text-wrap-pretty outline-text">
+                                    Una app/web delivery para zonas rurales, ideal para el crecimiento de negocios y fuente de trabajo.
+                                </span>
+                                <div class="simple-container grow-1"></div>
+                                <div class="simple-container flex-wrap gap-8">
+                                    <md-filled-button href="index.php"><md-icon slot="icon">open_in_new</md-icon>Abrir app</md-filled-button>
+                                    <!-- <md-outlined-button 
+                                        onclick="togglePrettyWSection('#w-section-info-projects-3',['data-w_section_container','data-w_section_app_icon', 'data-w_section_title', 'data-w_section_previus_icon', 'data-w_section_previus_title'])">
+                                        <md-icon slot="icon">visibility</md-icon>
+                                        Más información
+                                    </md-outlined-button> -->
+                                    
+                                </div>
+                        
+                            </div>
+                        </div>
+
+                        
+                    </div>
+
+                </div>
+
+
+                <div class="w-section overflow-auto simple-container direction-column gap-8" id="w-section-info-projects-2">
+                    <div class="simple-container align-center gap-16 bottom-margin-8 flex-wrap">
+                        <md-icon-button onclick="togglePrettyWSection('#w-section-info-projects-1',['data-w_section_container', 'data-w_section_shared_button'])" role="presentation" value=""><md-icon aria-hidden="true">arrow_back</md-icon></md-icon-button>
+                        <div class="simple-container align-center gap-8">
+                            <md-icon class="filled" data-w_section_previus_icon="" aria-hidden="true">apps</md-icon>
+                            <span class="headline-small dm-sans" data-w_section_previus_title="">Nuestros proyectos &gt; </span>
+                        </div>
+                        <div class="simple-container align-center gap-8">
+                            <div class="content-box fit-content padding-4 border-radius-16" style="background:black;color:white">
+                                <md-icon class="filled" style="scale:0.5" aria-hidden="true">edit_square</md-icon>
+                            </div>
+                            <span class="headline-small dm-sans ">stepbro Notes</span>
+                        </div>
+                    </div>
+
+
+                    <div class="simple-container grow-1 basis-large gap-8 flex-wrap" data-w_section_container="">
+                        <div class="simple-container grow-1 basis-normal border-radius-16" style="background:var(--md-sys-color-surface-container)">
+                            <img class="width-100 fit-cover object-left" src="https://i.ibb.co/0YzC06m/635shots-so.png" alt="Imagen demo de stepbro notes">
+                        </div>
+                        <div class="simple-container grow-1 basis-normal border-radius-16" style="background:var(--md-sys-color-surface-container)">
+                            <img class="width-100 fit-cover" src="https://i.ibb.co/Dg7X4JB/146-1x-shots-so.png" alt="Imagen demo de stepbro notes">
+                        </div>
+                        <div class="simple-container grow-1 basis-normal border-radius-16" style="background:var(--md-sys-color-surface-container)">
+                            <img class="width-100 fit-cover" src="https://i.ibb.co/2kGyqbJ/36shots-so.png" alt="Imagen demo de stepbro notes"> 
+                        </div>
+                    </div>
+
+                    <div class="simple-container direction-column top-margin-24">
+                        <div class="simple-container gap-16 align-center bottom-margin-16">
+                            <div class="content-box fit-content padding-16 border-radius-16" style="background:black;color:white" data-w_section_app_icon="">
+                                <md-icon class="filled" aria-hidden="true">edit_square</md-icon>
+                            </div>
+                            <span class="display-medium dm-sans weight-500 line-height-0-85" data-w_section_title="">stepbro Notes</span>
+                            <div class="simple-container grow-1"></div>
+                            <md-filled-button href="apps/notes/home" class="hide-on-mobile" data-w_section_shared_button="" role="presentation" value="" has-icon=""><md-icon slot="icon" aria-hidden="true">open_in_new</md-icon>Abrir app</md-filled-button>
+
+                        </div>
+                        <span class="body-large line-height-1-5 text-wrap-pretty outline-text">Stepbro Notes es una aplicación multiplataforma diseñada para llevar tu organización al siguiente nivel. Ofrece un completo <span class="primary-text">sistema de carpetas</span> para ordenar tus notas de forma clara y eficiente, un práctico <span class="primary-text">to-do list</span> para gestionar tus tareas con estados personalizados, y un <span class="primary-text">diario encriptado</span> con contraseña para mantener tus pensamientos privados y protegidos. Todo con un <span class="primary-text">diseño fluido, estético y pensado para facilitar tu día a día</span>.</span>
+                        <md-filled-button href="apps/notes/home" class="only-on-mobile top-margin-24" role="presentation" value="" has-icon=""><md-icon slot="icon" aria-hidden="true">open_in_new</md-icon>Abrir app</md-filled-button>
+                    </div>
+
+                    <div class="top-margin-24" style="
+                        display: grid;
+                        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                        grid-template-rows: repeat(2, 1fr);
+                        gap: 8px;
+                        ">
+                        <div class="content-box padding-32 direction-row hover-scale-small light-color">
+                        <div class="simple-container"><md-icon class="primary-container-text filled pretty small" aria-hidden="true">folder_open</md-icon></div>
+                        <div class="simple-container direction-column gap-8 grow-1">
+                            <span class="headline-small  weight-500">Sistema de carpetas</span>
+                            <p class="body-large text-wrap-pretty">Organiza todas tus notas de forma elegante y eficiente con un sistema de carpetas. Perfecto para tener todas tus ideas, proyectos y tareas separadas de manera visualmente agradable, como en un sistema operativo.</p>
+                        </div>
+                        </div>
+                        <div class="content-box padding-32 direction-row hover-scale-small light-color">
+                        <div class="simple-container"><md-icon class="primary-container-text filled pretty small" aria-hidden="true">edit_note</md-icon></div>
+                        <div class="simple-container direction-column gap-8 grow-1">
+                            <span class="headline-small  weight-500">Notas rápidas</span>
+                            <p class="body-large text-wrap-pretty">Toma notas al instante, sin preocuparte por guardarlas. Al entrar en la aplicación, tendrás un recuadro listo para escribir, y cada palabra se guarda automáticamente mientras escribes. Ideal para esos momentos de prisa.</p>
+                        </div>
+                        </div>
+                        <div class="content-box padding-32 direction-row hover-scale-small light-color">
+                        <div class="simple-container"><md-icon class="primary-container-text filled pretty small" aria-hidden="true">encrypted</md-icon></div>
+                        <div class="simple-container direction-column gap-8 grow-1">
+                            <span class="headline-small  weight-500">Diario encriptado</span>
+                            <p class="body-large text-wrap-pretty">Tu espacio personal y privado para escribir tus pensamientos diarios. Protegido por un PIN y encriptado, asegura que solo tú tengas acceso a tus entradas más personales.</p>
+                        </div>
+                        </div>
+                        <div class="content-box padding-32 direction-row hover-scale-small light-color">
+                        <div class="simple-container"><md-icon class="primary-container-text filled pretty small" aria-hidden="true">list</md-icon></div>
+                        <div class="simple-container direction-column gap-8 grow-1">
+                            <span class="headline-small  weight-500">To do List</span>
+                            <p class="body-large text-wrap-pretty">Un sistema de listas de tareas simple y funcional, con estados como pendiente, en progreso y completado. Organiza y marca tus objetivos fácilmente, con la posibilidad de añadir fechas límite.</p>
+                        </div>
+                        </div>
+                        <div class="content-box padding-32 direction-row hover-scale-small light-color">
+                        <div class="simple-container"><md-icon class="primary-container-text filled pretty small" aria-hidden="true">devices</md-icon></div>
+                        <div class="simple-container direction-column gap-8 grow-1">
+                            <span class="headline-small  weight-500">Multiplataforma</span>
+                            <p class="body-large text-wrap-pretty">Usable en cualquier dispositivo, ya sea que prefieras una computadora, tablet o teléfono. Además, puedes instalarla como una Progressive Web App (PWA) para tenerla siempre a mano.</p>
+                        </div>
+                        </div>
+                        <div class="content-box padding-32 direction-row hover-scale-small light-color">
+                        <div class="simple-container"><md-icon class="primary-container-text filled pretty small" aria-hidden="true">palette</md-icon></div>
+                        <div class="simple-container direction-column gap-8 grow-1">
+                            <span class="headline-small  weight-500">Personalización</span>
+                            <p class="body-large text-wrap-pretty">Personaliza tu experiencia cambiando la paleta de colores y el estilo de navegación. Haz que la aplicación se sienta verdaderamente tuya, con un look que se adapta a tus gustos.</p>
+                        </div>
+                        </div>
+                        
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+        
+        
+
+        
+        <!-- <div class="simple-container flex-wrap gap-8 grow-1">
+            <div class="simple-container width-100 flex-wrap gap-32 height-100">
+                <div class="simple-container grow-1 basis-large gap-8">
+                    <div class="simple-container grow-1 basis-normal border-radius-24" style="background:var(--md-sys-color-surface-container)">
+                        <img class="width-100 fit-cover object-left" src="https://i.ibb.co/0YzC06m/635shots-so.png" alt="Imagen demo de stepbro notes">
+                    </div>
+                    <div class="simple-container grow-1 basis-normal direction-column gap-8">
+                        <div class="simple-container grow-1 basis-normal border-radius-24" style="background:var(--md-sys-color-surface-container)">
+                            <img class="width-100 fit-cover" src="https://i.ibb.co/Dg7X4JB/146-1x-shots-so.png" alt="Imagen demo de stepbro notes">
+                        </div>
+                        <div class="simple-container grow-1 basis-normal border-radius-24" style="background:var(--md-sys-color-surface-container)">
+                            <img class="width-100 fit-cover" src="https://i.ibb.co/2kGyqbJ/36shots-so.png" alt="Imagen demo de stepbro notes">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="simple-container direction-column justify-center grow-1 basis-normal gap-16">
+                    <div class="simple-container gap-16 align-center">
+                        <div class="content-box fit-content primary-container on-primary-container-text padding-16 border-radius-16">
+                            <md-icon class="filled">edit_square</md-icon>
+                        </div>
+                        <span class="display-large dm-sans weight-500 line-height-0-85">stepbro Notes</span>
+                    </div>
+                    
+                    <span class="headline-small line-height-1-5 text-wrap-pretty outline-text">Una app de notas con sistema de carpetas, lista de tareas y diario encriptado.</span>
+                    <div class="simple-container">
+                    <md-filled-button href="apps/notes/home"><md-icon slot="icon">open_in_new</md-icon>Abrir app</md-filled-button>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+    </holder>
+</window></transparent>
+<main class="direction-column">
+  <nav class="nav-style-5 justify-center margin-0">
+    <div class="simple-container grow-1 justify-between-wide-screen h-padding-16 max-width-1200">
+  <div class="simple-container grow-0-1">
+    <button class="nav-button stepbro" active="" data-section="section-index" onclick="toggleSection('section-index', '#index-scroll-target')">
+      <md-ripple aria-hidden="true"></md-ripple>
+      <span class="icon-holder">
+        <span class="material-symbols-rounded only-on-mobile">home</span>
+      </span>
+      <span>alora</span>
+    </button>
+  </div>
+  <div class="simple-container grow-0-1">
+    <button class="nav-button" onclick="window.location.href='mailto:23150364@aguascalientes.tecnm.mx'; return false;">
+      <md-ripple aria-hidden="true"></md-ripple>
+      <span class="icon-holder">
+        <span class="material-symbols-rounded only-on-mobile">mail</span>
+      </span>
+      <span>Contactanos</span>
+    </button>
+
+      </div>
+</div>
+
+
+
+
+
+
+<!-- <button 
+  class="nav-button"
+  data-section="section-login" 
+  onclick="toggleSection('section-login')"
+  >
+  <md-ripple></md-ripple>
+  <span class="icon-holder">
+    <span class="material-symbols-rounded">login</span>
+  </span>
+  <span>Iniciar sesión</span>
+</button>
+
+<button 
+  class="nav-button"
+  data-section="section-signup" 
+  onclick="toggleSection('section-signup')"
+  >
+  <md-ripple></md-ripple>
+  <span class="icon-holder">
+    <span class="material-symbols-rounded">person_add</span>
+  </span>
+  <span>Crear cuenta</span>
+</button> -->
+
+  </nav>
+  <holder class="top-margin-0">
+    <section id="section-index" class="top-padding-0-16" active="">
+
+  <div class="simple-container direction-column gap-8 grow-1 border-radius-24 overflow-auto scrollbar-hidden" id="index-scroll-target">
+    <div class="content-box light-color justify-center align-center height-100 gap-16" style="padding:48px">
+      <!-- <h1 class="display-large dm-sans" style="font-size:10vw; color:var(--md-sys-color-on-surface-variant); font-weight:600; line-height:0.95">Cocounut</h1> -->
+
+      <div class="simple-container">
+        <span class="index-letter">a</span>
+        <span class="index-letter">l</span>
+        <span class="index-letter">o</span>
+        <span class="index-letter">r</span>
+        <span class="index-letter">a</span>
+
+      </div>
+      <style>
+        .index-letter{
+          font-size: 10vw;
+          font-weight: 600;
+          color: var(--md-sys-color-on-background);
+          line-height: 0.95;
+          font-family: "Bricolage Grotesque", system-ui;
+          transition: 
+            font-weight 300ms cubic-bezier(.29,.64,0,1), 
+            transform 300ms cubic-bezier(.29,.64,0,1), 
+            color 300ms cubic-bezier(.29,.64,0,1), 
+            margin 300ms cubic-bezier(.29,.64,0,1)
+            /* text-shadow 500ms cubic-bezier(.29,.64,0,1); */
+            
+            ;
+          cursor:default;
+          user-select:none;
+        }
+
+        .index-letter:hover{
+          font-weight:1000;
+          transform:scale(1.2);
+          /* color:var(--md-sys-color-primary-container); */
+          /* text-shadow: 0px 0px 128px var(--md-sys-color-primary-container); */
+          margin:0 4px;
+        }
+
+    
+        
+      </style>
+
+      <p class="headline-medium weight-500 user-select-none text-center" style="color:var(--md-sys-color-on-secondary-container); line-height:0.98">
+        Transformando el desarrollo de software
+      </p>
+      <div class="simple-container v-margin">
+        <md-filled-button data-flip-id="animate" onclick="toggleWindow('#window-apps', undefined, 1)" role="presentation" value="" has-icon="" style="translate: none; rotate: none; scale: none;"><md-icon slot="icon" aria-hidden="true">apps</md-icon>Nuestras apps</md-filled-button>
+      </div>
+    </div>
+
+    <!-- <div class="content-box align-center gap-16">
+        <div class="simple-container">
+          <span class="headline-medium dm-sans">stepbro 1</span>
+        </div>
+
+        <div class="simple-container border-radius-24 overflow-hidden">
+          <img src="assets/asset2.png" alt="stepbro #1" style="max-width:100%; height:500px; object-fit: cover;">
+        </div>
+
+        <div class="simple-container">
+          <span class="body-large dm-sans">Próximamente disponible</span>
+        </div>
+    </div> -->
+    <div class="simple-container justify-center">
+        <div class="simple-container width-100 max-width-1200">
+          <div class="simple-container direction-column gap-16 on-background-text top-margin-64 bottom-margin-64 padding-32">
+            <span class="display-small dm-sans weight-500">¿Qué somos?</span>
+            <p class="headline-small outline-text line-height-1-5 text-wrap-pretty">
+              <!-- Somos una empresa de <span class="primary-text">desarrollo de software</span> que se enfoca en la creación de Sistemas para empresas y aplicaciones para usuarios.<br><br> -->
+              En alora Software, <span class="primary-text">transformamos ideas en soluciones tecnológicas</span> que combinan funcionalidad, diseño y accesibilidad. Nos especializamos tanto en aplicaciones para usuarios individuales como en sistemas personalizados para negocios, <span class="primary-text">siempre con un enfoque en la experiencia de usuario y la calidad.</span>
+            </p>
+          </div>
+        </div>
+    </div>
+
+    <div class="simple-container height-100 gap-8 flex-wrap on-background-text">
+      <!-- <div class="content-box width-auto grow-1 basis-normal direction-column justify-center padding-32">
+        <md-icon class="pretty-minimal filled">kid_star</md-icon>
+        <span class="display-large dm-sans">Somos mejores.</span>
+      </div> -->
+
+      <div onclick="togglePrettyWindow('#window-info-projects', ['data-icon', 'data-title'])" class="content-box light-color width-auto grow-1 basis-normal direction-column justify-center padding-32 cursor-pointer hover-outline" style="">
+        <md-icon class="pretty-minimal filled" data-icon="" aria-hidden="true" style="">apps</md-icon>
+        <span class="display-large dm-sans" data-title="" style="">Nuestros proyectos</span>
+      </div>
+
+      <!-- <div class="content-box width-auto grow-1 basis-normal direction-column justify-center padding-32">
+        <md-icon class="pretty-minimal filled">credit_card</md-icon>
+        <span class="display-large dm-sans">Precios</span>
+      </div> -->
+    </div>
+
+  </div>
+
+  
+
+   
+  
+
+  
+</section>  
+  </holder>
+</main>
+
+
+<message></message>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/Flip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/CustomEase.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/Draggable.min.js"></script> -->
+    <script src="https://stepbro.site/js/ui-functions.js?v=1.8.0"></script>
+    <!-- <script src="https://stepbro.site/js/account-functions.js?v=7"></script> -->
+    <script src="https://stepbro.site/js/suggestions-functions.js?v=8"></script>
+    <script src="https://stepbro.site/js/beautiful-windows.js?v=1.7.0"></script>
+    
+  
+
+  <!-- <script src="https://stepbro.site/js/calories-functions.js?v=1"></script> -->
+
+<div id="monica-content-root" class="monica-widget" style="pointer-events: auto;"></div></body></html>

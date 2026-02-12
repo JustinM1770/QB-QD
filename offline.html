@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sin Conexión - QuickBite</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/logo.png">
+    <style>
+        :root {
+            --primary: #0165FF;
+            --primary-dark: #0052cc;
+            --gray-100: #f5f5f5;
+            --gray-600: #525252;
+            --gray-900: #171717;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .offline-container {
+            max-width: 400px;
+            padding: 2rem;
+        }
+        
+        .offline-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        .offline-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .offline-message {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .retry-button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+        
+        .retry-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .offline-features {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .offline-features h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .offline-features ul {
+            list-style: none;
+            text-align: left;
+        }
+        
+        .offline-features li {
+            padding: 0.5rem 0;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+        }
+        
+        .offline-features li::before {
+            content: "✓";
+            color: #10b981;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        .connection-status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(239, 68, 68, 0.9);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .connection-status.online {
+            background: rgba(16, 185, 129, 0.9);
+        }
+    </style>
+</head>
+<body>
+    <div class="connection-status" id="connectionStatus">
+        📡 Sin conexión
+    </div>
+    
+    <div class="offline-container">
+        <div class="offline-icon pulse">
+            🍕
+        </div>
+        
+        <h1 class="offline-title">
+            ¡Ups! No hay conexión
+        </h1>
+        
+        <p class="offline-message">
+            Parece que no tienes conexión a internet. Pero no te preocupes, 
+            puedes seguir navegando por las páginas que ya visitaste.
+        </p>
+        
+        <button class="retry-button" onclick="window.location.reload()">
+            🔄 Intentar de nuevo
+        </button>
+        
+        <button class="retry-button" onclick="window.history.back()" style="margin-left: 10px;">
+            ← Volver atrás
+        </button>
+        
+        <div class="offline-features">
+            <h3>Lo que puedes hacer sin conexión:</h3>
+            <ul>
+                <li>Ver restaurantes visitados anteriormente</li>
+                <li>Revisar tu historial de pedidos</li>
+                <li>Navegar por páginas ya cargadas</li>
+                <li>Preparar tu próximo pedido</li>
+            </ul>
+        </div>
+        
+        <p style="margin-top: 2rem; opacity: 0.7; font-size: 0.875rem;">
+            Cuando tengas conexión nuevamente, todo se sincronizará automáticamente.
+        </p>
+    </div>
+
+    <script>
+        // Monitorear estado de conexión
+        function updateConnectionStatus() {
+            const status = document.getElementById('connectionStatus');
+            if (navigator.onLine) {
+                status.textContent = '📡 Conectado';
+                status.className = 'connection-status online';
+                
+                // Auto-recargar cuando vuelve la conexión
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            } else {
+                status.textContent = '📡 Sin conexión';
+                status.className = 'connection-status';
+            }
+        }
+        
+        // Listeners para cambios de conexión
+        window.addEventListener('online', updateConnectionStatus);
+        window.addEventListener('offline', updateConnectionStatus);
+        
+        // Verificar estado inicial
+        updateConnectionStatus();
+        
+        // Intentar reconectar cada 10 segundos
+        setInterval(() => {
+            if (!navigator.onLine) {
+                // Hacer un request silencioso para verificar conectividad
+                fetch('/', { method: 'HEAD', cache: 'no-cache' })
+                    .then(() => {
+                        // Si el fetch es exitoso, actualizamos el estado
+                        updateConnectionStatus();
+                    })
+                    .catch(() => {
+                        // Sigue offline
+                    });
+            }
+        }, 10000);
+    </script>
+</body>
+</html>

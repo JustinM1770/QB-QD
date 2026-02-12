@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickBite - Tu Comida Favorita en Minutos</title>
+    <meta name="description" content="Pide comida de tus restaurantes favoritos con QuickBite. PWA rapida, sin descargas, entrega express y los mejores precios.">
+    <link rel="icon" type="image/x-icon" href="assets/img/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=League+Spartan:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0165FF;
+            --primary-light: #3d8bff;
+            --primary-dark: #0050cc;
+            --accent: #FFD700;
+            --orange: #f97316;
+            --orange-dark: #ea580c;
+            --background: #fefefe;
+            --surface: #ffffff;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-muted: #9ca3af;
+            --border: #f3f4f6;
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, #0165FF 0%, #0050cc 100%);
+            --gradient-orange: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Logo */
+        .logo {
+            font-family: 'League Spartan', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0;
+        }
+
+        .logo-quick {
+            color: var(--primary);
+        }
+
+        .logo-bite {
+            color: var(--accent);
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav.scrolled {
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--orange);
+        }
+
+        .nav-cta {
+            background: var(--orange);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background: var(--orange-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Install Button */
+        .install-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--gradient-orange);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 50px;
+            box-shadow: var(--shadow-xl);
+            border: none;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            z-index: 999;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .install-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+        }
+
+        .install-btn i {
+            font-size: 18px;
+        }
+
+        .install-btn.show {
+            display: flex;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 140px 0 100px;
+            background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 52px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        .hero-content h1 span {
+            background: var(--gradient-orange);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .hero-features {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .hero-feature {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            background: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+        }
+
+        .hero-feature i {
+            color: var(--orange);
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-orange);
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--text-secondary);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--orange);
+            color: var(--orange);
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .phone-mockup {
+            width: 300px;
+            height: 600px;
+            background: #1f2937;
+            border-radius: 40px;
+            padding: 12px;
+            margin: 0 auto;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--surface);
+            border-radius: 32px;
+            overflow: hidden;
+        }
+
+        .phone-header {
+            height: 70px;
+            background: var(--gradient-orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            gap: 8px;
+        }
+
+        .phone-content {
+            padding: 16px;
+        }
+
+        .food-card {
+            background: #fef3e2;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .food-img {
+            width: 50px;
+            height: 50px;
+            background: var(--orange);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .food-info h4 {
+            font-size: 13px;
+            margin-bottom: 2px;
+        }
+
+        .food-info p {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .food-price {
+            margin-left: auto;
+            font-weight: 700;
+            color: var(--orange);
+            font-size: 14px;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 100px 0;
+            background: var(--surface);
+        }
+
+        .about-container {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-container h2 {
+            font-size: 40px;
+            margin-bottom: 24px;
+        }
+
+        .about-container .lead {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 60px;
+            line-height: 1.8;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+
+        .about-item {
+            padding: 32px;
+        }
+
+        .about-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 36px;
+            color: var(--orange);
+        }
+
+        .about-item h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .about-item p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* How it Works */
+        .how-it-works {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+            color: var(--orange);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 40px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+        }
+
+        .step-card {
+            background: var(--surface);
+            padding: 40px 32px;
+            border-radius: 24px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .step-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--gradient-orange);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 24px;
+        }
+
+        .step-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .step-card p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            padding: 100px 0;
+            background: var(--surface);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .benefit-card {
+            background: var(--surface);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefit-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-orange);
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .benefit-card.highlight {
+            background: var(--gradient-orange);
+            color: white;
+            border: none;
+        }
+
+        .benefit-card.highlight::before {
+            background: var(--accent);
+        }
+
+        .benefit-card.highlight h3,
+        .benefit-card.highlight p {
+            color: white;
+        }
+
+        .benefit-card.highlight .benefit-icon {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+
+        .benefit-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            color: var(--orange);
+            font-size: 28px;
+        }
+
+        .benefit-card h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .benefit-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .benefit-highlight {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 16px;
+        }
+
+        /* PWA Section */
+        .pwa-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+        }
+
+        .pwa-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .pwa-content h2 {
+            font-size: 40px;
+            margin-bottom: 24px;
+            color: white;
+        }
+
+        .pwa-content p {
+            font-size: 18px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 32px;
+            line-height: 1.8;
+        }
+
+        .pwa-features {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .pwa-feature {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 16px;
+        }
+
+        .pwa-feature i {
+            font-size: 24px;
+            color: var(--accent);
+        }
+
+        .pwa-feature h4 {
+            font-size: 16px;
+            margin-bottom: 4px;
+            color: white;
+        }
+
+        .pwa-feature p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            margin: 0;
+        }
+
+        .pwa-visual {
+            text-align: center;
+        }
+
+        .pwa-mockup {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 40px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .pwa-icon {
+            width: 100px;
+            height: 100px;
+            background: var(--gradient-orange);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 48px;
+        }
+
+        .pwa-mockup h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: white;
+        }
+
+        .pwa-mockup p {
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 24px;
+        }
+
+        .pwa-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: left;
+        }
+
+        .pwa-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255,255,255,0.1);
+            padding: 12px 16px;
+            border-radius: 12px;
+        }
+
+        .pwa-step-num {
+            width: 28px;
+            height: 28px;
+            background: var(--accent);
+            color: #1f2937;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .pwa-step span {
+            font-size: 14px;
+            color: white;
+        }
+
+        /* Promos Section */
+        .promos-section {
+            padding: 100px 0;
+            background: var(--surface);
+        }
+
+        .promos-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .promo-card {
+            background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+            padding: 32px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .promo-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .promo-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .promo-card h4 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .promo-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--orange);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .promo-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        /* Restaurant Types Section */
+        .restaurant-types {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+
+        .types-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            margin-top: 60px;
+        }
+
+        .type-card {
+            background: var(--surface);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .type-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .type-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 24px;
+            margin-bottom: 16px;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+
+        .type-badge.free {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            color: #1e40af;
+        }
+
+        .type-badge.pro {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #92400e;
+        }
+
+        .type-card h3 {
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+
+        .type-commission {
+            display: inline-block;
+            background: var(--orange);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .type-features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .type-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 15px;
+            color: var(--text-secondary);
+        }
+
+        .type-features li:last-child {
+            border-bottom: none;
+        }
+
+        .type-features i {
+            color: var(--orange);
+            font-size: 16px;
+        }
+
+        .type-features .highlight {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 100px 0;
+            background: var(--gradient-orange);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta h2 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 24px;
+        }
+
+        .cta p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--orange);
+        }
+
+        .btn-white:hover {
+            background: #f8fafc;
+        }
+
+        .btn-outline-white {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-outline-white:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: white;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1f2937;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer p {
+            opacity: 0.7;
+            font-size: 14px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 16px;
+        }
+
+        .footer-links a {
+            color: white;
+            opacity: 0.7;
+            text-decoration: none;
+            font-size: 14px;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .steps-container,
+            .promos-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-container,
+            .pwa-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .hero-content h1 {
+                font-size: 36px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .benefits-grid,
+            .steps-container,
+            .promos-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .cta h2 {
+                font-size: 32px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .phone-mockup {
+                width: 260px;
+                height: 520px;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav" id="navbar">
+        <div class="container">
+            <div class="nav-container">
+                <a href="index.php" class="logo">
+                    <span class="logo-quick">Quick</span><span class="logo-bite">Bite</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#como-funciona">Como Funciona</a></li>
+                    <li><a href="#beneficios">Beneficios</a></li>
+                    <li><a href="#pwa">Sin Descargas</a></li>
+                </ul>
+                <a href="index.php" class="nav-cta">Pedir Ahora</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="container">
+            <div class="hero-container">
+                <div class="hero-content fade-in">
+                    <h1>Tu Comida Favorita <span>en Minutos</span></h1>
+                    <p class="hero-subtitle">Pide desde tu navegador, sin descargar nada. QuickBite funciona como app pero sin ocupar espacio en tu telefono. Todo desde la web.</p>
+
+                    <div class="hero-features">
+                        <div class="hero-feature">
+                            <i class="fas fa-bolt"></i>
+                            <span>Entrega Rapida</span>
+                        </div>
+                        <div class="hero-feature">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>Sin Descargar APP</span>
+                        </div>
+                        <div class="hero-feature">
+                            <i class="fas fa-store"></i>
+                            <span>+50 Restaurantes</span>
+                        </div>
+                    </div>
+
+                    <div class="hero-cta">
+                        <a href="index.php" class="btn btn-primary">
+                            <i class="fas fa-shopping-bag"></i>
+                            Pedir Ahora
+                        </a>
+                        <a href="#como-funciona" class="btn btn-secondary">
+                            <i class="fas fa-info-circle"></i>
+                            Como Funciona
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-visual fade-in">
+                    <div class="phone-mockup">
+                        <div class="phone-screen">
+                            <div class="phone-header">
+                                <span class="logo-quick" style="color: white;">Quick</span><span class="logo-bite">Bite</span>
+                            </div>
+                            <div class="phone-content">
+                                <div class="food-card">
+                                    <div class="food-img">🍕</div>
+                                    <div class="food-info">
+                                        <h4>Pizza Suprema</h4>
+                                        <p>Pizzeria Roma</p>
+                                    </div>
+                                    <div class="food-price">$189</div>
+                                </div>
+                                <div class="food-card">
+                                    <div class="food-img">🍔</div>
+                                    <div class="food-info">
+                                        <h4>Burger Deluxe</h4>
+                                        <p>Burger House</p>
+                                    </div>
+                                    <div class="food-price">$129</div>
+                                </div>
+                                <div class="food-card">
+                                    <div class="food-img">🌮</div>
+                                    <div class="food-info">
+                                        <h4>Tacos al Pastor</h4>
+                                        <p>Taqueria El Sol</p>
+                                    </div>
+                                    <div class="food-price">$85</div>
+                                </div>
+                                <div class="food-card">
+                                    <div class="food-img">🍣</div>
+                                    <div class="food-info">
+                                        <h4>Sushi Roll</h4>
+                                        <p>Sushi Master</p>
+                                    </div>
+                                    <div class="food-price">$220</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What is QuickBite -->
+    <section class="about-section" id="que-es">
+        <div class="container">
+            <div class="about-container fade-in">
+                <h2>Que es QuickBite?</h2>
+                <p class="lead">QuickBite es la forma mas facil de pedir comida. No necesitas descargar ninguna app - funciona directo desde tu navegador, rapida y sin ocupar espacio en tu telefono. Los restaurantes usan tecnologia de punta: Bot de WhatsApp para confirmar pedidos y Menus Magicos creados con IA para que siempre esten actualizados.</p>
+
+                <div class="about-grid">
+                    <div class="about-item">
+                        <div class="about-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>Descubre</h3>
+                        <p>Explora restaurantes cercanos, filtra por categoria, precio o calificacion. Encuentra exactamente lo que se te antoja.</p>
+                    </div>
+                    <div class="about-item">
+                        <div class="about-icon">
+                            <i class="fas fa-mouse-pointer"></i>
+                        </div>
+                        <h3>Pide Facil</h3>
+                        <p>Agrega al carrito, personaliza tu orden y paga seguro. Todo en pocos clics, sin complicaciones.</p>
+                    </div>
+                    <div class="about-item">
+                        <div class="about-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <h3>Recibe Rapido</h3>
+                        <p>Sigue tu pedido en tiempo real. Repartidores verificados llevan tu comida caliente a tu puerta.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works -->
+    <section class="how-it-works" id="como-funciona">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-badge">Super Facil</div>
+                <h2 class="section-title">Como Funciona?</h2>
+                <p class="section-subtitle">Pedir tu comida favorita nunca fue tan simple</p>
+            </div>
+
+            <div class="steps-container">
+                <div class="step-card fade-in">
+                    <div class="step-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Ingresa tu Ubicacion</h3>
+                    <p>Comparte tu direccion y te mostramos los restaurantes disponibles cerca de ti</p>
+                </div>
+                <div class="step-card fade-in">
+                    <div class="step-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3>Elige tu Comida</h3>
+                    <p>Explora menus, lee resenas y selecciona tus platillos favoritos</p>
+                </div>
+                <div class="step-card fade-in">
+                    <div class="step-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h3>Paga Seguro</h3>
+                    <p>Tarjeta, efectivo o transferencia. Tu decides como pagar</p>
+                </div>
+                <div class="step-card fade-in">
+                    <div class="step-icon">
+                        <i class="fas fa-smile"></i>
+                    </div>
+                    <h3>Disfruta!</h3>
+                    <p>Recibe tu pedido caliente en la puerta de tu casa</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits" id="beneficios">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-badge">Ventajas</div>
+                <h2 class="section-title">Beneficios para Ti</h2>
+                <p class="section-subtitle">Descubre porque miles eligen QuickBite</p>
+            </div>
+
+            <div class="benefits-grid">
+                <div class="benefit-card fade-in">
+                    <div class="benefit-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Entrega Rapida</h3>
+                    <p>Repartidores cerca de ti listos para llevar tu pedido. Seguimiento en tiempo real desde la cocina hasta tu puerta.</p>
+                </div>
+
+                <div class="benefit-card highlight fade-in">
+                    <div class="benefit-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Sin Descargar APP</h3>
+                    <p>No hay aplicacion para descargar. QuickBite funciona directo desde tu navegador. No ocupamos espacio en tu telefono.</p>
+                    <div class="benefit-highlight">0 MB de almacenamiento</div>
+                </div>
+
+                <div class="benefit-card fade-in">
+                    <div class="benefit-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Pagos Seguros</h3>
+                    <p>Encriptacion bancaria para proteger tus datos. Paga con tarjeta, efectivo o transferencia.</p>
+                </div>
+
+                <div class="benefit-card fade-in">
+                    <div class="benefit-icon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h3>Restaurantes con Tecnologia</h3>
+                    <p>Negocios locales con Bot de WhatsApp y Menus Magicos creados con IA. Pedidos confirmados al instante y menus siempre actualizados.</p>
+                </div>
+
+                <div class="benefit-card fade-in">
+                    <div class="benefit-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3>Seguimiento en Vivo</h3>
+                    <p>Ve donde esta tu pedido en cada momento. Sabe exactamente cuando llegara tu comida.</p>
+                </div>
+
+                <div class="benefit-card fade-in">
+                    <div class="benefit-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>Soporte Rapido</h3>
+                    <p>Cualquier problema, estamos para ayudarte. Soporte por WhatsApp y chat en la plataforma.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PWA Section -->
+    <section class="pwa-section" id="pwa">
+        <div class="container">
+            <div class="pwa-container">
+                <div class="pwa-content fade-in">
+                    <h2>Funciona Como App, Sin Serlo</h2>
+                    <p>QuickBite es una Progressive Web App (PWA). Esto significa que tienes toda la experiencia de una app nativa, pero sin tener que descargar nada de las tiendas.</p>
+
+                    <div class="pwa-features">
+                        <div class="pwa-feature">
+                            <i class="fas fa-rocket"></i>
+                            <div>
+                                <h4>Ultra Rapida</h4>
+                                <p>Carga instantanea, sin esperas. Optimizada para velocidad</p>
+                            </div>
+                        </div>
+                        <div class="pwa-feature">
+                            <i class="fas fa-hdd"></i>
+                            <div>
+                                <h4>Sin Ocupar Espacio</h4>
+                                <p>No usa almacenamiento de tu telefono. Cero MB</p>
+                            </div>
+                        </div>
+                        <div class="pwa-feature">
+                            <i class="fas fa-sync-alt"></i>
+                            <div>
+                                <h4>Siempre Actualizada</h4>
+                                <p>Nuevas funciones sin descargar actualizaciones</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pwa-visual fade-in">
+                    <div class="pwa-mockup">
+                        <div class="pwa-icon">
+                            <span class="logo-bite" style="font-family: 'League Spartan'; font-weight: 700; font-size: 36px;">QB</span>
+                        </div>
+                        <h3>Agregalo a tu Inicio</h3>
+                        <p>Para acceso rapido, agrega QuickBite a tu pantalla de inicio</p>
+
+                        <div class="pwa-steps">
+                            <div class="pwa-step">
+                                <div class="pwa-step-num">1</div>
+                                <span>Abre quickbite.com.mx en tu navegador</span>
+                            </div>
+                            <div class="pwa-step">
+                                <div class="pwa-step-num">2</div>
+                                <span>Toca el boton de compartir o menu</span>
+                            </div>
+                            <div class="pwa-step">
+                                <div class="pwa-step-num">3</div>
+                                <span>Selecciona "Agregar a pantalla de inicio"</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Promos Section -->
+    <section class="promos-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-badge">Ofertas</div>
+                <h2 class="section-title">Promociones Activas</h2>
+                <p class="section-subtitle">Aprovecha estas ofertas especiales</p>
+            </div>
+
+            <div class="promos-grid">
+                <div class="promo-card fade-in">
+                    <div class="promo-icon">🎉</div>
+                    <h4>Primera Compra</h4>
+                    <div class="promo-value">15% OFF</div>
+                    <div class="promo-desc">En tu primer pedido</div>
+                </div>
+                <div class="promo-card fade-in">
+                    <div class="promo-icon">🚀</div>
+                    <h4>Envio Gratis</h4>
+                    <div class="promo-value">$0</div>
+                    <div class="promo-desc">En pedidos mayores a $200</div>
+                </div>
+                <div class="promo-card fade-in">
+                    <div class="promo-icon">⚡</div>
+                    <h4>Happy Hour</h4>
+                    <div class="promo-value">2x1</div>
+                    <div class="promo-desc">Bebidas de 4pm a 7pm</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Restaurant Types Section -->
+    <section class="restaurant-types">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-badge">Nuestros Socios</div>
+                <h2 class="section-title">Tipos de Restaurantes Afiliados</h2>
+                <p class="section-subtitle">QuickBite trabaja con dos tipos de negocios, cada uno con beneficios unicos para ti como cliente</p>
+            </div>
+
+            <div class="types-grid">
+                <!-- Socio Aliado -->
+                <div class="type-card fade-in">
+                    <div class="type-badge free">
+                        🔵 Socio Aliado
+                    </div>
+                    <h3>Negocios Tradicionales</h3>
+                    <div class="type-commission">Comision 10%</div>
+                    
+                    <p style="color: var(--text-secondary); margin-bottom: 24px;">Restaurantes locales que gestionan pedidos de forma tradicional. Servicio confiable y precios accesibles.</p>
+                    
+                    <ul class="type-features">
+                        <li><i class="fas fa-check-circle"></i> Gestion manual de pedidos</li>
+                        <li><i class="fas fa-check-circle"></i> Tiempos de confirmacion estandar</li>
+                        <li><i class="fas fa-check-circle"></i> Precios competitivos</li>
+                        <li><i class="fas fa-check-circle"></i> Pago semanal al restaurante</li>
+                        <li><i class="fas fa-check-circle"></i> Soporte basico</li>
+                    </ul>
+                </div>
+
+                <!-- Socio PRO -->
+                <div class="type-card fade-in" style="border: 2px solid var(--accent);">
+                    <div class="type-badge pro">
+                        👑 Socio QuickBite PRO
+                    </div>
+                    <h3>Restaurantes Premium</h3>
+                    <div class="type-commission">Comision 5%</div>
+                    
+                    <p style="color: var(--text-secondary); margin-bottom: 24px;">Negocios con tecnologia avanzada que te garantizan la mejor experiencia posible.</p>
+                    
+                    <ul class="type-features">
+                        <li><i class="fas fa-bolt"></i> <span class="highlight">Confirmacion instantanea via WhatsApp</span></li>
+                        <li><i class="fas fa-magic"></i> <span class="highlight">Menus actualizados con IA</span></li>
+                        <li><i class="fas fa-certificate"></i> <span class="highlight">Distintivo "Verificado"</span></li>
+                        <li><i class="fas fa-cloud-rain"></i> <span class="highlight">Prioridad en dias de lluvia</span></li>
+                        <li><i class="fas fa-star"></i> <span class="highlight">Soporte premium 24/7</span></li>
+                        <li><i class="fas fa-image"></i> <span class="highlight">Material promocional profesional</span></li>
+                    </ul>
+
+                    <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); padding: 16px; border-radius: 12px; margin-top: 24px;">
+                        <p style="color: #92400e; font-size: 14px; margin: 0; font-weight: 500;">
+                            <i class="fas fa-info-circle"></i> Los restaurantes PRO te garantizan respuesta rapida y tecnologia de ultima generacion para tu comodidad
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content fade-in">
+                <h2>Se Te Antojo Algo?</h2>
+                <p>Abre QuickBite y encuentra tu comida favorita en minutos. Sin descargas, sin complicaciones.</p>
+                <div class="cta-buttons">
+                    <a href="index.php" class="btn btn-white">
+                        <i class="fas fa-shopping-bag"></i>
+                        Pedir Ahora
+                    </a>
+                    <a href="https://wa.link/e4fnrh" class="btn btn-outline-white">
+                        <i class="fab fa-whatsapp"></i>
+                        Contactanos
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 QuickBite. Todos los derechos reservados.</p>
+            <div class="footer-links">
+                <a href="terms.html">Terminos y Condiciones</a>
+                <a href="privacy.html">Privacidad</a>
+                <a href="mailto:soporte@quickbite.com.mx">Contacto</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Install Button -->
+    <button class="install-btn" id="installBtn">
+        <i class="fas fa-download"></i>
+        <span>Agregar a Inicio</span>
+    </button>
+
+    <script>
+        // PWA Install
+        let deferredPrompt;
+        const installBtn = document.getElementById('installBtn');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installBtn.classList.add('show');
+        });
+
+        installBtn.addEventListener('click', async () => {
+            if (!deferredPrompt) {
+                return;
+            }
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            deferredPrompt = null;
+            installBtn.classList.remove('show');
+        });
+
+        window.addEventListener('appinstalled', () => {
+            installBtn.classList.remove('show');
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Fade in animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

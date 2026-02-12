@@ -1,0 +1,153 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background);
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+header {
+    background-color: var(--primary);
+    color: white;
+    padding: 1rem 0;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.main-content {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* Toggle de estado */  
+.status-toggle {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.status-toggle label {
+    margin-left: 0.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+.status-toggle input {
+    display: none;
+}
+.status-toggle-slider {
+    position: relative;
+    width: 60px;
+    height: 32px;
+    background-color: var(--gray-300);
+    transition: .4s;
+    border-radius: 34px;
+}
+.status-toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 24px;
+    width: 24px;    
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+input:checked + .status-toggle-slider {
+    background-color: var(--success);
+}
+input:checked + .status-toggle-slider:before {
+    transform: translateX(28px);
+}
+
+/* Sección de Pedidos */
+.orders-section {
+    background: var(--secondary);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0,0,0
+,0.05);
+    margin-bottom: 2rem;
+}
+
+.orders-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.orders-header h2 {
+    font-size: 1.25rem;
+    color: var(--text-primary);
+}
+
+.orders-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}   
+
+.orders-list {
+    list-style: none;
+}
+
+.orders-list li {
+    background: white;
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s ease;
+}
+
+.orders-list li:hover {
+    background: var(--gray-50);
+}
+.order-info {
+    display: flex;
+    flex-direction: column;
+}
+.order-info span {
+    margin-bottom: 0.25rem;
+    color: var(--text-secondary);
+}
+.order-info .order-id {
+    font-weight: 600;
+    color: var(--text-primary);
+    padding: 0.5rem 0;
+}
+.order-info .order-customer {
+    font-size: 0.9rem;
+}
+.order-info .order-address {
+    font-size: 0.85rem;
+    color: var(--gray-600);
+}
+.order-info .order-total {
+    font-weight: 600;
+    color: var(--primary);
+}

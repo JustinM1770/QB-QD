@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickBite para Repartidores - Gana Dinero a Tu Ritmo</title>
+    <meta name="description" content="Conviertete en repartidor QuickBite. Gana $25 base por entrega + 100% propinas. Sistema de niveles con premios: chaleco, mochila termica y chip de internet ilimitado.">
+    <link rel="icon" type="image/x-icon" href="assets/img/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=League+Spartan:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0165FF;
+            --primary-light: #3d8bff;
+            --primary-dark: #0050cc;
+            --accent: #FFD700;
+            --green: #10b981;
+            --green-light: #34d399;
+            --background: #fefefe;
+            --surface: #ffffff;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-muted: #9ca3af;
+            --border: #f3f4f6;
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, #0165FF 0%, #0050cc 100%);
+            --gradient-green: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Logo Styling */
+        .logo {
+            font-family: 'League Spartan', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-quick {
+            color: var(--primary);
+        }
+
+        .logo-bite {
+            color: var(--accent);
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav.scrolled {
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-cta {
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Install Button */
+        .install-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--gradient-green);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 50px;
+            box-shadow: var(--shadow-xl);
+            border: none;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            z-index: 999;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .install-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+        }
+
+        .install-btn i {
+            font-size: 18px;
+        }
+
+        .install-btn.show {
+            display: flex;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 140px 0 100px;
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%230165FF" opacity="0.05"/><circle cx="75" cy="75" r="1" fill="%230165FF" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        }
+
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 52px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        .hero-content h1 span {
+            background: var(--gradient-green);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--green);
+            display: block;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-green);
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .hero-card {
+            background: var(--surface);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border);
+        }
+
+        .wallet-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .wallet-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--gradient-green);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        .wallet-title {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .wallet-name {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .earnings-display {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .earnings-label {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .earnings-amount {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--green);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .earnings-period {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .wallet-btn {
+            width: 100%;
+            background: var(--gradient-green);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .mini-stat {
+            background: #f0fdf4;
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .mini-stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--green);
+        }
+
+        .mini-stat-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* What is QuickBite Section */
+        .about-section {
+            padding: 100px 0;
+            background: var(--surface);
+        }
+
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-content h2 {
+            font-size: 40px;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        .about-content p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            line-height: 1.8;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            padding: 24px;
+            border-radius: 16px;
+            border-left: 4px solid var(--green);
+        }
+
+        .highlight-box p {
+            margin: 0;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .about-visual {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .about-card {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            padding: 32px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .about-card i {
+            font-size: 32px;
+            color: var(--green);
+            margin-bottom: 16px;
+        }
+
+        .about-card h4 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .about-card p {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* Earnings Section */
+        .earnings-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 40px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .earnings-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .earning-card {
+            background: var(--surface);
+            padding: 40px;
+            border-radius: 24px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .earning-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .earning-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .earning-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .earning-amount {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--green);
+            font-family: 'Inter', sans-serif;
+            margin-bottom: 8px;
+        }
+
+        .earning-card p {
+            color: var(--text-secondary);
+            font-size: 15px;
+        }
+
+        /* Gamification Section */
+        .gamification {
+            padding: 100px 0;
+            background: var(--surface);
+        }
+
+        .levels-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .level-card {
+            background: var(--surface);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border: 2px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .level-card.bronze {
+            border-color: #cd7f32;
+        }
+
+        .level-card.silver {
+            border-color: #c0c0c0;
+        }
+
+        .level-card.gold {
+            border-color: #FFD700;
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+        }
+
+        .level-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .level-badge {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 40px;
+        }
+
+        .level-card.bronze .level-badge {
+            background: linear-gradient(135deg, #cd7f32 0%, #a0522d 100%);
+        }
+
+        .level-card.silver .level-badge {
+            background: linear-gradient(135deg, #c0c0c0 0%, #a8a8a8 100%);
+        }
+
+        .level-card.gold .level-badge {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+        }
+
+        .level-card h3 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .level-requirement {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .level-reward {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 16px;
+        }
+
+        .level-card.gold .level-reward {
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        .reward-title {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .reward-item {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .level-card.gold .reward-item {
+            color: #b8860b;
+        }
+
+        /* Wallet Info Section */
+        .wallet-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+        }
+
+        .wallet-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .wallet-content h2 {
+            font-size: 40px;
+            margin-bottom: 24px;
+            color: white;
+        }
+
+        .wallet-content p {
+            font-size: 18px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 32px;
+            line-height: 1.8;
+        }
+
+        .wallet-features {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .wallet-feature {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 16px;
+        }
+
+        .wallet-feature i {
+            font-size: 24px;
+            color: var(--accent);
+        }
+
+        .wallet-feature-text h4 {
+            font-size: 16px;
+            margin-bottom: 4px;
+            color: white;
+        }
+
+        .wallet-feature-text p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            margin: 0;
+        }
+
+        .wallet-visual {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 40px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .wallet-visual-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .wallet-visual-header h3 {
+            font-size: 20px;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .wallet-balance {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--accent);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .wallet-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 8px;
+            color: var(--green-light);
+            font-size: 14px;
+        }
+
+        .wallet-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .wallet-action-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .wallet-action-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .wallet-action-btn i {
+            font-size: 24px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .wallet-action-btn span {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .warning-box {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .warning-box i {
+            color: #ef4444;
+            font-size: 20px;
+        }
+
+        .warning-box p {
+            font-size: 13px;
+            color: rgba(255,255,255,0.9);
+            margin: 0;
+        }
+
+        /* How it Works */
+        .how-it-works {
+            padding: 100px 0;
+            background: var(--surface);
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+        }
+
+        .step-card {
+            background: var(--surface);
+            padding: 40px 32px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 20px;
+            margin: 0 auto 24px;
+        }
+
+        .step-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .step-card p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 100px 0;
+            background: var(--gradient-green);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta h2 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 24px;
+        }
+
+        .cta p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--green);
+        }
+
+        .btn-white:hover {
+            background: #f8fafc;
+        }
+
+        .btn-outline-white {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-outline-white:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: white;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1f2937;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer p {
+            opacity: 0.7;
+            font-size: 14px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 16px;
+        }
+
+        .footer-links a {
+            color: white;
+            opacity: 0.7;
+            text-decoration: none;
+            font-size: 14px;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .steps-container,
+            .levels-container,
+            .earnings-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-container,
+            .about-container,
+            .wallet-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .hero-content h1 {
+                font-size: 36px;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .levels-container,
+            .earnings-grid,
+            .steps-container {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .cta h2 {
+                font-size: 32px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .about-visual {
+                grid-template-columns: 1fr;
+            }
+
+            .wallet-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav" id="navbar">
+        <div class="container">
+            <div class="nav-container">
+                <a href="index.php" class="logo">
+                    <span class="logo-quick">Quick</span><span class="logo-bite">Bite</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#ganancias">Ganancias</a></li>
+                    <li><a href="#niveles">Niveles</a></li>
+                    <li><a href="#wallet">Wallet</a></li>
+                </ul>
+                <a href="registro_repartidor.php" class="nav-cta">Registrarme</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="container">
+            <div class="hero-container">
+                <div class="hero-content fade-in">
+                    <h1>Gana Dinero <span>a Tu Ritmo</span></h1>
+                    <p class="hero-subtitle">Unete a QuickBite y gana $25 MXN base por cada entrega + 100% de las propinas. Sube de nivel y gana premios increibles: chaleco, mochila termica y hasta internet ilimitado.</p>
+
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">$25</span>
+                            <span class="stat-label">Base por Envio</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Propinas Tuyas</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">+Bonos</span>
+                            <span class="stat-label">Por Lluvia</span>
+                        </div>
+                    </div>
+
+                    <div class="hero-cta">
+                        <a href="registro_repartidor.php" class="btn btn-primary">
+                            <i class="fas fa-motorcycle"></i>
+                            Empezar a Ganar
+                        </a>
+                        <a href="#niveles" class="btn btn-secondary">
+                            <i class="fas fa-trophy"></i>
+                            Ver Niveles
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-visual fade-in">
+                    <div class="hero-card">
+                        <div class="wallet-header">
+                            <div class="wallet-icon">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                            <div>
+                                <div class="wallet-title">Wallet Repartidor</div>
+                                <div class="wallet-name">Tu Saldo Disponible</div>
+                            </div>
+                        </div>
+                        <div class="earnings-display">
+                            <div class="earnings-label">Ganancias Esta Semana</div>
+                            <div class="earnings-amount">$2,450</div>
+                            <div class="earnings-period">32 entregas completadas</div>
+                        </div>
+                        <button class="wallet-btn">
+                            <i class="fas fa-money-bill-wave"></i>
+                            Solicitar Retiro
+                        </button>
+                        <div class="stats-grid">
+                            <div class="mini-stat">
+                                <div class="mini-stat-value">4.9</div>
+                                <div class="mini-stat-label">Calificacion</div>
+                            </div>
+                            <div class="mini-stat">
+                                <div class="mini-stat-value">$350</div>
+                                <div class="mini-stat-label">Propinas</div>
+                            </div>
+                            <div class="mini-stat">
+                                <div class="mini-stat-value">$150</div>
+                                <div class="mini-stat-label">Bonos Lluvia</div>
+                            </div>
+                            <div class="mini-stat">
+                                <div class="mini-stat-value">Plata</div>
+                                <div class="mini-stat-label">Tu Nivel</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What is QuickBite Section -->
+    <section class="about-section" id="que-es">
+        <div class="container">
+            <div class="about-container">
+                <div class="about-content fade-in">
+                    <h2>Que es QuickBite?</h2>
+                    <p>QuickBite es la plataforma de delivery que conecta restaurantes locales con clientes. Como repartidor, eres el enlace esencial que hace posible esta conexion.</p>
+                    <p>Nuestra plataforma te permite recibir pedidos en tiempo real directamente en tu navegador, sin necesidad de descargar una app. Optimiza tus rutas y gana dinero de forma transparente.</p>
+                    <div class="highlight-box">
+                        <p><strong>100% de cada envio es para ti.</strong> Ganas $25 MXN base + propinas completas + bonos por clima adverso. Tu decides cuando conectarte.</p>
+                    </div>
+                </div>
+
+                <div class="about-visual fade-in">
+                    <div class="about-card">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h4>PWA Intuitiva</h4>
+                        <p>Sin descargas, directo desde el navegador</p>
+                    </div>
+                    <div class="about-card">
+                        <i class="fas fa-route"></i>
+                        <h4>Rutas Optimizadas</h4>
+                        <p>GPS integrado para entregas rapidas</p>
+                    </div>
+                    <div class="about-card">
+                        <i class="fas fa-wallet"></i>
+                        <h4>Wallet Personal</h4>
+                        <p>Control total de tus ganancias</p>
+                    </div>
+                    <div class="about-card">
+                        <i class="fas fa-trophy"></i>
+                        <h4>Niveles y Premios</h4>
+                        <p>Gana recompensas reales</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Earnings Section -->
+    <section class="earnings-section" id="ganancias">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Como Ganas Dinero</h2>
+                <p class="section-subtitle">Sistema transparente: todo el pago del envio es para ti</p>
+            </div>
+
+            <div class="earnings-grid">
+                <div class="earning-card fade-in">
+                    <div class="earning-icon">🚀</div>
+                    <h3>Tarifa Base</h3>
+                    <div class="earning-amount">$25 MXN</div>
+                    <p>Por cada entrega completada. Este monto es 100% tuyo, sin comisiones.</p>
+                </div>
+                <div class="earning-card fade-in">
+                    <div class="earning-icon">💰</div>
+                    <h3>Propinas</h3>
+                    <div class="earning-amount">100%</div>
+                    <p>Todas las propinas que recibas son completamente tuyas. QuickBite no toca un centavo.</p>
+                </div>
+                <div class="earning-card fade-in">
+                    <div class="earning-icon">🌧️</div>
+                    <h3>Bonos por Lluvia</h3>
+                    <div class="earning-amount">+Extra</div>
+                    <p>Gana bonificaciones adicionales cuando el clima sea adverso. Mas demanda = mas ganancias.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gamification Section -->
+    <section class="gamification" id="niveles">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Sistema de Niveles</h2>
+                <p class="section-subtitle">Sube de nivel completando entregas y gana premios fisicos reales</p>
+            </div>
+
+            <div class="levels-container">
+                <div class="level-card bronze fade-in">
+                    <div class="level-badge">🥉</div>
+                    <h3>Nivel Bronce</h3>
+                    <div class="level-requirement">Completa 10 pedidos</div>
+                    <div class="level-reward">
+                        <div class="reward-title">Tu Premio</div>
+                        <div class="reward-item">
+                            <i class="fas fa-vest"></i>
+                            Chaleco Oficial QuickBite
+                        </div>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 14px;">Chaleco reflectante con el logo de QuickBite para que te identifiquen facilmente.</p>
+                </div>
+
+                <div class="level-card silver fade-in">
+                    <div class="level-badge">🥈</div>
+                    <h3>Nivel Plata</h3>
+                    <div class="level-requirement">Completa 50 pedidos</div>
+                    <div class="level-reward">
+                        <div class="reward-title">Tu Premio</div>
+                        <div class="reward-item">
+                            <i class="fas fa-box"></i>
+                            Mochila Termica
+                        </div>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 14px;">Mochila termica profesional para mantener los pedidos calientes o frios.</p>
+                </div>
+
+                <div class="level-card gold fade-in">
+                    <div class="level-badge">🥇</div>
+                    <h3>Nivel Oro</h3>
+                    <div class="level-requirement">150 pedidos + Calificacion Alta</div>
+                    <div class="level-reward">
+                        <div class="reward-title">Tu Premio Premium</div>
+                        <div class="reward-item">
+                            <i class="fas fa-wifi"></i>
+                            Chip Internet Ilimitado
+                        </div>
+                    </div>
+                    <p style="color: #b8860b; font-size: 14px; font-weight: 500;">Chip CFE TEIT con internet ilimitado pagado por QuickBite mientras seas repartidor activo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wallet Section -->
+    <section class="wallet-section" id="wallet">
+        <div class="container">
+            <div class="wallet-container">
+                <div class="wallet-content fade-in">
+                    <h2>Tu Wallet de Repartidor</h2>
+                    <p>Controla tus ganancias en tiempo real con tu Wallet de saldo prepago. Ve cuanto has ganado, solicita retiros cuando lo necesites y mantiene el control total de tu dinero.</p>
+
+                    <div class="wallet-features">
+                        <div class="wallet-feature">
+                            <i class="fas fa-chart-line"></i>
+                            <div class="wallet-feature-text">
+                                <h4>Saldo Prepago en Tiempo Real</h4>
+                                <p>Ve tus ganancias actualizarse con cada entrega completada. Saldo disponible para solicitar retiro</p>
+                            </div>
+                        </div>
+                        <div class="wallet-feature">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <div class="wallet-feature-text">
+                                <h4>Solicita Retiros</h4>
+                                <p>Pide tu dinero cuando lo necesites desde la plataforma. Procesos rapidos</p>
+                            </div>
+                        </div>
+                        <div class="wallet-feature">
+                            <i class="fas fa-history"></i>
+                            <div class="wallet-feature-text">
+                                <h4>Historial Completo</h4>
+                                <p>Revisa todas tus entregas, propinas y bonos ganados</p>
+                            </div>
+                        </div>
+                        <div class="wallet-feature">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <div class="wallet-feature-text">
+                                <h4>Sistema Pago en Efectivo</h4>
+                                <p>Si acumulas deuda de comisiones de -$200 MXN, tu cuenta se bloquea automaticamente hasta regularizar</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wallet-visual fade-in">
+                    <div class="wallet-visual-header">
+                        <h3>Saldo Disponible</h3>
+                        <div class="wallet-balance">$1,850.00</div>
+                        <div class="wallet-status">
+                            <i class="fas fa-check-circle"></i>
+                            Cuenta activa
+                        </div>
+                    </div>
+
+                    <div class="wallet-actions">
+                        <div class="wallet-action-btn">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>Solicitar Retiro</span>
+                        </div>
+                        <div class="wallet-action-btn">
+                            <i class="fas fa-receipt"></i>
+                            <span>Ver Historial</span>
+                        </div>
+                    </div>
+
+                    <div class="warning-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p><strong>Pagos en efectivo:</strong> Si acumulas comisiones pendientes de -$200 MXN, tu cuenta se pausara automaticamente hasta regularizar.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Como Empezar</h2>
+                <p class="section-subtitle">En 4 simples pasos estaras listo para ganar dinero</p>
+            </div>
+
+            <div class="steps-container">
+                <div class="step-card fade-in">
+                    <div class="step-number">1</div>
+                    <h3>Registrate</h3>
+                    <p>Completa tu registro con tus datos basicos y documentos de identificacion</p>
+                </div>
+                <div class="step-card fade-in">
+                    <div class="step-number">2</div>
+                    <h3>Verificacion</h3>
+                    <p>Validamos tus documentos en 24-48 horas y activamos tu cuenta</p>
+                </div>
+                <div class="step-card fade-in">
+                    <div class="step-number">3</div>
+                    <h3>Accede a la PWA</h3>
+                    <p>Entra desde tu navegador, sin descargar nada. Agrega a tu pantalla de inicio</p>
+                </div>
+                <div class="step-card fade-in">
+                    <div class="step-number">4</div>
+                    <h3>Empieza a Ganar</h3>
+                    <p>Conectate, acepta pedidos y comienza a generar ingresos inmediatamente</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content fade-in">
+                <h2>Listo para Empezar?</h2>
+                <p>Unete a los repartidores que ya estan ganando con QuickBite. Registro gratis, sin compromisos.</p>
+                <div class="cta-buttons">
+                    <a href="registro_repartidor.php" class="btn btn-white">
+                        <i class="fas fa-motorcycle"></i>
+                        Registrarme Ahora
+                    </a>
+                    <a href="https://wa.link/e4fnrh" class="btn btn-outline-white">
+                        <i class="fab fa-whatsapp"></i>
+                        Tengo Preguntas
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 QuickBite. Todos los derechos reservados.</p>
+            <div class="footer-links">
+                <a href="terms.html">Terminos y Condiciones</a>
+                <a href="privacy.html">Privacidad</a>
+                <a href="mailto:soporte@quickbite.com.mx">Contacto</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Install Button -->
+    <button class="install-btn" id="installBtn">
+        <i class="fas fa-download"></i>
+        <span>Agregar a Inicio</span>
+    </button>
+
+    <script>
+        // PWA Install
+        let deferredPrompt;
+        const installBtn = document.getElementById('installBtn');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installBtn.classList.add('show');
+        });
+
+        installBtn.addEventListener('click', async () => {
+            if (!deferredPrompt) {
+                return;
+            }
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            deferredPrompt = null;
+            installBtn.classList.remove('show');
+        });
+
+        window.addEventListener('appinstalled', () => {
+            installBtn.classList.remove('show');
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

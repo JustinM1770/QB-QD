@@ -1,0 +1,65 @@
+# QuickBite Robots.txt
+# https://quickbite.com.mx
+
+User-agent: *
+Allow: /
+
+# Paginas publicas permitidas
+Allow: /index.php
+Allow: /restaurants.php
+Allow: /buscar.php
+Allow: /negocio.php
+Allow: /proximamente.php
+
+# Recursos estaticos
+Allow: /assets/
+Allow: /uploads/
+
+# Bloquear areas privadas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /config/
+Disallow: /models/
+Disallow: /includes/
+Disallow: /vendor/
+Disallow: /logs/
+Disallow: /webhook/
+Disallow: /webhooks/
+Disallow: /whatsapp-bot/
+Disallow: /whatsapp-server/
+Disallow: /database/
+Disallow: /migrations/
+Disallow: /cron/
+Disallow: /_testing_files/
+Disallow: /backup_comparacion/
+Disallow: /comingsoon/
+
+# Bloquear paginas de autenticacion
+Disallow: /login.php
+Disallow: /login_negocio.php
+Disallow: /login_repartidor.php
+Disallow: /register.php
+Disallow: /registro_negocio.php
+Disallow: /registro_repartidor.php
+Disallow: /forgot-password.php
+Disallow: /verify_email.php
+
+# Bloquear carrito y checkout
+Disallow: /carrito.php
+Disallow: /checkout.php
+Disallow: /confirmacion_pedido.php
+Disallow: /pedidos.php
+Disallow: /perfil.php
+
+# Bloquear archivos de configuracion
+Disallow: /*.env
+Disallow: /*.json
+Disallow: /*.lock
+Disallow: /*.log
+Disallow: /*.sql
+
+# Delay para ser amigable con el servidor
+Crawl-delay: 1
+
+# Sitemap
+Sitemap: https://quickbite.com.mx/sitemap.xml

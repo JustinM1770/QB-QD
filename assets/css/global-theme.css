@@ -1,0 +1,323 @@
+/**
+ * QuickBite - CSS de Tema Global
+ * 
+ * Este archivo define los estilos para modo claro y oscuro.
+ * Funciona con:
+ * - @media (prefers-color-scheme: dark) - Preferencia automática del sistema
+ * - [data-theme="dark"] - Preferencia manual del usuario (localStorage)
+ * - .dark-mode - Clase alternativa de compatibilidad
+ */
+
+/* ============================================
+   VARIABLES DE COLOR - MODO CLARO (Default)
+   ============================================ */
+:root {
+    --body-bg: #ffffff;
+    --text-main: #212529;
+    --card-bg: #ffffff;
+    --border-color: #e9ecef;
+    --nav-bg: rgba(255, 255, 255, 0.95);
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --input-bg: #ffffff;
+    --input-border: #dee2e6;
+    --muted-text: #6c757d;
+}
+
+/* ============================================
+   VARIABLES DE COLOR - MODO OSCURO
+   Se activa por:
+   1. Preferencia del sistema (prefers-color-scheme: dark)
+   2. Atributo data-theme="dark" en html
+   3. Clase .dark-mode en html o body
+   ============================================ */
+
+/* Método 1: Preferencia del sistema */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --body-bg: #000000;
+        --text-main: #ffffff;
+        --card-bg: #111111;
+        --border-color: #333333;
+        --nav-bg: rgba(0, 0, 0, 0.95);
+        --shadow-color: rgba(255, 255, 255, 0.05);
+        --input-bg: #1a1a1a;
+        --input-border: #333333;
+        --muted-text: #9ca3af;
+    }
+}
+
+/* Método 2 y 3: Manual con data-theme o clase */
+[data-theme="dark"],
+html.dark-mode,
+body.dark-mode {
+    --body-bg: #000000;
+    --text-main: #ffffff;
+    --card-bg: #111111;
+    --border-color: #333333;
+    --nav-bg: rgba(0, 0, 0, 0.95);
+    --shadow-color: rgba(255, 255, 255, 0.05);
+    --input-bg: #1a1a1a;
+    --input-border: #333333;
+    --muted-text: #9ca3af;
+}
+
+/* ============================================
+   ESTILOS GLOBALES BASE
+   ============================================ */
+body {
+    background-color: var(--body-bg) !important;
+    color: var(--text-main);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ============================================
+   COMPONENTES COMUNES
+   ============================================ */
+
+/* Tarjetas y contenedores */
+.featured-card, 
+.category-item, 
+.search-bar, 
+.modal-content,
+.card,
+.addresses-container,
+.alert-content {
+    background-color: var(--card-bg) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-main);
+}
+
+/* Navegación inferior */
+.bottom-nav {
+    background: var(--nav-bg) !important;
+    border-top: 1px solid var(--border-color);
+}
+
+/* ============================================
+   ESTILOS BASE DEL NAVBAR (como en index.php)
+   ============================================ */
+
+/* Iconos inactivos - gris claro */
+.nav-item .nav-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+    filter: grayscale(100%) brightness(0.6) opacity(0.7);
+}
+
+/* Icono activo - azul #0165FF */
+.nav-item.active .nav-icon {
+    transform: translateY(-2px);
+    filter: brightness(0) saturate(100%) invert(32%) sepia(91%) saturate(5453%) hue-rotate(210deg) brightness(100%) contrast(92%);
+    opacity: 1;
+}
+
+/* Botón central (carrito) - icono blanco */
+.central-btn .nav-icon {
+    filter: brightness(0) invert(1);
+}
+
+/* Bottom nav en modo oscuro - borde específico */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .bottom-nav {
+        background: var(--nav-bg) !important;
+        border-top: 1px solid #333 !important;
+    }
+}
+
+[data-theme="dark"] .bottom-nav,
+html.dark-mode .bottom-nav {
+    background: var(--nav-bg) !important;
+    border-top: 1px solid #333 !important;
+}
+
+/* Inputs y formularios */
+.form-control,
+.form-select,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="number"],
+textarea {
+    background-color: var(--input-bg) !important;
+    border-color: var(--input-border) !important;
+    color: var(--text-main) !important;
+}
+
+.form-control::placeholder,
+input::placeholder,
+textarea::placeholder {
+    color: var(--muted-text) !important;
+}
+
+/* Texto */
+.text-muted,
+small.text-muted {
+    color: var(--muted-text) !important;
+}
+
+/* Headers */
+.header,
+.top-header {
+    background-color: var(--body-bg) !important;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Listas */
+.list-group-item {
+    background-color: var(--card-bg) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-main) !important;
+}
+
+/* Tablas */
+.table {
+    color: var(--text-main) !important;
+    --bs-table-bg: transparent;
+}
+
+.table thead th {
+    background-color: var(--card-bg) !important;
+    color: var(--text-main) !important;
+    border-color: var(--border-color) !important;
+}
+
+.table td,
+.table th {
+    border-color: var(--border-color) !important;
+}
+
+/* ============================================
+   ICONOS - MODO OSCURO
+   ============================================ */
+@media (prefers-color-scheme: dark) {
+    /* Iconos inactivos en modo oscuro - blancos */
+    :root:not([data-theme="light"]) .nav-icon:not(.no-invert) {
+        filter: invert(1) brightness(2) !important;
+    }
+    
+    :root:not([data-theme="light"]) .category-icon img:not(.no-invert),
+    :root:not([data-theme="light"]) .profile-btn .nav-icon,
+    :root:not([data-theme="light"]) .logout-btn .nav-icon {
+        filter: invert(1) brightness(2) !important;
+    }
+    
+    /* El icono activo (azul) mantiene su filtro azul */
+    :root:not([data-theme="light"]) .nav-item.active .nav-icon {
+        filter: brightness(0) saturate(100%) invert(32%) sepia(91%) saturate(5453%) hue-rotate(210deg) brightness(100%) contrast(92%) !important;
+    }
+    
+    /* El botón central (carrito) siempre blanco */
+    :root:not([data-theme="light"]) .central-btn .nav-icon {
+        filter: brightness(0) invert(1) !important;
+    }
+    
+    /* Botones de perfil circulares */
+    :root:not([data-theme="light"]) .profile-btn,
+    :root:not([data-theme="light"]) .logout-btn {
+        background: #222 !important;
+    }
+}
+
+/* Iconos inactivos en modo oscuro - blancos */
+[data-theme="dark"] .nav-icon:not(.no-invert),
+html.dark-mode .nav-icon:not(.no-invert) {
+    filter: invert(1) brightness(2) !important;
+}
+
+[data-theme="dark"] .category-icon img:not(.no-invert),
+[data-theme="dark"] .profile-btn .nav-icon,
+[data-theme="dark"] .logout-btn .nav-icon,
+html.dark-mode .category-icon img:not(.no-invert),
+html.dark-mode .profile-btn .nav-icon,
+html.dark-mode .logout-btn .nav-icon {
+    filter: invert(1) brightness(2) !important;
+}
+
+/* El icono activo (azul) mantiene su filtro azul */
+[data-theme="dark"] .nav-item.active .nav-icon,
+html.dark-mode .nav-item.active .nav-icon {
+    filter: brightness(0) saturate(100%) invert(32%) sepia(91%) saturate(5453%) hue-rotate(210deg) brightness(100%) contrast(92%) !important;
+}
+
+/* El botón central (carrito) siempre blanco */
+[data-theme="dark"] .central-btn .nav-icon,
+html.dark-mode .central-btn .nav-icon {
+    filter: brightness(0) invert(1) !important;
+}
+
+/* Botones de perfil circulares */
+[data-theme="dark"] .profile-btn,
+[data-theme="dark"] .logout-btn,
+html.dark-mode .profile-btn,
+html.dark-mode .logout-btn {
+    background: #222 !important;
+}
+
+/* Textos del navbar */
+[data-theme="dark"] .nav-item span,
+html.dark-mode .nav-item span {
+    color: #fff !important;
+}
+
+[data-theme="dark"] .nav-item.active span,
+html.dark-mode .nav-item.active span {
+    color: var(--primary, #0165FF) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .nav-item span {
+        color: #fff !important;
+    }
+    
+    :root:not([data-theme="light"]) .nav-item.active span {
+        color: var(--primary, #0165FF) !important;
+    }
+}
+
+/* ============================================
+   CANVAS DE NIEVE (para efectos)
+   ============================================ */
+#snow-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 99999;
+}
+
+/* ============================================
+   UTILIDADES
+   ============================================ */
+
+/* Ocultar en modo claro */
+.hide-light {
+    display: none;
+}
+
+[data-theme="dark"] .hide-light,
+html.dark-mode .hide-light {
+    display: block;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .hide-light {
+        display: block;
+    }
+}
+
+/* Ocultar en modo oscuro */
+[data-theme="dark"] .hide-dark,
+html.dark-mode .hide-dark {
+    display: none !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .hide-dark {
+        display: none !important;
+    }
+}
